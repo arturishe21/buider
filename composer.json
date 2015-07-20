@@ -21,7 +21,7 @@
         "intervention/image": "2.*",
         "mcamara/laravel-localization": "v0.15.1",
         "vis/laravel-glide": "1.0.6",
-        "creolab/laravel-modules": "dev-master1"
+        "creolab/laravel-modules": "dev-master"
     },
     "autoload": {
         "classmap": [
