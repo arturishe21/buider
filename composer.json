@@ -20,8 +20,7 @@
         "cartalyst/sentry": "2.1.*",
         "intervention/image": "2.*",
         "mcamara/laravel-localization": "v0.15.1",
-        "vis/laravel-glide": "1.0.6",
-        "creolab/laravel-modules": "dev-master"
+        "vis/laravel-glide": "1.0.6"
     },
     "autoload": {
         "classmap": [
@@ -32,5 +31,5 @@
             "Vis\\Builder": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
