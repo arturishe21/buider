@@ -113,7 +113,6 @@ class InstallArtisanCommand extends Command
 
         $this->call('config:publish',
                     array(
-                        '--path' => 'workbench/vis/builder/src/config/',
                         'package' => 'vis/builder',
                     ));
 
@@ -122,7 +121,5 @@ class InstallArtisanCommand extends Command
         return;
 
     } // end fire
-
-
-
+    
 }
