@@ -108,7 +108,7 @@ class InstallArtisanCommand extends Command
 
         $this->call('asset:publish',
                     array(
-                        '--bench' => 'vis/builder'
+                        'package' => 'vis/builder'
                     ));
 
         $this->call('config:publish',

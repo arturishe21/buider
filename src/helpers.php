@@ -116,7 +116,6 @@ if (!function_exists('geturl'))
 if(!function_exists("__cms")) {
     function __cms($phrase)
     {
-
         $this_lang = Cookie::get("lang_admin");
 
         //Cache::forget("translations");
@@ -129,4 +128,3 @@ if(!function_exists("__cms")) {
         }
     }
 }
-
