@@ -50,9 +50,9 @@ if (Config::get('builder::tree.is_active')) {
             {
                 Route::get($_nodeUrl, function() use ($node, $templates)
                 {
-
+                    echo $node->template;
                     if (!isset($templates[$node->template])) {
-                        App::abort(404);
+                       App::abort(404);
                     }
                     list($controller, $method) = explode('@', $templates[$node->template]['action']);
 
@@ -63,9 +63,6 @@ if (Config::get('builder::tree.is_active')) {
             });
         }
 
-    } catch (Exception $e) {
+    } catch (Exception $e) {}
 
-
-
-    }
 }

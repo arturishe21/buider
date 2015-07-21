@@ -71,6 +71,7 @@ class Tree extends \Baum\Node
 
     //return url without location
     public function getUrlNoLocation(){
+
         if (!$this->_nodeUrl) {
             $this->_nodeUrl = $this->getGeneratedUrl();
         }
@@ -109,6 +110,8 @@ class Tree extends \Baum\Node
             }
             $slugs[] = $node->slug;
         }
+
+      //  exit(implode('/', $slugs));
 
         return implode('/', $slugs);
     } // end getGeneratedUrl

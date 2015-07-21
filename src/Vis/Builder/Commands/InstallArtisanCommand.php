@@ -69,6 +69,17 @@ class InstallArtisanCommand extends Command
         );
         $this->info('Replace view_composers.php - OK');
 
+        //create folder mcamara/laravel-localization'
+        if (!is_dir(app_path() . '/config/packages/mcamara/laravel-localization')) {
+            File::makeDirectory(app_path() . '/config/packages/mcamara/laravel-localization', 0777, true);
+            $this->info('Folder /config/packages/mcamara/laravel-localization is created');
+
+            copy(
+                __DIR__ . '/../../../misc/localization_config.php',
+                app_path() . '/config/packages/mcamara/laravel-localization/config.php'
+            );
+            $this->info('Replace laravel-localization/config.php - OK');
+        }
 
         //replace BaseModel.php
         copy(
