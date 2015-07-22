@@ -17,12 +17,7 @@ class Tree extends Vis\Builder\Tree
 
     public function scopeIsMenu($query)
     {
-        return $query->where("id", 22)->children;
-    } // end scopeActive
-
-    public function scopeFooterRight($query)
-    {
-        return $query->where("is_right_part_footer", 1)->where('is_active', '1');
+        return $query->where("show_in_menu", 1)->where('is_active', '1')->orderBy('lft', 'asc');
     } // end scopeActive
 
     public function scopePriorityAsc($query)
@@ -39,6 +34,17 @@ class Tree extends Vis\Builder\Tree
     public function getUrl()
     {
         return geturl(parent::getUrl(), App::getLocale());
+    }
+
+    public function checkActiveMenu()
+    {
+        $pathUrl = str_replace(Request::root()."/", "" , $this->getUrl());
+
+        if (Request::is($pathUrl) ||  Request::is($pathUrl."/*")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

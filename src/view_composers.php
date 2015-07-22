@@ -7,10 +7,10 @@ View::composer('admin::partials.navigation', function($view) {
     $view->with('user', $user)->with("menu", $menu);
 });
 
-View::composer('admin::layouts.default', function($view) {
+View::composer(array('admin::layouts.default', 'admin::partials.scripts'), function($view) {
 
     $skin = Cookie::get('skin') ? : "smart-style-4";
-    $thisLang = Cookie::get("lang_admin") ? : Config::get("jarboe::translate_cms.lang_default");
+    $thisLang = Cookie::get("lang_admin") ? : Config::get("builder::translate_cms.lang_default");
 
     $view->with('skin', $skin)->with("thisLang", $thisLang);
 });

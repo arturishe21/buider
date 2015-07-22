@@ -50,7 +50,6 @@ if (Config::get('builder::tree.is_active')) {
             {
                 Route::get($_nodeUrl, function() use ($node, $templates)
                 {
-                    echo $node->template;
                     if (!isset($templates[$node->template])) {
                        App::abort(404);
                     }

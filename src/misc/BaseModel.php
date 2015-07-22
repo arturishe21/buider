@@ -13,39 +13,34 @@ class BaseModel extends Eloquent
 
     public function getUrl()
     {
-        return geturl($this->getUri());
+        return geturl('/news/'. $this->getSlug() .'-'. $this->id);
     } // end getUrl
-
-    public function getUri()
-    {
-        return '/news/'. $this->getSlug() .'-'. $this->id;
-    } // end getUri
 
     public function getDate()
     {
         return Util::getDateOnly($this->created_at);
     } // end getCreatedDate
 
+    //get main picture
     public  function getImg($width = '', $height = '')
     {
-        $img_path = isset($this->getImage("original", $field = 'picture')['src']) ? $this->getImage("original", $field = 'picture')['src'] :"";
+        if ($this->picture) {
+            $picture = $this->picture;
+        } else {
+            $picture = Setting::get("net-foto");
+        }
 
         $size = [];
-        if($width){
+        if ($width) {
             $size['w'] = $width;
         }
 
-        if($height){
+        if ($height) {
             $size['h'] = $height;
         }
 
         $size['fit'] = "crop";
-
-        if (!$img_path) {
-            return "";
-        }
-
-        $img_res = glide($img_path, $size);
+        $img_res = glide($picture, $size);
 
         return  '<img src = "'.$img_res.'" title = "'.$this->title.'" alt = "'.$this->title.'">';
     } // end getImg
@@ -60,6 +55,7 @@ class BaseModel extends Eloquent
                 $img_result[] = $img['sizes']["original"];
             }
         }
+
         return $img_result;
     }
 
@@ -87,9 +83,9 @@ class BaseModel extends Eloquent
     }
 
 
-  /*
-  * next page
-  */
+    /*
+    * next page
+    */
     public function getNextPage()
     {
         $next_page = self::where("is_active", "1")
