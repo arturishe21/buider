@@ -63,4 +63,30 @@ class EditorController extends Controller
 
         return Response::json(array('link' => $full_path_img));
     } //end uploadFile
+
+    /*
+     * load img manager
+     */
+    public function loadImages()
+    {
+        $imgs = scandir(public_path()."/storage/editor/fotos");
+
+        unset($imgs[0]);
+        unset($imgs[1]);
+
+        $imgRes = array();
+        foreach($imgs as $img) {
+            $imgRes[] = "/storage/editor/fotos/".$img;
+        }
+
+        return Response::json($imgRes);
+    }
+
+    /*
+     * delete img in folder
+     */
+    public function deleteImages()
+    {
+        unlink(public_path().Input::get("src"));
+    }
 }

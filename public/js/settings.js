@@ -17,12 +17,24 @@ var Settings =
 
     handleSaveSetting: function()
     {
+        var langEditor = "en";
+
+        if (langCms == "ua") {
+            langEditor = "uk";
+        } else {
+            langEditor = langCms;
+        }
+
         $('.text_block').editable(
             {
                 inlineMode: false,
                 imageUploadURL: '/admin/upload_image',
+
                 minHeight:100,
-                fileUploadURL: "/admin/upload_file"
+                fileUploadURL: "/admin/upload_file",
+                imagesLoadURL: "/admin/load_image",
+                imageDeleteURL: "/admin/delete_image",
+                language: langEditor,
             });
 
         $("a[href='http://editor.froala.com']").parent().hide();

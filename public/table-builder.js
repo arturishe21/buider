@@ -45,6 +45,14 @@ var TableBuilder = {
 
     initFroalaEditor: function () {
 
+        var langEditor = "en";
+
+        if (langCms == "ua") {
+            langEditor = "uk";
+        } else {
+            langEditor = langCms;
+        }
+
         $('.text_block').editable(
             {
                 inlineMode: false,
@@ -52,7 +60,9 @@ var TableBuilder = {
 
                 minHeight:100,
                 fileUploadURL: "/admin/upload_file",
-
+                imagesLoadURL: "/admin/load_image",
+                imageDeleteURL: "/admin/delete_image",
+                language: langEditor,
             });
 
 

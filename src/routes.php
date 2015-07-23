@@ -45,15 +45,25 @@ Route::group(array('prefix' => Config::get('builder::admin.uri'), 'before' => ar
     Route::post('tb/groups/do-create', 'Vis\Builder\TBUsersController@doCreateGroup');
     Route::post('tb/users/upload-image', 'Vis\Builder\TBUsersController@doUploadImage');
 
+    //routes for froala editor
     Route::post('upload_image',  array(
             'as' => 'upload_image',
             'uses' => 'Vis\Builder\EditorController@uploadFoto')
     );
-
     Route::post('upload_file',  array(
             'as' => 'upload_file',
             'uses' => 'Vis\Builder\EditorController@uploadFile')
     );
+    Route::get('load_image',  array(
+            'as' => 'load_image',
+            'uses' => 'Vis\Builder\EditorController@loadImages')
+    );
+    Route::post('delete_image',  array(
+            'as' => 'delete_image',
+            'uses' => 'Vis\Builder\EditorController@deleteImages')
+    );
+
+
 
     //change skin for admin panel
     Route::post('change_skin', array(

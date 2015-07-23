@@ -51,6 +51,8 @@
 
 <script type="text/javascript">
 
+   langCms = "{{$thisLang}}";
+
    function doAjaxLoadContent(url) {
       $("#content_admin").html("Загрузка...");
       $.post(url, {},
