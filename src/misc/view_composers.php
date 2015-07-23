@@ -24,3 +24,24 @@ View::composer('partials.slider_main', function($view) {
 
     $view->with('sliders', $sliders);
 });
+
+View::composer('partials.breadcrumbs', function($view) {
+
+    if (!isset($view->getData()['page'])) {
+        return "Не передан параметр";
+    }
+    $page = $view->getData()['page'];
+
+    //if node
+    if( get_class($page) == "Tree") {
+        $breadcrumbs = new Breadcrumbs($page);
+    } else {
+
+        $node = $page->getNode();
+        $breadcrumbs = new Breadcrumbs($node);
+        $breadcrumbs->add($page->getUrl(), $page->title);
+    }
+
+
+    $view->with('breadcrumbs', $breadcrumbs);
+});

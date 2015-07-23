@@ -1055,7 +1055,12 @@ var TableBuilder = {
         data.append("image", context.files[0]);
         data.append('ident', ident);
         data.append('query_type', 'upload_photo');
-        data.append('__node', TableBuilder.getUrlParameter('node'));
+
+        if (TableBuilder.getUrlParameter('node') == undefined) {
+            data.append('__node', TableBuilder.getUrlParameter('id_tree'));
+        } else {
+            data.append('__node', TableBuilder.getUrlParameter('node'));
+        }
         
         var $progress = jQuery(context).parent().parent().parent().parent().parent().find('.progress-bar');
         //console.log($progress);
@@ -1098,6 +1103,8 @@ var TableBuilder = {
                     $progress.width('0%');
 
                     TableBuilder.picture[ident] = response.data.sizes.original;
+
+                    alert( TableBuilder.picture[ident]);
 
                     var html = '<div style="position: relative; display: inline-block;">';
                     html += '<img class="image-attr-editable" ';

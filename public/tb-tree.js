@@ -298,7 +298,15 @@ var Tree =
                     value: json
                 };
             }
+
+            if (typeof TableBuilder.picture[val.name] !== 'undefined') {
+                values[index] = {
+                    name:  val.name,
+                    value: TableBuilder.picture[val.name]
+                };
+            }
         });
+
 
         /* Because serializeArray() ignores unset checkboxes and radio buttons: */
         values = values.concat(

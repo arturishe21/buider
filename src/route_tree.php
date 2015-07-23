@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  recurse create url in tree
+ *  recurse create url for tree
  *  @return string
  */
 function recurseMyTree($tree, $node, &$slugs = array()) {

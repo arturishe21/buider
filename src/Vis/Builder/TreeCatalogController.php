@@ -171,9 +171,13 @@ class TreeCatalogController
     public function process()
     {
         $model = $this->model;
-        
+
+
+
         $idNode  = Input::get('__node', Input::get('node', 1));
         $current = $model::find($idNode);
+
+
 
         $templates = Config::get('builder::tree.templates');
         $template = Config::get('builder::tree.default');

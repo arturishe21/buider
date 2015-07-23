@@ -41,7 +41,7 @@ class Tree extends Vis\Builder\Tree
         $pathUrl = str_replace(Request::root()."/", "" , $this->getUrl());
 
         if (Request::is($pathUrl) ||  Request::is($pathUrl."/*")) {
-            return true;
+           return true;
         } else {
             return false;
         }

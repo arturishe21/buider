@@ -11,7 +11,7 @@ class Breadcrumbs extends ArrayObject
 
         foreach ($breadcrumbs as $breadcrumb) {
             $this->breadcrumbs[] = array(
-                'url'   => "/".$breadcrumb->getUrl(),
+                'url'   => $breadcrumb->getUrl(),
                 'title' => $breadcrumb->title,
             );
         }

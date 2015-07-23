@@ -5,6 +5,9 @@ class Util
 
     public static $registry = null;
 
+    public static $node = null;
+
+
     public static function getMonth($date)
     {
         $monthes = array(
@@ -30,7 +33,6 @@ class Util
 
     public static function getDate($date)
     {
-
         $month = self::getMonth($date);
 
         return date('d ', strtotime($date)) .$month.
