@@ -3,7 +3,8 @@
 class Tree extends Vis\Builder\Tree
 {
     use \Vis\Builder\Helpers\Traits\TranslateTrait,
-        \Vis\Builder\Helpers\Traits\SeoTrait;
+        \Vis\Builder\Helpers\Traits\SeoTrait,
+        \Vis\Builder\Helpers\Traits\ImagesTrait;
 
     public static function getFirstDepthNodes()
     {
