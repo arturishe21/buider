@@ -50,6 +50,7 @@ trait ImagesTrait
         $images = json_decode($this->$nameField);
 
         if ($paramImg) {
+            $imagesRes = [];
             foreach ($images as $imgOne) {
                 $imagesRes[] = glide($imgOne, $paramImg);
             }
