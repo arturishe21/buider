@@ -54,7 +54,7 @@
    langCms = "{{$thisLang}}";
 
    function doAjaxLoadContent(url) {
-      $("#content_admin").html("Загрузка...");
+      $("#content_admin").html("{{__cms('Загрузка...')}}");
       $.post(url, {},
          function(data){
              $("#content_admin").html(data);
@@ -87,16 +87,15 @@ $(document).ready(function() {
     pageSetUp();
 
     $.timepicker.regional['ru'] = {
-        timeOnlyTitle: 'Выберите время',
-        timeText: 'Время',
-        hourText: 'Часы',
-        minuteText: 'Минуты',
-        secondText: 'Секунды',
-        millisecText: 'Миллисекунды',
-        microsecText: 'Микросекунды',
-        timezoneText: 'Часовой пояс',
-        currentText: 'Сейчас',
-        closeText: 'Закрыть',
+        timeOnlyTitle: '{{__cms('Выберите время')}}',
+        timeText: '{{__cms('Время')}}',
+        hourText: '{{__cms('Часы')}}',
+        minuteText: '{{__cms('Минуты')}}',
+        secondText: '{{__cms('Секунды')}}',
+        millisecText: '{{__cms('Миллисекунды')}}',
+        timezoneText: '{{__cms('Часовой пояс')}}',
+        currentText: '{{__cms('Сейчас')}}',
+        closeText: '{{__cms('Закрыть')}}',
         timeFormat: 'HH:mm',
         amNames: ['AM', 'A'],
         pmNames: ['PM', 'P'],

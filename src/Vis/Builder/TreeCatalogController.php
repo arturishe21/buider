@@ -32,7 +32,7 @@ class TreeCatalogController
     public function handle()
     {
         switch (Input::get('query_type')) {
-            
+
             case 'do_create_node':
                 return $this->doCreateNode();
             
@@ -172,12 +172,8 @@ class TreeCatalogController
     {
         $model = $this->model;
 
-
-
         $idNode  = Input::get('__node', Input::get('node', 1));
         $current = $model::find($idNode);
-
-
 
         $templates = Config::get('builder::tree.templates');
         $template = Config::get('builder::tree.default');

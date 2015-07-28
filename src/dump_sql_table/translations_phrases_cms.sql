@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Июл 08 2015 г., 11:42
+-- Время создания: Июл 28 2015 г., 07:44
 -- Версия сервера: 10.1.0-MariaDB
 -- Версия PHP: 5.5.15
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- База данных: `c1_intime`
+-- База данных: `c1_laratest`
 --
 
 -- --------------------------------------------------------
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `translations_phrases_cms` (
   `id` int(10) unsigned NOT NULL,
   `phrase` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Дамп данных таблицы `translations_phrases_cms`
@@ -105,7 +105,21 @@ INSERT INTO `translations_phrases_cms` (`id`, `phrase`) VALUES
 (75, 'Список'),
 (76, 'Двойной список'),
 (77, 'Тройной список'),
-(78, 'Файл');
+(78, 'Файл'),
+(79, 'Шаблоны писем'),
+(80, 'Тема письма'),
+(81, 'Пусто'),
+(82, 'Тело письма'),
+(83, 'Загрузка...'),
+(84, 'Выберите время'),
+(85, 'Время'),
+(86, 'Часы'),
+(87, 'Минуты'),
+(88, 'Секунды'),
+(89, 'Миллисекунды'),
+(90, 'Часовой пояс'),
+(91, 'Сейчас'),
+(92, 'Закрыть');
 
 --
 -- Индексы сохранённых таблиц
@@ -125,7 +139,7 @@ ALTER TABLE `translations_phrases_cms`
 -- AUTO_INCREMENT для таблицы `translations_phrases_cms`
 --
 ALTER TABLE `translations_phrases_cms`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=79;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=93;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

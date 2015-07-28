@@ -4,6 +4,7 @@ namespace Vis\Builder;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
+use Vis\Builder\Facades\Jarboe as JarboeBuilder;
 
 class Tree extends \Baum\Node 
 {
@@ -19,7 +20,7 @@ class Tree extends \Baum\Node
     
     public function setSlugAttribute($value)
     {
-        $slug = Jarboe::urlify($value);
+        $slug = JarboeBuilder::urlify($value);
         
         $slugs = $this->where('parent_id', $this->parent_id)
                       ->where('id', '<>', $this->id)

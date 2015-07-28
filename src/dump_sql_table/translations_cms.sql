@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Июл 08 2015 г., 11:42
+-- Время создания: Июл 28 2015 г., 07:44
 -- Версия сервера: 10.1.0-MariaDB
 -- Версия PHP: 5.5.15
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- База данных: `c1_intime`
+-- База данных: `c1_laratest`
 --
 
 -- --------------------------------------------------------
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `translations_cms` (
   `id_translations_phrase` int(10) unsigned NOT NULL,
   `lang` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
   `translate` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=224 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=266 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Дамп данных таблицы `translations_cms`
@@ -250,7 +250,49 @@ INSERT INTO `translations_cms` (`id`, `id_translations_phrase`, `lang`, `transla
 (220, 77, 'en', 'Triple list'),
 (221, 78, 'ru', 'Файл'),
 (222, 78, 'ua', 'Файл'),
-(223, 78, 'en', 'File');
+(223, 78, 'en', 'File'),
+(224, 79, 'ru', 'Шаблоны писем'),
+(225, 79, 'ua', 'Шаблони листів'),
+(226, 79, 'en', 'Email templates'),
+(227, 80, 'ru', 'Тема письма'),
+(228, 80, 'ua', 'Тема листа'),
+(229, 80, 'en', 'Subject'),
+(230, 81, 'ru', 'Пусто'),
+(231, 81, 'ua', 'Порожньо'),
+(232, 81, 'en', 'Empty'),
+(233, 82, 'ru', 'Тело письма'),
+(234, 82, 'ua', 'Тіло листа'),
+(235, 82, 'en', 'The body of the email'),
+(236, 83, 'ru', 'Загрузка...'),
+(237, 83, 'ua', 'Завантаження...'),
+(238, 83, 'en', 'Loading...'),
+(239, 84, 'ru', 'Выберите время'),
+(240, 84, 'ua', 'Виберіть час'),
+(241, 84, 'en', 'Select the time'),
+(242, 85, 'ru', 'Время'),
+(243, 85, 'ua', 'Час'),
+(244, 85, 'en', 'Time'),
+(245, 86, 'ru', 'Часы'),
+(246, 86, 'ua', 'Години'),
+(247, 86, 'en', 'Hours'),
+(248, 87, 'ru', 'Минуты'),
+(249, 87, 'ua', 'Хвилини'),
+(250, 87, 'en', 'Minutes'),
+(251, 88, 'ru', 'Секунды'),
+(252, 88, 'ua', 'Секунди'),
+(253, 88, 'en', 'Seconds'),
+(254, 89, 'ru', 'Миллисекунды'),
+(255, 89, 'ua', 'Мілісекунди'),
+(256, 89, 'en', 'Milliseconds'),
+(257, 90, 'ru', 'Часовой пояс'),
+(258, 90, 'ua', 'Часовий пояс'),
+(259, 90, 'en', 'Time zone'),
+(260, 91, 'ru', 'Сейчас'),
+(261, 91, 'ua', 'Зараз'),
+(262, 91, 'en', 'Now'),
+(263, 92, 'ru', 'Закрыть'),
+(264, 92, 'ua', 'Закрити'),
+(265, 92, 'en', 'Close');
 
 --
 -- Индексы сохранённых таблиц
@@ -271,7 +313,7 @@ ALTER TABLE `translations_cms`
 -- AUTO_INCREMENT для таблицы `translations_cms`
 --
 ALTER TABLE `translations_cms`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=224;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=266;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

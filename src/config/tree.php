@@ -1,13 +1,13 @@
 <?php
 
 return array(
-    
+
     'is_active' => true,
-    
+
     'model' => 'Tree',
-    
-     // !isset options - tinyint(1)
-     // isset options  - set
+
+    // !isset options - tinyint(1)
+    // isset options  - set
     'node_active_field' => array(
         'field' => 'is_active',
     ),
@@ -25,7 +25,7 @@ return array(
     'templates' => array(
         'О нас' => array(
             'type' => 'node', // table | node
-            'action' => 'AboutController@redirectFirst',
+            'action' => 'AboutController@showPage',
             'definition' => '',
             'node_definition' => 'node',
             'check' => function() {
@@ -45,7 +45,17 @@ return array(
 
         'Новости' => array(
             'type' => 'node', // table | node
-            'action' => 'AboutController@showPages',
+            'action' => 'NewsController@showPages',
+            'definition' => '',
+            'node_definition' => 'node',
+            'check' => function() {
+                return true;
+            },
+        ),
+
+        'Статьи' => array(
+            'type' => 'node', // table | node
+            'action' => 'ArticlesController@showPages',
             'definition' => '',
             'node_definition' => 'node',
             'check' => function() {
@@ -64,7 +74,7 @@ return array(
         ),
 
         'Главная' => array(
-            'type' => 'node', 
+            'type' => 'node',
             'action' => 'HomeController@showPage',
             'definition' => '',
             'node_definition' => 'node',
@@ -73,14 +83,14 @@ return array(
             },
         ),
     ),
-    
+
     'default' => array(
-        'type' => 'node', 
+        'type' => 'node',
         'action' => 'HomeController@showPage',
         'definition' => 'node',
         'node_definition' => 'node',
     ),
-    
-    
-    
+
+
+
 );

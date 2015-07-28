@@ -8,14 +8,14 @@ return array(
 
     'menu' => array(
 
-       /* array(
-            'title' => 'Главная',
-            'icon'  => 'home',
-            'link'  => '/',
-            'check' => function() {
-                return true;
-            }
-        ),*/
+        /* array(
+             'title' => 'Главная',
+             'icon'  => 'home',
+             'link'  => '/',
+             'check' => function() {
+                 return true;
+             }
+         ),*/
 
         array(
             'title' => 'Структура сайта',
@@ -25,14 +25,51 @@ return array(
                 return true;
             }
         ),
-         array(
+        array(
             'title' => 'Новости',
-            'icon'  => 'building',
+            'icon'  => 'list-alt',
             'link'  => '/news',
             'check' => function() {
                 return true;
             }
         ),
+       /* array(
+            'title' => 'Статьи',
+            'icon'  => 'building',
+            'link'  => '/articles',
+            'check' => function() {
+                return true;
+            }
+        ),
+        array(
+            'title' => 'Слайдер на главной',
+            'icon'  => 'columns',
+            'link'  => '/slider_main',
+            'check' => function() {
+                return true;
+            }
+        ),*/
+      /*  array(
+            'title' => 'Баннера',
+            'icon'  => 'crop',
+            'submenu' => array(
+                array(
+                    'title'   => 'Баннера',
+                    'link'    => '/banners/banners_all',
+                    'check' => function() {
+                        return true;
+                    }
+                ),
+                array(
+                    'title' => 'Баннерные площадки',
+                    'link'  => '/banners/area',
+                    'check' => function() {
+                        return true;
+                    }
+                ),
+
+            ),
+        ),*/
         array(
             'title' => 'Настройки',
             'icon'  => 'cog',
@@ -51,6 +88,13 @@ return array(
                         return true;
                     }
                 ),
+               /* array(
+                    'title' => 'Шаблоны писем',
+                    'link'  => '/settings/letter',
+                    'check' => function() {
+                        return true;
+                    }
+                ),*/
             )
         ),
 
