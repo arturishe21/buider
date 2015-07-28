@@ -25,6 +25,12 @@ if (Config::get('builder::tree.is_active')) {
 
         $_tbTree = Cache::tags(array('jarboe', 'j_tree'))->rememberForever('j_tree', function() {
             $_model = Config::get('builder::tree.model');
+
+
+            if (!class_exists($_model)) {
+                return "";
+            }
+
             $_tbTree  = $_model::all();
             $_clone   = $_tbTree->toArray();
 
@@ -42,24 +48,27 @@ if (Config::get('builder::tree.is_active')) {
 
         $templates = Config::get('builder::tree.templates');
 
-        foreach ($_tbTree as $node) {
-            //create and set url
-            $_nodeUrl = $node->getUrlNoLocation();
+        if (isset($_tbTree) && count($_tbTree)) {
 
-            Route::group(array('prefix' => LaravelLocalization::setLocale()), function() use ($node, $_nodeUrl, $templates)
-            {
-                Route::get($_nodeUrl, function() use ($node, $templates)
+            foreach ($_tbTree as $node) {
+                //create and set url
+                $_nodeUrl = $node->getUrlNoLocation();
+
+                Route::group(array('prefix' => LaravelLocalization::setLocale()), function() use ($node, $_nodeUrl, $templates)
                 {
-                    if (!isset($templates[$node->template])) {
-                       App::abort(404);
-                    }
-                    list($controller, $method) = explode('@', $templates[$node->template]['action']);
+                    Route::get($_nodeUrl, function() use ($node, $templates)
+                    {
+                        if (!isset($templates[$node->template])) {
+                            App::abort(404);
+                        }
+                        list($controller, $method) = explode('@', $templates[$node->template]['action']);
 
-                    $app = app();
-                    $controller = $app->make($controller);
-                    return $controller->callAction('init', array($node, $method));
+                        $app = app();
+                        $controller = $app->make($controller);
+                        return $controller->callAction('init', array($node, $method));
+                    });
                 });
-            });
+            }
         }
 
     } catch (Exception $e) {}

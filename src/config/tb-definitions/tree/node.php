@@ -27,8 +27,8 @@ return array(
                 'title',
                 'slug',
                 'description',
-      /*          'show_in_menu',
-                'is_right_part_footer',*/
+                'show_in_menu',
+                'show_in_footer_menu',
                 'created_at',
                 'updated_at',
             ),
@@ -51,24 +51,24 @@ return array(
         'title' => array(
             'caption' => 'Title',
             'type' => 'text',
-           /* 'tabs' => array(
+            /* 'tabs' => array(
 
-                array(
-                    'caption' => 'ru',
-                    'postfix' => '',
-                    'placeholder' => 'Название на русском'
-                ),
-                array(
-                    'caption' => 'ua',
-                    'postfix' => '_ua',
-                    'placeholder' => 'Название на украинском'
-                ),
-                array(
-                    'caption' => 'en',
-                    'postfix' => '_en',
-                    'placeholder' => 'Название на английском'
-                ),
-            )*/
+                 array(
+                     'caption' => 'ru',
+                     'postfix' => '',
+                     'placeholder' => 'Название на русском'
+                 ),
+                 array(
+                     'caption' => 'ua',
+                     'postfix' => '_ua',
+                     'placeholder' => 'Название на украинском'
+                 ),
+                 array(
+                     'caption' => 'en',
+                     'postfix' => '_en',
+                     'placeholder' => 'Название на английском'
+                 ),
+             )*/
         ),
         'description' => array(
             'caption' => 'Текст',
@@ -77,24 +77,24 @@ return array(
             'editor-options' => array(
                 'lang' => 'ru-RU',
             ),
-           /* 'tabs' => array(
+            /* 'tabs' => array(
 
-                array(
-                    'caption' => 'ru',
-                    'postfix' => '',
-                    'placeholder' => 'Текст на русском'
-                ),
-                array(
-                    'caption' => 'ua',
-                    'postfix' => '_ua',
-                    'placeholder' => 'Текст на украинском'
-                ),
-                array(
-                    'caption' => 'en',
-                    'postfix' => '_en',
-                    'placeholder' => 'Текст на английском'
-                ),
-            )*/
+                 array(
+                     'caption' => 'ru',
+                     'postfix' => '',
+                     'placeholder' => 'Текст на русском'
+                 ),
+                 array(
+                     'caption' => 'ua',
+                     'postfix' => '_ua',
+                     'placeholder' => 'Текст на украинском'
+                 ),
+                 array(
+                     'caption' => 'en',
+                     'postfix' => '_en',
+                     'placeholder' => 'Текст на английском'
+                 ),
+             )*/
         ),
         'created_at' => array(
             'caption' => 'Дата создания',
@@ -106,24 +106,24 @@ return array(
             'type' => 'datetime',
             'hide' => true,
         ),
-/*        'show_in_menu' => array(
+        'show_in_menu' => array(
             'caption' => 'Показывать в меню',
-            'type'    => 'foreign',
-            'filter'  => 'text',
-            'is_null' => true,
-            'null_caption' => 'Выбрать',
-            'is_readonly'  => false,
-            'alias'        => 'c',
-            'foreign_table'       => 'tb_tree',
-            'foreign_key_field'   => 'id',
-            'foreign_value_field' => 'title',
-            'additional_where' => array(
-                'tb_tree.parent_id' => array(
-                    'sign' => '=',
-                    'value' => 22
-                )
-            )
-        ),*/
+            'type' => 'checkbox',
+            'options' => array(
+                1 => 'Да',
+                0 => 'Нет',
+            ),
+            'field' => 'tinyInteger',
+        ),
+        'show_in_footer_menu' => array(
+            'caption' => 'Показывать в футере меню ',
+            'type' => 'checkbox',
+            'options' => array(
+                1 => 'Да',
+                0 => 'Нет',
+            ),
+            'field' => 'tinyInteger',
+        ),
 
         'seo_title' => array(
             'caption' => 'SEO title',
