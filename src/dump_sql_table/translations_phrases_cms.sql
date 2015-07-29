@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Июл 28 2015 г., 07:44
+-- Время создания: Июл 29 2015 г., 22:22
 -- Версия сервера: 10.1.0-MariaDB
 -- Версия PHP: 5.5.15
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `translations_phrases_cms` (
   `id` int(10) unsigned NOT NULL,
   `phrase` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Дамп данных таблицы `translations_phrases_cms`
@@ -119,7 +119,26 @@ INSERT INTO `translations_phrases_cms` (`id`, `phrase`) VALUES
 (89, 'Миллисекунды'),
 (90, 'Часовой пояс'),
 (91, 'Сейчас'),
-(92, 'Закрыть');
+(92, 'Закрыть'),
+(93, 'Баннера'),
+(94, 'Баннерные площадки'),
+(95, 'Площадка'),
+(96, 'Кол.показов'),
+(97, 'Кол.кликов'),
+(98, 'Статус'),
+(99, 'Начало показа'),
+(100, 'Конец показа'),
+(101, 'Всегда показывать'),
+(102, 'Баннерная площадка'),
+(103, 'Ссылка'),
+(104, 'Файл для показа'),
+(105, 'Выбрать файл (jpg, gif, png или swf)'),
+(106, 'Показывать всегда'),
+(107, 'Открывать в новом окне'),
+(108, 'Короткий текст'),
+(109, 'Изображение'),
+(110, 'Дополнительные изображение'),
+(111, 'Описание');
 
 --
 -- Индексы сохранённых таблиц
@@ -139,7 +158,7 @@ ALTER TABLE `translations_phrases_cms`
 -- AUTO_INCREMENT для таблицы `translations_phrases_cms`
 --
 ALTER TABLE `translations_phrases_cms`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=93;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=112;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Июл 28 2015 г., 07:44
+-- Время создания: Июл 29 2015 г., 22:22
 -- Версия сервера: 10.1.0-MariaDB
 -- Версия PHP: 5.5.15
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `translations_cms` (
   `id_translations_phrase` int(10) unsigned NOT NULL,
   `lang` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
   `translate` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=266 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=323 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Дамп данных таблицы `translations_cms`
@@ -292,7 +292,64 @@ INSERT INTO `translations_cms` (`id`, `id_translations_phrase`, `lang`, `transla
 (262, 91, 'en', 'Now'),
 (263, 92, 'ru', 'Закрыть'),
 (264, 92, 'ua', 'Закрити'),
-(265, 92, 'en', 'Close');
+(265, 92, 'en', 'Close'),
+(266, 93, 'ru', 'Баннера'),
+(267, 93, 'ua', 'Банера'),
+(268, 93, 'en', 'Banners'),
+(269, 94, 'ru', 'Баннерные площадки'),
+(270, 94, 'ua', 'Банерні майданчики'),
+(271, 94, 'en', 'Banners area'),
+(272, 95, 'ru', 'Площадка'),
+(273, 95, 'ua', 'Майданчик'),
+(274, 95, 'en', 'Area'),
+(275, 96, 'ru', 'Кол.показов'),
+(276, 96, 'ua', 'Кількість.показів'),
+(277, 96, 'en', 'Count showing'),
+(278, 97, 'ru', 'Кол.кликов'),
+(279, 97, 'ua', 'Кіл.кліків'),
+(280, 97, 'en', 'Count clicks'),
+(281, 98, 'ru', 'Статус'),
+(282, 98, 'ua', 'Статус'),
+(283, 98, 'en', 'Status'),
+(284, 99, 'ru', 'Начало показа'),
+(285, 99, 'ua', 'Початок показу'),
+(286, 99, 'en', 'Beginning of the show'),
+(287, 100, 'ru', 'Конец показа'),
+(288, 100, 'ua', 'Кінець показу'),
+(289, 100, 'en', 'End of the show'),
+(290, 101, 'ru', 'Всегда показывать'),
+(291, 101, 'ua', 'Завжди показувати'),
+(292, 101, 'en', 'Always show'),
+(293, 102, 'ru', 'Баннерная площадка'),
+(294, 102, 'ua', 'Банерна майданчик'),
+(295, 102, 'en', 'Banner area'),
+(296, 103, 'ru', 'Ссылка'),
+(297, 103, 'ua', 'Посилання'),
+(298, 103, 'en', 'Link'),
+(299, 104, 'ru', 'Файл для показа'),
+(300, 104, 'ua', 'Файл'),
+(301, 104, 'en', 'File'),
+(302, 105, 'ru', 'Выбрать файл (jpg, gif, png или swf)'),
+(303, 105, 'ua', 'Вибрати файл (jpg, gif, png або swf)'),
+(304, 105, 'en', 'To select a file (jpg, gif, png or swf)'),
+(305, 106, 'ru', 'Показывать всегда'),
+(306, 106, 'ua', 'Завжди показувати'),
+(307, 106, 'en', 'Show always'),
+(308, 107, 'ru', 'Открывать в новом окне'),
+(309, 107, 'ua', 'Відкрити у новому вікні'),
+(310, 107, 'en', 'To open in a new window'),
+(311, 108, 'ru', 'Короткий текст'),
+(312, 108, 'ua', 'Короткий текст'),
+(313, 108, 'en', 'Short text'),
+(314, 109, 'ru', 'Изображение'),
+(315, 109, 'ua', 'Зображення'),
+(316, 109, 'en', 'Image'),
+(317, 110, 'ru', 'Дополнительные изображение'),
+(318, 110, 'ua', 'Додаткові зображення'),
+(319, 110, 'en', 'Additional image'),
+(320, 111, 'ru', 'Описание'),
+(321, 111, 'ua', 'Опис'),
+(322, 111, 'en', 'Description');
 
 --
 -- Индексы сохранённых таблиц
@@ -313,7 +370,7 @@ ALTER TABLE `translations_cms`
 -- AUTO_INCREMENT для таблицы `translations_cms`
 --
 ALTER TABLE `translations_cms`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=266;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=323;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
