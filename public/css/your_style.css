@@ -180,25 +180,6 @@ div.tb-uploaded-image-container ul{
 .red{
     color: red;
 }
-
-#ui-datepicker-div, .clockpicker-popover{
-    z-index: 100000 !important;
-}
-.input-group-addon{
-    position: relative;
-    z-index: 3;
-}
-.smart-form .toggle{
-    font-size: 13px;
-    display: table;
-}
-.banner_preview{
-    text-align: center;
-    padding:10px 0 0 0;
-}
-.banner_preview img{
-    max-width: 550px;
-}
-#tree_top{
-    max-height: 300px;
+.flag.flag-en {
+    background-position: -144px -154px;
 }
