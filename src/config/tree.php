@@ -53,6 +53,15 @@ return array(
             },
         ),
 
+        'Продукты' => array(
+            'type' => 'node', // table | node
+            'action' => 'ProductsController@showPages',
+            'definition' => '',
+            'node_definition' => 'node',
+            'check' => function() {
+                return true;
+            },
+        ),
         'Статьи' => array(
             'type' => 'node', // table | node
             'action' => 'ArticlesController@showPages',
