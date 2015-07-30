@@ -127,6 +127,8 @@ class InstallArtisanCommand extends Command
                         'package' => 'vis/builder',
                     ));
 
+        $this->call('cache:clear');
+
         $this->call('ide-helper:generate');
 
         return;
