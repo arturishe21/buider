@@ -1114,7 +1114,7 @@ var TableBuilder = {
 
                     TableBuilder.picture[ident] = response.data.sizes.original;
 
-                    alert( TableBuilder.picture[ident]);
+                   // alert( TableBuilder.picture[ident]);
 
                     var html = '<div style="position: relative; display: inline-block;">';
                     html += '<img class="image-attr-editable" ';
