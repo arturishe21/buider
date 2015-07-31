@@ -102,6 +102,13 @@ class InstallArtisanCommand extends Command
         );
         $this->info('Replace Tree.php - OK');
 
+        //replace User.php
+        copy(
+            __DIR__ . '/../../../misc/User.php',
+            app_path() . '/models/User.php'
+        );
+        $this->info('Replace User.php - OK');
+
         //replace Util.php
         copy(
             __DIR__ . '/../../../misc/Util.php',
@@ -127,12 +134,17 @@ class InstallArtisanCommand extends Command
                         'package' => 'vis/builder',
                     ));
 
+        $this->call('config:publish',
+            array(
+                'package' => 'cartalyst/sentry',
+            ));
+
         $this->call('cache:clear');
 
         $this->call('ide-helper:generate');
 
-        return;
 
+        return;
     } // end fire
     
 }

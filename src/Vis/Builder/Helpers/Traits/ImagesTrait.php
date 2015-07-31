@@ -41,7 +41,7 @@ trait ImagesTrait
      * @param array $paramImg param width,height,fit
      * @return array list small images
      */
-    public  function getOtherImg($nameField = "additional_pictures", array $paramImg)
+    public  function getOtherImg($nameField = "additional_pictures", $paramImg = "")
     {
         if (!$this->$nameField) {
             return;
@@ -49,15 +49,16 @@ trait ImagesTrait
 
         $images = json_decode($this->$nameField);
 
-        if ($paramImg) {
-            $imagesRes = [];
-            foreach ($images as $imgOne) {
+        $imagesRes = [];
+        foreach ($images as $imgOne) {
+            if ($paramImg) {
                 $imagesRes[] = glide($imgOne, $paramImg);
+            } else {
+                $imagesRes[] = "/".$imgOne;
             }
 
-            return $imagesRes;
         }
 
-        return $images;
+        return $imagesRes;
     }
 }

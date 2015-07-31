@@ -1150,7 +1150,11 @@ var TableBuilder = {
           data.append("image", context.files[index]);
           data.append('ident', ident);
           data.append('query_type', 'upload_photo');
-          data.append('__node', TableBuilder.getUrlParameter('node'));
+          if (TableBuilder.getUrlParameter('node') == undefined) {
+              data.append('__node', TableBuilder.getUrlParameter('id_tree'));
+          } else {
+              data.append('__node', TableBuilder.getUrlParameter('node'));
+          }
 
           var $progress = jQuery(context).parent().parent().parent().parent().parent().find('.progress-bar');
 
