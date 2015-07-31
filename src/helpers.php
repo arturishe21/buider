@@ -112,6 +112,9 @@ if (!function_exists('geturl'))
 
 /*
  * translate phrase cms
+ * @param string $phrase
+ *
+ * @return string
  */
 if(!function_exists("__cms")) {
     function __cms($phrase)
@@ -126,5 +129,26 @@ if(!function_exists("__cms")) {
         } else {
             return $phrase;
         }
+    }
+}
+
+
+/*
+ * get realy ip user
+ *
+ * @return string
+ */
+if(!function_exists("getIp")) {
+    function getIp()
+    {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+
+        return $ip;
     }
 }
