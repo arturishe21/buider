@@ -89,4 +89,17 @@ class EditorController extends Controller
     {
         unlink(public_path().Input::get("src"));
     }
+
+    public function doQuickEdit()
+    {
+        $model = Input::get("model");
+        $id = Input::get("id");
+        $field = Input::get("field");
+        $text = Input::get("text");
+
+        $page = $model::find($id);
+        $page->$field = $text;
+        $page->save();
+
+    }
 }
