@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Июл 29 2015 г., 22:22
+-- Время создания: Авг 04 2015 г., 10:15
 -- Версия сервера: 10.1.0-MariaDB
 -- Версия PHP: 5.5.15
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `translations_cms` (
   `id_translations_phrase` int(10) unsigned NOT NULL,
   `lang` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
   `translate` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=323 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=362 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Дамп данных таблицы `translations_cms`
@@ -349,7 +349,46 @@ INSERT INTO `translations_cms` (`id`, `id_translations_phrase`, `lang`, `transla
 (319, 110, 'en', 'Additional image'),
 (320, 111, 'ru', 'Описание'),
 (321, 111, 'ua', 'Опис'),
-(322, 111, 'en', 'Description');
+(322, 111, 'en', 'Description'),
+(323, 112, 'ru', 'Письма'),
+(324, 112, 'ua', 'Листи'),
+(325, 112, 'en', 'Mails'),
+(326, 113, 'ru', 'Кому'),
+(327, 113, 'ua', 'Кому'),
+(328, 113, 'en', 'Sent to'),
+(329, 114, 'ru', 'Дата отправки'),
+(330, 114, 'ua', 'Дата відправки'),
+(331, 114, 'en', 'Date sent'),
+(332, 115, 'ru', 'Просмотреть'),
+(333, 115, 'ua', 'Переглянути'),
+(334, 115, 'en', 'Show'),
+(335, 116, 'ru', 'Письмо'),
+(336, 116, 'ua', 'Лист'),
+(337, 116, 'en', 'Mail'),
+(338, 117, 'ru', 'Если включен тестовый режим, то письма не будут уходить, а будут складываться в лог файл'),
+(339, 117, 'ua', 'Якщо ввімкнути тестовий режим, то листи не будуть іти, а будуть складатися в лог файл'),
+(340, 117, 'en', 'If you enable test mode, then mails will not leave, and will be stored in the log file'),
+(341, 118, 'ru', 'Настройки почты'),
+(342, 118, 'ua', 'Налаштування пошти'),
+(343, 118, 'en', 'Mail settings'),
+(344, 119, 'ru', 'Драйвер'),
+(345, 119, 'ua', 'Драйвер'),
+(346, 119, 'en', 'Driver'),
+(347, 120, 'ru', 'Обратный адрес в письме'),
+(348, 120, 'ua', 'Зворотна адреса у листі'),
+(349, 120, 'en', 'The return address in the letter'),
+(350, 121, 'ru', 'Имя отправителя'),
+(351, 121, 'ua', 'Ім''я відправника'),
+(352, 121, 'en', 'The name of the sender'),
+(353, 122, 'ru', 'Тестовый режим'),
+(354, 122, 'ua', 'Тестовий режим'),
+(355, 122, 'en', 'Test mode'),
+(356, 123, 'ru', 'Почта'),
+(357, 123, 'ua', 'Пошта'),
+(358, 123, 'en', 'Mails'),
+(359, 124, 'ru', 'Настройки почты обновлены'),
+(360, 124, 'ua', 'Налаштування пошти оновлено'),
+(361, 124, 'en', 'Mail settings updated');
 
 --
 -- Индексы сохранённых таблиц
@@ -370,7 +409,7 @@ ALTER TABLE `translations_cms`
 -- AUTO_INCREMENT для таблицы `translations_cms`
 --
 ALTER TABLE `translations_cms`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=323;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=362;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

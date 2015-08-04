@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Июл 29 2015 г., 22:22
+-- Время создания: Авг 04 2015 г., 10:15
 -- Версия сервера: 10.1.0-MariaDB
 -- Версия PHP: 5.5.15
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `translations_phrases_cms` (
   `id` int(10) unsigned NOT NULL,
   `phrase` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Дамп данных таблицы `translations_phrases_cms`
@@ -138,7 +138,20 @@ INSERT INTO `translations_phrases_cms` (`id`, `phrase`) VALUES
 (108, 'Короткий текст'),
 (109, 'Изображение'),
 (110, 'Дополнительные изображение'),
-(111, 'Описание');
+(111, 'Описание'),
+(112, 'Письма'),
+(113, 'Кому'),
+(114, 'Дата отправки'),
+(115, 'Просмотреть'),
+(116, 'Письмо'),
+(117, 'Если включен тестовый режим, то письма не будут уходить, а будут складываться в лог файл'),
+(118, 'Настройки почты'),
+(119, 'Драйвер'),
+(120, 'Обратный адрес в письме'),
+(121, 'Имя отправителя'),
+(122, 'Тестовый режим'),
+(123, 'Почта'),
+(124, 'Настройки почты обновлены');
 
 --
 -- Индексы сохранённых таблиц
@@ -158,7 +171,7 @@ ALTER TABLE `translations_phrases_cms`
 -- AUTO_INCREMENT для таблицы `translations_phrases_cms`
 --
 ALTER TABLE `translations_phrases_cms`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=112;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=125;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
