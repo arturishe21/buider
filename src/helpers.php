@@ -69,10 +69,9 @@ if (!function_exists('glide'))
 {
     function glide($source, $options = array())
     {
-        if (!$source) return;
-        
-        return asset(GlideImage::load($source)->modify($options));
-    } // end glide
+        $img = new Vis\Builder\Img();
+        return $img->get($source, $options);
+    }
 }
 
 if (!function_exists('filesize_format'))

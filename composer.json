@@ -19,13 +19,13 @@
         "mpratt/embera": "1.8.*",
         "cartalyst/sentry": "2.1.*",
         "intervention/image": "2.*",
-        "vis/laravel-glide": "1.0.6",
         "mcamara/laravel-localization": "v0.15.1"
     },
     "autoload": {
         "classmap": [
             "src/controllers",
-            "src/models"
+            "src/models",
+            "src/libs"
         ],
         "psr-0": {
             "Vis\\Builder": "src/"

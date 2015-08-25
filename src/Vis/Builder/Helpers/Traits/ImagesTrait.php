@@ -12,7 +12,7 @@ trait ImagesTrait
     * @param  string|integer $height
     * @return string tag img
     */
-    public  function getImg($width = '', $height = '')
+    public  function getImg($width = '', $height = '', $options = array())
     {
         if ($this->picture) {
             $picture = $this->picture;
@@ -29,8 +29,8 @@ trait ImagesTrait
             $size['h'] = $height;
         }
 
-        $size['fit'] = "crop";
-        $img_res = glide($picture, $size);
+        $params = array_merge($size, $options) ;
+        $img_res = glide($picture, $params);
 
         return  '<img src = "'.$img_res.'" title = "'.$this->title.'" alt = "'.$this->title.'">';
     } // end getImg
