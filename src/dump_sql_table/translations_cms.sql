@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Авг 04 2015 г., 10:15
+-- Время создания: Авг 31 2015 г., 12:40
 -- Версия сервера: 10.1.0-MariaDB
 -- Версия PHP: 5.5.15
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `translations_cms` (
   `id_translations_phrase` int(10) unsigned NOT NULL,
   `lang` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
   `translate` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=362 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=434 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Дамп данных таблицы `translations_cms`
@@ -388,7 +388,79 @@ INSERT INTO `translations_cms` (`id`, `id_translations_phrase`, `lang`, `transla
 (358, 123, 'en', 'Mails'),
 (359, 124, 'ru', 'Настройки почты обновлены'),
 (360, 124, 'ua', 'Налаштування пошти оновлено'),
-(361, 124, 'en', 'Mail settings updated');
+(361, 124, 'en', 'Mail settings updated'),
+(362, 125, 'ru', 'Выход'),
+(363, 125, 'ua', 'Вихід'),
+(364, 125, 'en', 'Exit'),
+(365, 126, 'ru', 'Группы пользователей'),
+(366, 126, 'ua', 'Групи користувачів'),
+(367, 126, 'en', 'User group'),
+(368, 127, 'ru', 'Имя'),
+(369, 127, 'ua', 'Ім''я'),
+(370, 127, 'en', 'Name'),
+(371, 128, 'ru', 'Фамилия'),
+(372, 128, 'ua', 'Прізвище'),
+(373, 128, 'en', 'Surname'),
+(374, 129, 'ru', 'Дата последнего входа'),
+(375, 129, 'ua', 'Дата останнього входу'),
+(376, 129, 'en', 'Date of last login'),
+(377, 130, 'ru', 'Дата регистрации'),
+(378, 130, 'ua', 'Дата реєстрації'),
+(379, 130, 'en', 'Registration date'),
+(380, 131, 'ru', 'Активен'),
+(381, 131, 'ua', 'Активний'),
+(382, 131, 'en', 'Active'),
+(383, 132, 'ru', 'Поиск'),
+(384, 132, 'ua', 'Пошук'),
+(385, 132, 'en', 'Search'),
+(386, 133, 'ru', 'Права'),
+(387, 133, 'ua', 'Права'),
+(388, 133, 'en', 'Right'),
+(389, 134, 'ru', 'Профайл'),
+(390, 134, 'ua', 'Профайл'),
+(391, 134, 'en', 'Profile'),
+(392, 135, 'ru', 'Загрузить'),
+(393, 135, 'ua', 'Завантажити'),
+(394, 135, 'en', 'Download'),
+(395, 136, 'ru', 'Подписан на рассылку'),
+(396, 136, 'ua', 'Підписаний на розсилку'),
+(397, 136, 'en', 'Signed up for the newsletter'),
+(398, 137, 'ru', 'Группы пользователя'),
+(399, 137, 'ua', 'Групи'),
+(400, 137, 'en', 'User group'),
+(401, 138, 'ru', 'Разрешить'),
+(402, 138, 'ua', 'Дозволити'),
+(403, 138, 'en', 'Allow'),
+(404, 139, 'ru', 'Запретить'),
+(405, 139, 'ua', 'Заборонити'),
+(406, 139, 'en', 'Prohibit'),
+(407, 140, 'ru', 'Наследовать'),
+(408, 140, 'ua', 'Успадковувати'),
+(409, 140, 'en', 'Inherit'),
+(410, 141, 'ru', 'Эту операцию нельзя будет отменить.'),
+(411, 141, 'ua', 'Цю операцію не можна буде скасувати.'),
+(412, 141, 'en', 'This operation cannot be undone.'),
+(413, 142, 'ru', 'Поле удалено успешно'),
+(414, 142, 'ua', 'Поле видалено успішно'),
+(415, 142, 'en', 'Field deleted successfully'),
+(416, 143, 'ru', 'Что-то пошло не так, попробуйте позже'),
+(417, 143, 'ua', 'Щось пішло не так, спробуйте пізніше'),
+(418, 143, 'en', 'Something went wrong, try again later'),
+(419, 144, 'ru', 'Сохранено'),
+(420, 144, 'ua', 'Збережено'),
+(421, 144, 'en', 'Saved'),
+(422, 145, 'ru', 'Новоя запись добавлена'),
+(423, 145, 'ua', 'Новоя запис додано'),
+(424, 145, 'en', 'New entry added'),
+(425, 146, 'ru', 'Ошибка при загрузке изображения'),
+(426, 146, 'ua', 'Помилка при завантаженні зображення'),
+(427, 146, 'en', 'Error loading image'),
+(428, 147, 'ru', 'Ошибка при загрузке файла'),
+(429, 147, 'ua', 'Помилка при завантаженні файлу'),
+(430, 147, 'en', 'Error loading file'),
+(431, 148, 'ru', 'Порядок следования изменен'),
+(432, 148, 'ua', 'Порядок змінено'),
+(433, 148, 'en', 'The order changed');
 
 --
 -- Индексы сохранённых таблиц
@@ -409,7 +481,7 @@ ALTER TABLE `translations_cms`
 -- AUTO_INCREMENT для таблицы `translations_cms`
 --
 ALTER TABLE `translations_cms`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=362;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=434;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

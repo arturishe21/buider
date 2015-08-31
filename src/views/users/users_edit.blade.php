@@ -2,8 +2,8 @@
 
 @section('ribbon')
    <ol class="breadcrumb">
-        <li><a href="/admin">Главная</a></li>
-        <li><a href="/admin/tb/users">Пользователи</a></li>
+        <li><a href="/admin">{{__cms("Главная")}}</a></li>
+        <li><a href="/admin/tb/users">{{__cms("Пользователи")}}</a></li>
         <li>{{$user->first_name}} {{$user->last_name}}</li>
    </ol>
 @stop
@@ -13,6 +13,7 @@
 <script>
     TBUser.admin_uri = '{{\Config::get('builder::admin.uri')}}';
     TBUser.id_user   = '{{$user->id}}';
+    $("title").text("{{$user->first_name}} {{$user->last_name}} - {{{ __cms(Config::get('builder::admin.caption')) }}}");
 </script>
 @stop
 
@@ -25,13 +26,13 @@
         
     <ul class="nav nav-tabs tabs-pull-right bordered">
         <li class="pull-right">
-            <a href="#l3" data-toggle="tab">Группы</a>
+            <a href="#l3" data-toggle="tab">{{__cms("Группы")}}</a>
         </li>
         <li class="pull-right">
-            <a href="#l1" data-toggle="tab">Права</a>
+            <a href="#l1" data-toggle="tab">{{__cms("Права")}}</a>
         </li>
         <li class="active">
-            <a href="#l2" data-toggle="tab" class="active">Карточка</a>
+            <a href="#l2" data-toggle="tab" class="active">{{__cms("Профайл")}}</a>
         </li>
     </ul>
     
@@ -86,7 +87,7 @@
                                 <div class="input input-file" style="width:150px;">
                                     <span class="button" style="width: 114px;top: 5px;line-height: 21px;text-align: center;">
                                         <input type="file" id="file" accept="image/*" onchange="TBUser.uploadImage('{{$user->id}}', this.files[0]);">
-                                        Загрузить
+                                        {{__cms("Загрузить")}}
                                     </span>
                                     <input type="text" placeholder="" readonly="">
                                 </div>
@@ -96,12 +97,12 @@
                                 <div class="row">
                                     <section class="col col-6">
                                         <label class="input"> <i class="icon-prepend fa fa-user"></i>
-                                            <input type="text" name="first_name" placeholder="First name" value="{{$user->first_name}}">
+                                            <input type="text" name="first_name" placeholder="{{__cms("Имя")}}" value="{{$user->first_name}}">
                                         </label>
                                     </section>
                                     <section class="col col-6">
                                         <label class="input"> <i class="icon-prepend fa fa-user"></i>
-                                            <input type="text" name="last_name" placeholder="Last name" value="{{$user->last_name}}">
+                                            <input type="text" name="last_name" placeholder="{{__cms("Фамилия")}}" value="{{$user->last_name}}">
                                         </label>
                                     </section>
                                 </div>
@@ -113,7 +114,7 @@
                                     </section>
                                     <section class="col col-6">
                                         <label class="input"> <i class="icon-prepend fa fa-lock"></i>
-                                            <input type="password" name="password" placeholder="Password" value="" autocomplete="off">
+                                            <input type="password" name="password" placeholder="{{__cms("Пароль")}}" value="" autocomplete="off">
                                         </label>
                                     </section>
                                 </div>
@@ -127,7 +128,7 @@
                                                     checked="checked"
                                                 @endif
                                                 ><i></i>
-                                            Активен
+                                            {{__cms("Активен")}}
                                         </label>
                                     </section>
                                 </div>    
@@ -139,7 +140,7 @@
                                                     checked="checked"
                                                 @endif
                                                 name="is_subscribed"><i></i>
-                                            Подписан на рассылку
+                                           {{__cms("Подписан на рассылку")}}
                                         </label>
                                     </section>
                                 </div>
@@ -153,7 +154,7 @@
         
         <div class="tab-pane" id="l3">
             <div class="widget-body no-padding" style="margin: -10px;">
-                <header style="margin:0px 0 0; padding-left: 10px;">Группы пользователя</header>
+                <header style="margin:0px 0 0; padding-left: 10px;">{{__cms("Группы пользователя")}}</header>
                 <fieldset style="padding: 14px 14px 5px;">
                     <section>
                         <div class="row">
@@ -174,19 +175,18 @@
             </div>
         </div>
         
-        </div>    
-        
-        <footer>
-            <a href="{{ url(\Config::get('builder::admin.uri') .'/tb/users') }}">
-            <button type="button" class="btn btn-default">
-                Назад
-            </button>
+        </div>
+
+        <div class="modal-footer" style="padding-top: 15px">
+            <i class="fa fa-gear fa-41x fa-spin" style="display: none"></i>
+                <button class="btn btn-success btn-sm" type="button" onclick="TBUser.doEdit('{{$user->id}}');">
+                <span class="glyphicon glyphicon-floppy-disk"></span>
+                    {{__cms("Сохранить")}}
+                </button>
+            <a href="{{ url(\Config::get('builder::admin.uri') .'/tb/users') }}" style="margin-left: 10px">
+                <button class="btn btn-default" data-dismiss="modal" type="button"> {{__cms("Отмена")}} </button>
             </a>
-            <button type="button" class="btn btn-primary" onclick="TBUser.doEdit('{{$user->id}}');">
-                Сохранить
-            </button>
-        </footer>
-                                        
+        </div>
     </form>
 
 

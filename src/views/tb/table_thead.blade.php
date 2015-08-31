@@ -14,12 +14,6 @@
                     jQuery('.widget-body', '.table-builder').css('overflow-x', 'scroll');
                 });
                 jQuery('tbody', '#datatable_fixed_column').sortable({
-                    //start: function(event, ui) {
-                    //    jQuery('.widget-body', '.table-builder').css('overflow-x', 'visible');
-                    //}, // end start
-                    //stop: function(event, ui) {
-                    //    jQuery('.widget-body', '.table-builder').css('overflow-x', 'scroll');
-                    //}, // end stop
                     scroll: true,
                     axis: "y",
                     handle: ".tb-sort-me-gently",
@@ -86,17 +80,17 @@
         @endif
 
         @foreach ($def['fields'] as $ident => $options)
-        <?php $field = $controller->getField($ident); ?>
-        @if (!$field->isPattern() && !$field->getAttribute('hide_list'))
-            <td>{{ $field->getFilterInput() }}</td>
-        @endif
+            <?php $field = $controller->getField($ident); ?>
+            @if (!$field->isPattern() && !$field->getAttribute('hide_list'))
+                <td>{{ $field->getFilterInput() }}</td>
+            @endif
         @endforeach
 
         <td style="width:1%">
             <button class="btn btn-default btn-sm tb-search-btn" style="min-width: 66px;"
                     type="button"
                     onclick="TableBuilder.search();">
-                {{ $def['actions']['search']['caption'] or 'Search' }}
+                    {{ isset($def['actions']['search']['caption']) ? __cms($def['actions']['search']['caption']) : __cms('Поиск') }}
             </button>
         </td>
     </tr>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Авг 04 2015 г., 10:15
+-- Время создания: Авг 31 2015 г., 12:41
 -- Версия сервера: 10.1.0-MariaDB
 -- Версия PHP: 5.5.15
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `translations_phrases_cms` (
   `id` int(10) unsigned NOT NULL,
   `phrase` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Дамп данных таблицы `translations_phrases_cms`
@@ -151,7 +151,31 @@ INSERT INTO `translations_phrases_cms` (`id`, `phrase`) VALUES
 (121, 'Имя отправителя'),
 (122, 'Тестовый режим'),
 (123, 'Почта'),
-(124, 'Настройки почты обновлены');
+(124, 'Настройки почты обновлены'),
+(125, 'Выход'),
+(126, 'Группы пользователей'),
+(127, 'Имя'),
+(128, 'Фамилия'),
+(129, 'Дата последнего входа'),
+(130, 'Дата регистрации'),
+(131, 'Активен'),
+(132, 'Поиск'),
+(133, 'Права'),
+(134, 'Профайл'),
+(135, 'Загрузить'),
+(136, 'Подписан на рассылку'),
+(137, 'Группы пользователя'),
+(138, 'Разрешить'),
+(139, 'Запретить'),
+(140, 'Наследовать'),
+(141, 'Эту операцию нельзя будет отменить.'),
+(142, 'Поле удалено успешно'),
+(143, 'Что-то пошло не так, попробуйте позже'),
+(144, 'Сохранено'),
+(145, 'Новоя запись добавлена'),
+(146, 'Ошибка при загрузке изображения'),
+(147, 'Ошибка при загрузке файла'),
+(148, 'Порядок следования изменен');
 
 --
 -- Индексы сохранённых таблиц
@@ -171,7 +195,7 @@ ALTER TABLE `translations_phrases_cms`
 -- AUTO_INCREMENT для таблицы `translations_phrases_cms`
 --
 ALTER TABLE `translations_phrases_cms`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=125;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=149;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

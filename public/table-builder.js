@@ -805,9 +805,9 @@ var TableBuilder = {
     doDelete: function(id, context)
     {
         jQuery.SmartMessageBox({
-            title : "Удалить?",
-            content : "Эту операцию нельзя будет отменить.",
-            buttons : '[Нет][Да]'
+            title : phrase["Удалить?"],
+            content : phrase["Эту операцию нельзя будет отменить."],
+            buttons : '[' + phrase["Нет"] + '][' + phrase["Да"] + ']'
         }, function(ButtonPressed) {
             if (ButtonPressed === "Да") {
                 TableBuilder.showPreloader();
@@ -821,19 +821,10 @@ var TableBuilder = {
 
                         if (response.status) {
 
-                            jQuery.smallBox({
-                                title : "Поле удалено успешно",
-                                content : "",
-                                color : "#659265",
-                                iconSmall : "fa fa-check  fadeInRight animated",
-                                timeout : 4000
-                            });
-
+                            TableBuilder.showSuccessNotification(phrase['Поле удалено успешно']);
                             jQuery('tr[id-row="'+id+'"]').remove();
                         } else {
-
-                            TableBuilder.showErrorNotification("Что-то пошло не так, попробуйте позже");
-
+                            TableBuilder.showErrorNotification(phrase["Что-то пошло не так, попробуйте позже"]);
                         }
 
                         TableBuilder.hidePreloader();
@@ -912,7 +903,7 @@ var TableBuilder = {
 
                 if (response.id) {
 
-                    TableBuilder.showSuccessNotification('Сохранено');
+                    TableBuilder.showSuccessNotification(phrase['Сохранено']);
 
                     if (TableBuilder.options.is_page_form) {
                         //window.location.href = TableBuilder.options.list_url;
@@ -1004,7 +995,7 @@ var TableBuilder = {
                 TableBuilder.hideFormPreloader(TableBuilder.form);
 
                 if (response.id) {
-                    TableBuilder.showSuccessNotification('Новоя запись добавлена');
+                    TableBuilder.showSuccessNotification(phrase['Новоя запись добавлена']);
 
                     if (TableBuilder.options.is_page_form) {
                         //window.location.href = TableBuilder.options.list_url;
@@ -1018,15 +1009,6 @@ var TableBuilder = {
                     jQuery(TableBuilder.form).modal('hide');
 
                 } else {
-                    /*
-                    jQuery.smallBox({
-                        title : "Что-то пошло не так, попробуйте позже",
-                        content : "",
-                        color : "#C46A69",
-                        iconSmall : "fa fa-times fa-2x fadeInRight animated",
-                        timeout : 4000
-                    });
-                    */
                     var errors = '';
                     jQuery(response.errors).each(function(key, val) {
                         errors += val +'<br>';
@@ -1114,7 +1096,7 @@ var TableBuilder = {
 
                     TableBuilder.picture[ident] = response.data.sizes.original;
 
-                   // alert( TableBuilder.picture[ident]);
+                  //  alert( TableBuilder.picture[ident]);
 
                     var html = '<div style="position: relative; display: inline-block;">';
                     html += '<img class="image-attr-editable" ';
@@ -1134,7 +1116,7 @@ var TableBuilder = {
 
                     TableBuilder.initSingleImageEditable();
                 } else {
-                    TableBuilder.showErrorNotification("Ошибка при загрузке изображения");
+                    TableBuilder.showErrorNotification(phrase["Ошибка при загрузке изображения"]);
                 }
             }
         });
@@ -1150,6 +1132,7 @@ var TableBuilder = {
           data.append("image", context.files[index]);
           data.append('ident', ident);
           data.append('query_type', 'upload_photo');
+
           if (TableBuilder.getUrlParameter('node') == undefined) {
               data.append('__node', TableBuilder.getUrlParameter('id_tree'));
           } else {
@@ -1232,7 +1215,7 @@ var TableBuilder = {
                      // TableBuilder.initMultipleImageEditable();
                   } else {
 
-                      TableBuilder.showErrorNotification("Ошибка при загрузке изображения");
+                      TableBuilder.showErrorNotification(phrase["Ошибка при загрузке изображения"]);
 
                   }
               }
@@ -1361,7 +1344,7 @@ var TableBuilder = {
                     var html = $summernote.code().replace(text, response.html);
                     $summernote.code('').html(html);
                 } else {
-                    TableBuilder.showErrorNotification('Что-то пошло не так');
+                    TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                 }
             }
         });
@@ -1564,7 +1547,7 @@ var TableBuilder = {
                     TableBuilder.showSuccessNotification(response.message);
                 } else {
                     if (typeof response.errors === "undefined") {
-                        TableBuilder.showErrorNotification('Что-то пошло не так');
+                        TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                     } else {
                         var errors = '';
                         jQuery(response.errors).each(function(key, val) {
@@ -1590,9 +1573,10 @@ var TableBuilder = {
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
-                    TableBuilder.showSuccessNotification('Порядок следования изменен');
+                    TableBuilder.showSuccessNotification(phrase['Порядок следования изменен']);
                 } else {
-                    TableBuilder.showErrorNotification('Что-то пошло не так');
+
+                    TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                 }
             }
         });
@@ -1615,7 +1599,7 @@ var TableBuilder = {
                     Superbox.input = $(context).parent().parent().find('input');
                     Superbox.type_select = storageTypeSelect;
                 } else {
-                    TableBuilder.showErrorNotification('Что-то пошло не так');
+                    TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                 }
             }
         });
@@ -1643,7 +1627,7 @@ var TableBuilder = {
                     
                     FileStorage.input = $(context).parent().parent().find('input');
                 } else {
-                    TableBuilder.showErrorNotification('Что-то пошло не так');
+                    TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                 }
             }
         });

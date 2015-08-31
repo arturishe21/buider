@@ -25,7 +25,7 @@
 
             <!-- logout button -->
                 <div id="logout" class="btn-header transparent pull-right">
-                    <span> <a href="/admin/logout" title="Выход" data-action="userLogout" data-logout-msg="Вы можете увеличить безопасноть, закрыв браузер после выхода"><i class="fa fa-sign-out"></i></a> </span>
+                    <span> <a href="/admin/logout" title="{{__cms("Выход")}}" data-action="userLogout" ><i class="fa fa-sign-out"></i></a> </span>
                 </div>
 
                 <div id="fullscreen" class="btn-header transparent pull-right">

@@ -63,6 +63,7 @@ class TableAdminController extends \BaseController
         }
 
         $view = View::make('admin::table')->with('table', $table);
+
         return $view;
     } // end showGroups
 
@@ -72,6 +73,7 @@ class TableAdminController extends \BaseController
             'url'    => '/admin/tb/groups',
             'def_name' => 'groups',
         );
+
         return JarboeFacade::create($options);
     } // end handleGroups
 
@@ -83,7 +85,6 @@ class TableAdminController extends \BaseController
         );
 
         $table = JarboeFacade::table($options)['showList'];
-
         $view = View::make('admin::table', compact('table'));
 
         return $view;

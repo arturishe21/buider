@@ -76,6 +76,8 @@
 
         @yield('scripts')
 
+        @include('admin::partials.translate_phrases')
+
     </body>
 
 </html>

@@ -23,9 +23,9 @@ class UsersTableHandler extends \Vis\Builder\Handlers\CustomHandler
         $url = URL::to(Config::get('builder::admin.uri') . '/tb/users/create');
         $caption = isset($def['caption']) ? $def['caption'] : 'Add';
         $html = '<a href="'. $url .'">
-                <button class="btn btn-default btn-sm" style="min-width: 66px;"
+                <button class="btn btn-default btn-sm btn-success" style="min-width: 66px;"
                          type="button">
-                     '. $caption .'
+                     '. __cms($caption) .'
                  </button>
                  </a>';
 

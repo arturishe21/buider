@@ -32,74 +32,73 @@
                 <header>
                     <span class="widget-icon"> <i class="fa fa-table"></i> </span>
                     <h2>Управление пользователями</h2>
-
                 </header>
 
                 <!-- widget div-->
                 <div>
                     <!-- widget edit box -->
-                    <div class="jarviswidget-editbox">
-                    </div>
+                    <div class="jarviswidget-editbox"></div>
+
                     <div class="widget-body no-padding">
 
-<form id="e-users-form" 
-      action="" 
-      method="post" 
-      class="form-horizontal tb-table"
-      target="submiter" >
+                    <form id="e-users-form"
+                          action=""
+                          method="post"
+                          class="form-horizontal tb-table"
+                          target="submiter" >
 
-<table id="datatable_fixed_column" class="table table-bordered table-striped table-hover smart-form dataTable">
-
-    
-    <thead>
-        <tr>
-        @foreach ($fields as $ident => $field)
-            <th>{{ $field['caption'] }}</th>
-        @endforeach
-            <th class="e-insert_button-cell">
-                <a href="{{ url(\Config::get('builder::admin.uri') .'/tb/users/create') }}">
-                <button class="btn btn-default btn-sm" style="min-width: 66px;" 
-                        type="button" onclick="TableBuilder.getCreateForm();">
-                    Добавить
-                </button>
-                </a>
-            </th>
-        </tr>
-    </thead>
-
-    <tbody>
-        
-        @foreach ($users as $user)
-        <tr>
-            @foreach ($fields as $ident => $field)
-                @if ($ident == 'password')
-                    <td>********</td>
-                @elseif ($ident == 'id')
-                    <td style="width: 1%;">{{ $user->$ident }}</td>
-                @else
-                    <td>{{ $user->$ident }}</td>
-                @endif
-            @endforeach
-            
-            <td style="width: 1%;">
-                <a href="{{ url(\Config::get('builder::admin.uri') .'/tb/users/'. $user->id) }}">
-                    <button type="button" class="btn btn-default btn-sm" rel="tooltip" title="" data-placement="bottom" data-original-title="Update">
-                        <i class="fa fa-pencil"></i>
-                    </button>
-                </a>
-                <button onclick="TBUser.doRemoveUser(this, '{{$user->id}}');" type="button" class="btn btn-default btn-sm" rel="tooltip" title="" data-placement="bottom" data-original-title="Remove">
-                    <i class="fa fa-remove"></i>
-                </button>
-            </td>
-            
-        </tr>
-        @endforeach
-    </tbody>
-
-</table> 
+                    <table id="datatable_fixed_column" class="table table-bordered table-striped table-hover smart-form dataTable">
 
 
-</form> 
+                        <thead>
+                            <tr>
+                            @foreach ($fields as $ident => $field)
+                                <th>{{ $field['caption'] }}</th>
+                            @endforeach
+                                <th class="e-insert_button-cell">
+                                    <a href="{{ url(\Config::get('builder::admin.uri') .'/tb/users/create') }}">
+                                    <button class="btn btn-default btn-sm" style="min-width: 66px;"
+                                            type="button" onclick="TableBuilder.getCreateForm();">
+                                        Добавить
+                                    </button>
+                                    </a>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach ($users as $user)
+                            <tr>
+                                @foreach ($fields as $ident => $field)
+                                    @if ($ident == 'password')
+                                        <td>********</td>
+                                    @elseif ($ident == 'id')
+                                        <td style="width: 1%;">{{ $user->$ident }}</td>
+                                    @else
+                                        <td>{{ $user->$ident }}</td>
+                                    @endif
+                                @endforeach
+
+                                <td style="width: 1%;">
+                                    <a href="{{ url(\Config::get('builder::admin.uri') .'/tb/users/'. $user->id) }}">
+                                        <button type="button" class="btn btn-default btn-sm" rel="tooltip" title="" data-placement="bottom" data-original-title="Update">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                    </a>
+                                    <button onclick="TBUser.doRemoveUser(this, '{{$user->id}}');" type="button" class="btn btn-default btn-sm" rel="tooltip" title="" data-placement="bottom" data-original-title="Remove">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                </td>
+
+                            </tr>
+                            @endforeach
+                        </tbody>
+
+                    </table>
+
+
+                    </form>
     
     </div>
 </div>
