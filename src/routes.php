@@ -1,9 +1,19 @@
 <?php
 
 $all_links = array_column(Config::get('builder::admin.menu'), "link");
-//fix
-$all_links_str = implode("|", $all_links);
-$all_links_str = str_replace("/","",$all_links_str);
+
+foreach (Config::get('builder::admin.menu') as $menu) {
+    if (is_array($menu)) {
+        foreach($menu as $menuLink) {
+            if (is_array($menuLink)) {
+                $all_links[] = array_column($menuLink, "link");
+            }
+        }
+
+    }
+}
+
+$all_links = array_flatten($all_links);
 
 Route::pattern('page_admin', $all_links_str);
 
