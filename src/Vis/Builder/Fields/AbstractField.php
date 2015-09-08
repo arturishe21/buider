@@ -228,7 +228,6 @@ abstract class AbstractField
 
     public function onSelectValue(&$db)
     {
-
         if ($this->hasCustomHandlerMethod('onAddSelectField')) {
             $res = $this->handler->onAddSelectField($this, $db);
             if ($res) {
@@ -238,13 +237,13 @@ abstract class AbstractField
         
         $tabs = $this->getAttribute('tabs');
 
-
         $table_name = $this->definition['db']['table'];
         $field_name = $this->getFieldName();
 
         if ($tabs) {
             foreach ($tabs as $tab) {
                 $name = $table_name .'.'. $this->getFieldName() . $tab['postfix'];
+
                 $this->doCreateField($table_name, $this->getFieldName() . $tab['postfix']);
                 $db->addSelect($name);
             }
@@ -258,12 +257,11 @@ abstract class AbstractField
     //autocreate fields in db
     protected function doCreateField($table_name, $field_name)
     {
-
         $field_bd = $this->getAttribute('field');
+        $data = Session::all();
 
         if (!Session::has($table_name.'.'.$field_name)) {
             if ($field_bd && !Schema::hasColumn($table_name, $field_name)) {
-
                 Session::push($table_name . '.' . $field_name, 'created');
 
                 @list($field, $param) = explode("|", $field_bd);

@@ -14,6 +14,8 @@ foreach (Config::get('builder::admin.menu') as $menu) {
 }
 
 $all_links = array_flatten($all_links);
+$all_links_str = implode("|",$all_links);
+$all_links_str = str_replace("/","",$all_links_str);
 
 Route::pattern('page_admin', $all_links_str);
 
