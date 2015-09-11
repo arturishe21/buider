@@ -12,7 +12,7 @@ class Tree extends \Baum\Node
     protected $parentColumn = 'parent_id';
 
     protected $_nodeUrl;
-    
+
     public static function flushCache()
     {
         Cache::tags('j_tree')->flush();

@@ -151,3 +151,26 @@ if(!function_exists("getIp")) {
         return $ip;
     }
 }
+
+
+/**
+ *  recurse create url for tree
+ *  @return string
+ */
+if(!function_exists("recurseMyTree")) {
+    function recurseMyTree($tree, $node, &$slugs = array())
+    {
+        if (!$node['parent_id']) {
+            return $node['slug'];
+        }
+
+        $slugs[] = $node['slug'];
+        $idParent = $node['parent_id'];
+        if ($idParent) {
+            $parent = $tree[$idParent];
+            recurseMyTree($tree, $parent, $slugs);
+        }
+
+        return implode('/', array_reverse($slugs));
+    }
+}
