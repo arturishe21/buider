@@ -3,9 +3,9 @@
     @if($item->children()->count())
         <i class="fa fa-folder"></i>
     @else
-        <i class="fa fa-file-code-o"></i>
+        <i class="fa fa-file-o"></i>
     @endif
-     <a href="?node={{ $item->id }}">{{ $item->title }}</a></td>
+    &nbsp;<a href="?node={{ $item->id }}">{{ $item->title }}</a></td>
     <td>
         <a class="tpl-editable" href="javascript:void(0);" 
             data-type="select" 
