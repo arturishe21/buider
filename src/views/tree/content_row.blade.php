@@ -1,5 +1,11 @@
 <tr data-id="{{ $item->id }}">
-    <td><a href="?node={{ $item->id }}">{{ $item->title }}</a></td>
+    <td>
+    @if($item->children()->count())
+        <i class="fa fa-folder"></i>
+    @else
+        <i class="fa fa-file-code-o"></i>
+    @endif
+     <a href="?node={{ $item->id }}">{{ $item->title }}</a></td>
     <td>
         <a class="tpl-editable" href="javascript:void(0);" 
             data-type="select" 

@@ -3,15 +3,12 @@
     
 
 @if ($current->hasTableDefinition())
-
     @section('table_form')
         {{ $form }}
     @stop
 
-    {{ $table }}
-    
+        {{ $table }}
 @else
-
 
     <div class="smart-form">
     <table class="table table-bordered">
@@ -19,14 +16,13 @@
             <tr>
                 <th>{{__cms('Название')}}</th>
                 <th>{{__cms('Шаблон')}}</th>
-                <th>URL</th>
+                <th>Url</th>
                 <th style="width: 60px">{{__cms('Активный')}}</th>
                 <th style="width: 80px">
                     <a href="javascript:void(0);" onclick="Tree.showCreateForm('{{$current->id}}');" style="min-width: 70px;" class="btn btn-success btn-sm">{{__cms('Добавить')}}</a>
                 </th>
             </tr>
         </thead>
-
         <tbody>
 
             @if ($current->id == 1)

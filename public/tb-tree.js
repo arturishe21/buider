@@ -151,7 +151,7 @@ var Tree =
                     success: function(response) {
                         if (response.status) {
                         } else {
-                            TableBuilder.showErrorNotification("Ошибка");
+                            TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                         }
                     }
                 });
@@ -231,7 +231,7 @@ var Tree =
                     // FIXME:
                     window.location.reload();
                 } else {
-                    TableBuilder.showErrorNotification('Что-то пошло не так');
+                    TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                 }
             }
         });
@@ -265,14 +265,8 @@ var Tree =
                         $input.mask($input.attr('data-mask'));
                     });
 
-                    /*
-                    TableBuilder.initSingleImageEditable();
-                    TableBuilder.initMultipleImageEditable();
-                    TableBuilder.initSummernoteFullscreen();
-                    TableBuilder.initSelect2Hider();*/
-                    
                 } else {
-                    TableBuilder.showErrorNotification('Что-то пошло не так');
+                    TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                 }
                 
                 TableBuilder.hidePreloader();
@@ -335,10 +329,8 @@ var Tree =
                 TableBuilder.hideFormPreloader(TableBuilder.form_edit);
 
                 if (response.id) {
-                    TableBuilder.showSuccessNotification("Поле обновлено успешно");
-                    
+                    TableBuilder.showSuccessNotification(phrase['Сохранено']);
                     jQuery(TableBuilder.form_edit).modal('hide');
-
                     jQuery('.tb-tree-content-inner').find('tr[data-id="'+ id +'"]').replaceWith(response.html);
 
                 } else {
@@ -357,9 +349,9 @@ var Tree =
     doDelete: function(id, context)
     {
         jQuery.SmartMessageBox({
-            title : "Удалить?",
-            content : "Эту операцию нельзя будет отменить.",
-            buttons : '[Нет][Да]'
+            title : phrase["Удалить?"],
+            content : phrase["Эту операцию нельзя будет отменить."],
+            buttons : '['+phrase['Нет']+']['+phrase['Да']+']'
         }, function(ButtonPressed) {
             if (ButtonPressed === "Да") {
                 TableBuilder.showPreloader();
@@ -370,13 +362,11 @@ var Tree =
                     data: { id: id, query_type: 'do_delete_node' },
                     dataType: 'json',
                     success: function(response) {
-
                         if (response.status) {
-                            TableBuilder.showSuccessNotification('Поле удалено успешно');
-
-                            jQuery(context).parent().parent().remove();
+                            TableBuilder.showSuccessNotification(phrase['Поле удалено успешно']);
+                            $("tr[data-id=" + id + "]").remove();
                         } else {
-                            TableBuilder.showErrorNotification('Что-то пошло не так, попробуйте позже');
+                            TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                         }
 
                         TableBuilder.hidePreloader();
@@ -387,7 +377,6 @@ var Tree =
 
         });
     }, // end doDelete
-    
 };
 
 
