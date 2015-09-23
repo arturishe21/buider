@@ -82,6 +82,7 @@ class TBTreeController extends \Controller
         $current = Tree::find($idNode);
         $templates = Config::get('builder::tree.templates');
         $template = Config::get('builder::tree.default');
+
         if (isset($templates[$current->template])) {
             $template = $templates[$current->template];
         }
@@ -93,9 +94,9 @@ class TBTreeController extends \Controller
                 'node' => $idNode
             )
         );
+
         $controller = new JarboeController($options);
-        
-        
+
         $result = $controller->query->updateRow(Input::all());
         $item = Tree::find($idNode);
         $result['html'] = View::make('admin::tree.content_row', compact('item'))->render();

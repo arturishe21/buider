@@ -3,6 +3,7 @@
 namespace App\Modules\Settings\Models;
 
 use Eloquent, Str , Config, Cache, Input, Validator, Response;
+use Illuminate\Support\Facades\Event;
 
 
 class Setting extends Eloquent {
@@ -195,6 +196,12 @@ class Setting extends Eloquent {
         }
 
         Setting::reCacheSettings();
+
+        if ($data['id'] == 0) {
+            Event::fire("setting.created", array($settings));
+        } else {
+            Event::fire("setting.changed", array($settings));
+        }
     }
 
     /*
@@ -213,7 +220,12 @@ class Setting extends Eloquent {
         if (is_numeric($id)) {
             $id_page = Input::get("id");
             $page = Setting::find($id_page);
+
+            Event::fire("setting.delete", array($page));
+
             $page->delete();
+
+
 
             Setting::reCacheSettings();
         }
@@ -246,7 +258,7 @@ class Setting extends Eloquent {
      */
     public function selectValues()
     {
-        return $this->hasMany('App\Modules\Settings\Models\SettingSelect','id_setting')->orderBy("priority")->get()->toArray();
+        return $this->hasMany('App\Modules\Settings\Models\SettingSelect', 'id_setting')->orderBy("priority")->get()->toArray();
     } // end select_get
 
 

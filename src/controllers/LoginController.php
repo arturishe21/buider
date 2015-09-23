@@ -3,7 +3,8 @@
 namespace Vis\Builder;
 
 use Controller, View, Redirect, Config, Input, Cookie, Response, Session, Lang;
-use Sentry;
+use Illuminate\Support\Facades\Event;
+use Cartalyst\Sentry\Facades\Laravel\Sentry;
 
 class LoginController extends Controller
 {
@@ -30,6 +31,8 @@ class LoginController extends Controller
                 Input::has('rememberme')
             );
 
+            Event::fire("user.login");
+
             $onLogin = Config::get('builder::login.on_login');
 
 
@@ -48,6 +51,8 @@ class LoginController extends Controller
                 ));
             }
 
+            Event::fire("user.login_error");
+
             Session::put('tb_login_not_found', Lang::get('builder::login.not_found'));
             return Redirect::to(Config::get('builder::admin.uri'));
         }
@@ -55,6 +60,7 @@ class LoginController extends Controller
 
     public function doLogout()
     {
+        Event::fire("user.logout");
         Sentry::logout();
 
         return Redirect::route("login_show");

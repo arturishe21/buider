@@ -88,13 +88,13 @@ return array(
                         return true;
                     }
                 ),
-               /* array(
-                    'title' => 'Шаблоны писем',
-                    'link'  => '/settings/letter',
+                array(
+                    'title' => 'Логирование',
+                    'link'  => '/events',
                     'check' => function() {
                         return true;
                     }
-                ),*/
+                )
             )
         ),
 

@@ -24,12 +24,6 @@ class Jarboe
     {
         $this->controller = new JarboeController($options);
 
-      /*  $this->default = array(
-            'pagination' => Config::get('view.pagination'),
-            'fetch' => Config::get('database.fetch')
-        );
-        Config::set('view.pagination', 'admin::tb.pagination');
-        Config::set('database.fetch', \PDO::FETCH_ASSOC);*/
     } // end onInit
 
     protected function onFinish()
@@ -89,20 +83,6 @@ class Jarboe
         return URLify::filter($string);
     } // end urlify
 
-    public function translate($text, $language, $isHtml = false, $options = 0)
-    {
-        $key = Config::get('builder::translate.yandex_api_translation_key');
-        if (!$key) {
-            throw new \RuntimeException('Yandex api key for translations is not set');
-        }
-
-        $translator = new Translator($key);
-        $translation = $translator->translate($text, $language, $isHtml, $options);
-
-        // FIXME:
-        return $translation->__toString();
-    } // end translate
-
     public function tree($model = 'Vis\Builder\Tree', $options = array())
     {
         $controller = new TreeCatalogController($model, $options);
@@ -110,41 +90,7 @@ class Jarboe
         return $controller;
     } // end tree
 
-    public static function geo($ip = false)
-    {
-        if (!$ip) {
-            $ip = \Request::getClientIp();
-        }
 
-        if ($ip == '127.0.0.1') {
-            // HACK:
-            $ip = '217.27.152.26';
-        }
-
-        $info = \DB::table('ip_geo_locations')->where('ip', $ip)->first();
-        if ($info) {
-            unset($info['id']);
-            return $info;
-        }
-
-        $url = 'http://geoip.elib.ru/cgi-bin/getdata.pl?fmt=json&ip=';
-        $json = file_get_contents($url . $ip);
-
-        $info = json_decode($json, true);
-        if (!$json || isset($info[$ip]['Error'])) {
-            return false;
-        }
-
-        $data = array(
-            'ip'        => $ip,
-            'town'      => $info[$ip]['Town'],
-            'latitude'  => $info[$ip]['Lat'],
-            'longitude' => $info[$ip]['Lon'],
-        );
-        \DB::table('ip_geo_locations')->insert($data);
-
-        return $data;
-    } // end geo
 
 }
 

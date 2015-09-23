@@ -25,7 +25,8 @@
         "classmap": [
             "src/controllers",
             "src/models",
-            "src/libs"
+            "src/libs",
+            "src/events"
         ],
         "psr-0": {
             "Vis\\Builder": "src/"

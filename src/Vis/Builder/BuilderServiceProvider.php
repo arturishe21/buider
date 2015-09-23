@@ -30,6 +30,11 @@ class BuilderServiceProvider extends ServiceProvider {
         include __DIR__.'/../../routes.php';
         include __DIR__.'/../../view_composers.php';
 
+        include __DIR__.'/../../events/settings.php';
+        include __DIR__.'/../../events/users.php';
+        include __DIR__.'/../../events/translate.php';
+        include __DIR__.'/../../events/table.php';
+
         \View::addNamespace('admin', __DIR__.'/../../views/');
     } // end boot
 

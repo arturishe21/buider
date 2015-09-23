@@ -35,8 +35,6 @@ class JarboeController
 
     public function __construct($options)
     {
-
-
         $this->options = $options; //$this->getPreparedOptions($options);
         $this->definition = $this->getTableDefinition($this->getOption('def_name'));
         $this->doPrepareDefinition();

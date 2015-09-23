@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Schema;
-
+use Illuminate\Support\Facades\Event;
 
 class QueryHandler 
 {
@@ -226,6 +226,8 @@ class QueryHandler
 
         $this->db->where('id', $values['id'])->update($updateData);
 
+        Event::fire("table.updated", array($this->dbOptions['table'], $values['id']));
+
         // FIXME: patterns
         foreach ($this->controller->getPatterns() as $pattern) {
             $pattern->update($values, $values['id']);
@@ -263,13 +265,11 @@ class QueryHandler
             }
         }
 
-       // exit($this->getOptionDB('table')."111111111111");
-
         $page = $this->db->where("id", $id)->select("*")->first();
-
+        Event::fire("table.clone", array($this->dbOptions['table'], $id));
         unset($page['id']);
 
-        $this->db->insert($page);
+        $results = $this->db->insert($page);
 
         $res = array(
             'id'     => $id,
@@ -296,6 +296,8 @@ class QueryHandler
             $pattern->delete($id);
         }
         $res = $this->db->where('id', $id)->delete();
+
+        Event::fire("table.delete", array($this->dbOptions['table'], $id));
 
         $res = array(
             'id'     => $id,

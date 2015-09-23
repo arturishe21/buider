@@ -21,9 +21,4 @@ class TreeController extends \Controller
         return $this->$method();
     } // end init
 
-    public function showThemeMain()
-    {
-        return View::make('admin::demo.main');
-    } // end showThemeMain
-
 }

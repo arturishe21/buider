@@ -76,7 +76,7 @@ class SettingsController extends \BaseController
         return Response::json(
             array(
                 'status'            => 'ok',
-                "ok_messages"       => "Запись успешно обновлена"
+                "ok_messages"       => $ok_messages
             )
         );
 

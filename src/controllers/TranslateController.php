@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Yandex\Translate\Translator;
+use Illuminate\Support\Facades\Event;
 
 class TranslateController extends Controller
 {
@@ -91,15 +92,22 @@ class TranslateController extends Controller
 
         Trans::reCacheTrans();
 
+        Event::fire("translate.created", array($model));
+
         return Response::json(
-            array('status' => 'ok', "ok_messages" => "Фраза успешно добавлена")
+                            array(
+                                "status" => "ok",
+                                "ok_messages" => "Фраза успешно добавлена")
         );
     }// end doSaveTranslate
 
     public function doDelelePhrase()
     {
         $id_record = Input::get("id");
-        $record = Trans::find($id_record)->delete();
+        $record = Trans::find($id_record);
+        Event::fire("translate.delete", array($record));
+
+        $record->delete();
 
         Trans::reCacheTrans();
 
@@ -155,11 +163,13 @@ class TranslateController extends Controller
         $lang = Input::get("name");
         $phrase = Input::get("value");
         $id = Input::get("pk");
-
+        exit("dd1111111111111");
         if ($id && $phrase && $lang) {
             $phrase_change = Translate::where("id_translations_phrase", $id)->where("lang", $lang)->first();
             $phrase_change->translate = $phrase;
             $phrase_change->save();
+
+            Event::fire("translate.update_phrase", array($phrase_change));
         }
         Trans::reCacheTrans();
     }//end doSavePhrase
