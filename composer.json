@@ -19,7 +19,8 @@
         "mpratt/embera": "1.8.*",
         "cartalyst/sentry": "2.1.*",
         "intervention/image": "2.*",
-        "mcamara/laravel-localization": "v0.15.1"
+        "mcamara/laravel-localization": "v0.15.1",
+        "venturecraft/revisionable": "1.*"
     },
     "autoload": {
         "classmap": [
