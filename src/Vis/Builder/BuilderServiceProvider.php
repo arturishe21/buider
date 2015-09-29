@@ -74,7 +74,7 @@ class BuilderServiceProvider extends ServiceProvider {
     public function provides()
     {
         return array(
-            'command.jarboe.prepare',
+            'command.jarboe.install',
             'command.jarboe.create_admin_user'
         );
     }
