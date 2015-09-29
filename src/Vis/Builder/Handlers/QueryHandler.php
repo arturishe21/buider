@@ -43,9 +43,8 @@ class QueryHandler
     {
 
         $this->db = DB::table($this->dbOptions['table']);
-
-
         $this->prepareSelectValues();
+
         if ($isSelectAll) {
             $this->db->addSelect($this->getOptionDB('table') .'.*');
         }
@@ -59,10 +58,12 @@ class QueryHandler
         $definitionName = $this->controller->getOption('def_name');
         $sessionPath = 'table_builder.'.$definitionName.'.order';
         $order = Session::get($sessionPath, array());
+
         if ($order && $isUserFilters) {
             $this->db->orderBy($this->getOptionDB('table') .'.'. $order['field'], $order['direction']);
         } else if ($this->hasOptionDB('order')) {
             $order = $this->getOptionDB('order');
+
             foreach ($order as $field => $direction) {
                 $this->db->orderBy($this->getOptionDB('table') .'.'. $field, $direction);
             }
@@ -76,7 +77,6 @@ class QueryHandler
             $this->db->whereBetween($betweenField, $betweenValues);
         }
 
-
         if ($this->hasOptionDB('pagination') && $isPagination) {
             $pagination = $this->getOptionDB('pagination');
             $perPage = $this->getPerPageAmount($pagination['per_page']);
@@ -84,6 +84,7 @@ class QueryHandler
             $paginator->setBaseUrl($pagination['uri']);
             return $paginator;
         }
+
         return $this->db->get();
     } // end getRows
 
@@ -215,6 +216,9 @@ class QueryHandler
         }
 
         $updateData = $this->_getRowQueryValues($values);
+        $def = $this->controller->getDefinition();
+
+        $model = $def['options']['model'];
         $this->_checkFields($updateData);
 
         if ($this->controller->hasCustomHandlerMethod('onUpdateRowData')) {
@@ -224,7 +228,9 @@ class QueryHandler
 
         $this->doPrependFilterValues($updateData);
 
-        $this->db->where('id', $values['id'])->update($updateData);
+        $modelObj = $model::find($values['id']);
+        $modelObj->setFillable(array_keys($updateData));
+        $modelObj->update($updateData);
 
         Event::fire("table.updated", array($this->dbOptions['table'], $values['id']));
 
@@ -325,8 +331,6 @@ class QueryHandler
         }
 
         $insertData = $this->_getRowQueryValues($values);
-
-
         $this->_checkFields($insertData);
 
         $id = false;
@@ -374,13 +378,6 @@ class QueryHandler
 
     private function doValidate($values)
     {
-        // FIXME:
-        /*
-        foreach ($values as $ident => $value) {
-            $field = $this->controller->getField($ident);
-            $field->doValidate($value);
-        }
-        */
         $errors = array();
 
         $definition = $this->controller->getDefinition();
@@ -419,16 +416,13 @@ class QueryHandler
     private function _getRowQueryValues($values)
     {
         $values = $this->_unsetFutileFields($values);
-        /*
-        array_walk($values, function(&$value, $ident) {
-            $field = $this->controller->getField($ident);
-            $value = $field->prepareQueryValue($value);
-        });
-        */
+
         $definition = $this->controller->getDefinition();
         $fields = $definition['fields'];
+
         foreach ($fields as $ident => $options) {
             $field = $this->controller->getField($ident);
+
             if ($field->isPattern()) {
                 continue;
             }
@@ -474,18 +468,24 @@ class QueryHandler
     {
         $definition = $this->controller->getDefinition();
         $fields = $definition['fields'];
+
         foreach ($fields as $ident => $options) {
             $field = $this->controller->getField($ident);
+
             if ($field->isPattern()) {
                 continue;
             }
             
             $tabs = $field->getAttribute('tabs');
+
             if ($tabs) {
+
                 foreach ($tabs as $tab) {
                     $this->_checkField($values, $ident, $field);
                 }
+
             } else {
+
                 if (isset($values[$ident])) {
                     $this->_checkField($values, $ident, $field);
                 }

@@ -6,12 +6,30 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Vis\Builder\Facades\Jarboe as JarboeBuilder;
 
-class Tree extends \Baum\Node 
+class Tree extends \Baum\Node
 {
+    use \Venturecraft\Revisionable\RevisionableTrait;
+
     protected $table = 'tb_tree';
     protected $parentColumn = 'parent_id';
-
     protected $_nodeUrl;
+
+    protected $fillable = array("title");
+
+    public function getFillable()
+    {
+        return $this->fillable;
+    }
+
+    public function setFillable(array $params)
+    {
+        $this->fillable = $params;
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+    }
 
     public static function flushCache()
     {
@@ -111,8 +129,6 @@ class Tree extends \Baum\Node
             }
             $slugs[] = $node->slug;
         }
-
-      //  exit(implode('/', $slugs));
 
         return implode('/', $slugs);
     } // end getGeneratedUrl

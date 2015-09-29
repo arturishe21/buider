@@ -62,7 +62,7 @@ class TreeCatalogController
     public function doUpdateNode()
     {
         $model = $this->model;
-        
+        echo $model;
         switch (Input::get('name')) {
             case 'template':
                 $node = $model::find(Input::get('pk'));
@@ -211,7 +211,7 @@ class TreeCatalogController
     private function handleShowCatalog()
     {
         $model = $this->model;
-        
+
         $tree = $model::all()->toHierarchy();
         
         $idNode  = Input::get('node', 1);

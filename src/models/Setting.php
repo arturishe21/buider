@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Event;
 
 class Setting extends Eloquent {
 
+    use \Venturecraft\Revisionable\RevisionableTrait;
+
+    protected $fillable = array('type', 'title', 'slug', 'value', 'group_type');
+
     protected $table = 'settings';
 
     //Некоторые правила валидиции
@@ -54,8 +58,8 @@ class Setting extends Eloquent {
         if(!$ids){
             return [];
         }
-        return SettingSelect::find($ids);
 
+        return SettingSelect::find($ids);
     } //end getItem
 
 
@@ -86,7 +90,7 @@ class Setting extends Eloquent {
             $settings->value = $full_path_img;
         }
 
-        $settings->save();
+        //$settings->save();
 
         //если тип список
         if ($data['type'] == 2) {

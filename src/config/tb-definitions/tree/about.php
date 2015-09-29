@@ -19,6 +19,7 @@ return array(
         'table_ident' => 'about-table',
         'action_url' => '/admin/tree?node='. $options['node'],
         'not_found' => 'NOT FOUND',
+        'model' => 'Vis\Builder\Tree',
     ),
     'position' => array(
         'tabs' => array(

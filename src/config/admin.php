@@ -94,6 +94,13 @@ return array(
                     'check' => function() {
                         return true;
                     }
+                ),
+                array(
+                    'title' => 'Контроль изменений',
+                    'link'  => '/revisions',
+                    'check' => function() {
+                        return true;
+                    }
                 )
             )
         ),
