@@ -63,7 +63,7 @@ class Setting extends Eloquent {
     } //end getItem
 
 
-    public static function doSaveSetting($data,$file)
+    public static function doSaveSetting($data, $file)
     {
         if ($data['id'] == 0) {
             $settings = new Setting;
@@ -90,7 +90,7 @@ class Setting extends Eloquent {
             $settings->value = $full_path_img;
         }
 
-        //$settings->save();
+        $settings->save();
 
         //если тип список
         if ($data['type'] == 2) {

@@ -163,7 +163,6 @@ class TranslateController extends Controller
         $lang = Input::get("name");
         $phrase = Input::get("value");
         $id = Input::get("pk");
-        exit("dd1111111111111");
         if ($id && $phrase && $lang) {
             $phrase_change = Translate::where("id_translations_phrase", $id)->where("lang", $lang)->first();
             $phrase_change->translate = $phrase;

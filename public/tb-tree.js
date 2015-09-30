@@ -353,7 +353,7 @@ var Tree =
             content : phrase["Эту операцию нельзя будет отменить."],
             buttons : '['+phrase['Нет']+']['+phrase['Да']+']'
         }, function(ButtonPressed) {
-            if (ButtonPressed === "Да") {
+            if (ButtonPressed === phrase['Да']) {
                 TableBuilder.showPreloader();
 
                 jQuery.ajax({

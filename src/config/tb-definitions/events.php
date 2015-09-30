@@ -4,7 +4,7 @@ return array(
     'db' => array(
         'table' => 'events',
         'order' => array(
-            'priority' => 'asc',
+            'created_at' => 'desc',
         ),
         'pagination' => array(
             'per_page' => 20,
