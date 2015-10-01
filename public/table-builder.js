@@ -578,7 +578,6 @@ var TableBuilder = {
 
     getCloneForm: function(id)
     {
-        alert(TableBuilder.getActionUrl());
         $.post(TableBuilder.getActionUrl(), {"query_type" : "clone_record", "id" : id},
             function(response){
                 location.href = location.href;

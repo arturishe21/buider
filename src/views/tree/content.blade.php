@@ -12,6 +12,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th style="width: 10px"></th>
                 <th>{{__cms('Название')}}</th>
                 <th>{{__cms('Шаблон')}}</th>
                 <th>Url</th>
@@ -21,12 +22,10 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
-
+        <tbody class="ui-sortable">
             @foreach($current['children'] as $item)
                 @include('admin::tree.content_row')
             @endforeach
-
         </tbody>
 
         <tfoot>
@@ -37,7 +36,6 @@
 
     <script>
     TableBuilder.action_url = "";
-    //alert(TableBuilder.action_url);
 
     // FIXME: move to js file
         $(document).ready(function(){

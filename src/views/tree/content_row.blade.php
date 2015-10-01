@@ -1,4 +1,7 @@
 <tr data-id="{{ $item->id }}">
+    <td class="tb-sort-me-gently" style="cursor:s-resize;">
+        <i class="fa fa-sort"></i>
+    </td>
     <td>
     @if($item->children()->count())
         <i class="fa fa-folder"></i>

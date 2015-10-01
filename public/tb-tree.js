@@ -75,10 +75,11 @@ var Tree =
                             "icon" : "https://cdn1.iconfinder.com/data/icons/nuove/32x32/actions/fileclose.png",
                             "action": function (obj) {
                                 var id = $(obj.reference[0].parentElement).data('id');
+
                                 if (id == 1) {
-                                    alert('Дропнуть полсайта? Ниет.');
                                     return;
                                 }
+
                                 var $btn = $('.node-del-'+ id);
                                 Tree.doDelete(id, $btn);
 
@@ -115,16 +116,7 @@ var Tree =
                 }
             });
         }).bind("select_node.jstree", function (e, data) {
-            //this binding lets
-            //us open all parents of the selected node
-            //console.log(data);
-            /*
-             if (typeof data.rslt !== 'undefined') {
-             data.rslt.obj.parents('.jstree-closed').each(function() {
-             data.inst.open_node(this);
-             });
-             }
-             */
+
         }).bind("dblclick.jstree", function (event) {
             var node = $(event.target).closest("li");
             window.location.href = window.location.origin + window.location.pathname + '?node='+ node.context.parentElement.dataset.id;
@@ -392,4 +384,37 @@ jQuery(document).ready(function(){
         var url = Core.delPrm("id_tree");
         window.history.pushState(url, '', url);
     });
+
+    jQuery('.ui-sortable').sortable({
+        scroll: true,
+        axis: "y",
+        handle: ".tb-sort-me-gently",
+        update: function ( event, ui ) {
+
+            var $currentItem =  ui.item;
+
+            var node = Core.urlParam('node');
+            if (!$.isNumeric(node)) {
+                node = 1;
+            }
+
+            jQuery.ajax({
+                url: window.location.href,
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                data: {
+                    id:               $currentItem.attr('data-id'),
+                    parent_id:        node,
+                    left_sibling_id:  $currentItem.prev().attr('data-id'),
+                    right_sibling_id: $currentItem.next().attr('data-id'),
+                    query_type:       'do_change_position'
+                },
+                success: function(response) {
+
+                }
+            });
+        }
+    });
+
 });
