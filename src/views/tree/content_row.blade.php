@@ -61,13 +61,15 @@
          <div class="btn-group hidden-phone pull-right">
               <a class="btn dropdown-toggle btn-default"  data-toggle="dropdown"><i class="fa fa-cog"></i> <i class="fa fa-caret-down"></i></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url($item->getUrl()) }}?show=1" target="_blank"><i class="fa fa-eye"></i> {{__cms('Предпросмотр')}} </a></li>
-                        <li>
+                         <li>
                             <a onclick="Tree.showEditForm('{{ $item->id }}');">
                                 <i class="fa fa-pencil"></i>
                                 {{__cms("Редактировать")}}
                             </a>
                         </li>
+                        <li><a href="{{ url($item->getUrl()) }}?show=1" target="_blank"><i class="fa fa-eye"></i> {{__cms('Предпросмотр')}} </a></li>
+                        <li><a onclick="TableBuilder.getCloneForm({{ $item->id }}, this);" ><i class="fa fa-copy"></i> {{__cms('Клонировать')}} </a></li>
+
                         <li>
                             <a onclick="Tree.doDelete('{{ $item->id }}', this);" class="node-del-{{$item->id}}" style="color: red">
                                 <i class="fa fa-times"></i>

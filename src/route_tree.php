@@ -7,7 +7,7 @@ try {
     $templates = Config::get('builder::tree.templates');
 
     if (!$slug || $slug == LaravelLocalization::setLocale()) {
-        $slug = "/";
+        $slug = "";
     }
 
     $nodes = $_model::where("slug", 'like', $slug)->get();

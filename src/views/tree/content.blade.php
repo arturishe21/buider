@@ -1,12 +1,10 @@
 
 <div class="tb-tree-content-inner">
-    
 
 @if ($current->hasTableDefinition())
     @section('table_form')
         {{ $form }}
     @stop
-
         {{ $table }}
 @else
 
@@ -25,10 +23,6 @@
         </thead>
         <tbody>
 
-            @if ($current->id == 1)
-                <?php $current->children->prepend($current); ?>
-            @endif
-
             @foreach($current['children'] as $item)
                 @include('admin::tree.content_row')
             @endforeach
@@ -42,6 +36,9 @@
     </div>
 
     <script>
+    TableBuilder.action_url = "";
+    //alert(TableBuilder.action_url);
+
     // FIXME: move to js file
         $(document).ready(function(){
             $('.tpl-editable').editable2({

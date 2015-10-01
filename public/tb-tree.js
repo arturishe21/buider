@@ -1,21 +1,21 @@
 'use strict';
 
-var Tree = 
+var Tree =
 {
     admin_prefix: '',
     parent_id: 1,
     node: 1,
-    
+
     setdbl: function() {
         return false;
-        $(".jstree-anchor").on('dblclick', function(){ 
+        $(".jstree-anchor").on('dblclick', function(){
             $(".jstree-anchor").unbind('dblclick');
             Tree.setdbl();
             console.log(this);
             window.location.href = window.location.origin + window.location.pathname + '?node='+ $(this).parent().data('id');
         });
-    }, // end 
-    
+    }, // end
+
     init: function()
     {
         Tree.initModalCallbacks();
@@ -81,7 +81,7 @@ var Tree =
                                 }
                                 var $btn = $('.node-del-'+ id);
                                 Tree.doDelete(id, $btn);
-                                
+
                                 $(obj.reference[0].parentElement).remove();
                             },
                             "separator_before" : true
@@ -91,19 +91,19 @@ var Tree =
             },
             "plugins" : [ "dnd", "search", "contextmenu" ]
         }).bind("move_node.jstree", function(e, data) {
-           //console.log(data);
-           //console.log($('#'+data.node.id).prev());
-           
-           var $current = jQuery('#'+data.node.id);
-           jQuery.ajax({
+            //console.log(data);
+            //console.log($('#'+data.node.id).prev());
+
+            var $current = jQuery('#'+data.node.id);
+            jQuery.ajax({
                 url: window.location.href,
                 type: 'POST',
                 dataType: 'json',
                 cache: false,
-                data: { 
-                    id:               $current.data('id'), 
+                data: {
+                    id:               $current.data('id'),
                     parent_id:        jQuery('#'+data.parent).data('id'),
-                    left_sibling_id:  $current.prev().data('id'), 
+                    left_sibling_id:  $current.prev().data('id'),
                     right_sibling_id: $current.next().data('id'),
                     query_type:       'do_change_position'
                 },
@@ -114,17 +114,17 @@ var Tree =
                     }
                 }
             });
-        }).bind("select_node.jstree", function (e, data) { 
+        }).bind("select_node.jstree", function (e, data) {
             //this binding lets
             //us open all parents of the selected node
             //console.log(data);
             /*
-            if (typeof data.rslt !== 'undefined') {
-                data.rslt.obj.parents('.jstree-closed').each(function() {
-                    data.inst.open_node(this);
-                });
-            }
-            */
+             if (typeof data.rslt !== 'undefined') {
+             data.rslt.obj.parents('.jstree-closed').each(function() {
+             data.inst.open_node(this);
+             });
+             }
+             */
         }).bind("dblclick.jstree", function (event) {
             var node = $(event.target).closest("li");
             window.location.href = window.location.origin + window.location.pathname + '?node='+ node.context.parentElement.dataset.id;
@@ -139,7 +139,7 @@ var Tree =
             }, 250);
         });
         Tree.setdbl();
-        
+
         $( "#fff" ).resizable({
             handles: 'n, s',
             onResize: function(size) {
@@ -167,7 +167,7 @@ var Tree =
             type: 'POST',
             dataType: 'json',
             cache: false,
-            data: { 
+            data: {
                 id: id,
                 is_active: isActive,
                 query_type: 'do_change_active_status'
@@ -176,19 +176,19 @@ var Tree =
             }
         });
     }, // end activeToggle
-    
+
     activeSetToggle: function(context, id)
     {
         var $table = $(context).closest('table');
         var $smoke = $table.parent().find('.node-active-smoke-lol');
         $smoke.show();
-        
+
         var data = $table.find(':input').serializeArray();
         data.push({ name: 'id', value: id });
         data.push({ name: 'query_type', value: 'do_change_active_status' });
-        
+
         console.table(data);
-        
+
         jQuery.ajax({
             url: window.location.href,
             type: 'POST',
@@ -200,13 +200,13 @@ var Tree =
             }
         });
     }, // end activeSetToggle
-    
+
     showCreateForm: function(id)
     {
         $('#cf-node', '#tree-create-modal').val(id);
         $('#tree-create-modal').modal('show');
     }, // end showCreateForm
-    
+
     initModalCallbacks: function()
     {
         $('#tree-create-modal').on('hidden.bs.modal', function() {
@@ -214,12 +214,12 @@ var Tree =
             $("#tree-create-modal-form")[0].reset();
         });
     }, // end initModalCallbacks
-    
+
     doCreateNode: function()
     {
         var data = $('#tree-create-modal-form').serializeArray();
         data.push({ name: 'query_type', value: 'do_create_node' });
-        
+
         jQuery.ajax({
             url: window.location.href,
             type: 'POST',
@@ -243,6 +243,12 @@ var Tree =
         TableBuilder.showPreloader();
 
         var urlPage = "?id_tree=" + id;
+
+        var node = Core.urlParam('node');
+        if ($.isNumeric(node)) {
+            urlPage += "&node=" + node;
+        }
+
         window.history.pushState(urlPage, '', urlPage);
 
         jQuery.ajax({
@@ -257,8 +263,6 @@ var Tree =
                     jQuery(TableBuilder.form_wrapper).html(response.html);
 
                     TableBuilder.initFroalaEditor();
-
-
                     jQuery(TableBuilder.form_edit).modal('show');
                     jQuery(TableBuilder.form_edit).find('input[data-mask]').each(function() {
                         var $input = jQuery(this);
@@ -268,12 +272,12 @@ var Tree =
                 } else {
                     TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                 }
-                
+
                 TableBuilder.hidePreloader();
             }
         });
     }, // end showEditForm
-    
+
     doEdit: function(id)
     {
         TableBuilder.showPreloader();
@@ -318,7 +322,7 @@ var Tree =
         console.table(selectMultiple);
         values = values.concat(selectMultiple);
         console.table(values);
-        
+
         jQuery.ajax({
             type: "POST",
             url: window.location.pathname,
@@ -345,7 +349,7 @@ var Tree =
             }
         });
     }, // end doEdit
-    
+
     doDelete: function(id, context)
     {
         jQuery.SmartMessageBox({
@@ -353,7 +357,7 @@ var Tree =
             content : phrase["Эту операцию нельзя будет отменить."],
             buttons : '['+phrase['Нет']+']['+phrase['Да']+']'
         }, function(ButtonPressed) {
-            if (ButtonPressed === phrase['Да']) {
+            if (ButtonPressed === "Да") {
                 TableBuilder.showPreloader();
 
                 jQuery.ajax({
