@@ -27,6 +27,9 @@ class ActionsHandler
             case 'clone':
                 return $this->onСloneButton($row);
 
+            case 'revisions':
+                return $this->onRevisionsButton($row);
+
             case 'preview':
                 return $this->onPreviewButton($row);
 
@@ -95,6 +98,20 @@ class ActionsHandler
         
         return $action;
     } // end onUpdateButton
+
+    private function onRevisionsButton($row)
+    {
+        if (!$this->isAllowed('revisions')) {
+            return '';
+        }
+
+        $action = View::make('admin::tb.action_revisions');
+        $action->row = $row;
+        $action->def = $this->def['revisions'];
+        $action->definition = $this->controller->getDefinition();
+
+        return $action;
+    }
 
     private function onСloneButton($row)
     {

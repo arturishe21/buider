@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
-
+use Vis\Builder\Revision;
 
 class RequestHandler 
 {
@@ -54,6 +54,12 @@ class RequestHandler
 
             case 'show_edit_form':
                 return $this->handleShowEditFormAction();
+
+            case 'show_revisions':
+                return $this->handleShowRevisionForm();
+
+            case 'return_revisions':
+                return $this->handleReturnRevisions();
 
             case 'save_edit_form':
                 return $this->handleSaveEditFormAction();
@@ -436,6 +442,38 @@ class RequestHandler
 
         return Response::json($data);
     } // end handleShowEditFormAction
+
+    protected function handleShowRevisionForm()
+    {
+        $idRow = $this->_getRowID();
+        $this->checkEditPermission($idRow);
+
+        $html = $this->controller->view->showRevisionForm($idRow);
+        $data = array(
+            'html' => $html,
+            'status' => true
+        );
+
+        return Response::json($data);
+    }
+
+    protected function handleReturnRevisions()
+    {
+        $idRevision = Input::get("id");
+        $thisRevision = Revision::find($idRevision);
+
+        $model = $thisRevision->revisionable_type;
+        $key = $thisRevision->key;
+        $modelObject = $model::find($thisRevision->revisionable_id);
+        $modelObject->$key = $thisRevision->old_value;
+        $modelObject->save();
+
+        $data = array(
+            'status' => true
+        );
+
+        return Response::json($data);
+    }
 
     protected function checkEditPermission($id)
     {

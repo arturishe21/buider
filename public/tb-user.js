@@ -2,7 +2,6 @@
 
 var TBUser = 
 {
-    
     admin_uri: '',
     groupRequiredFields: 1,
     id_user: null,
@@ -41,49 +40,9 @@ var TBUser =
         });
     }, // end uploadImage
     
-    doRemoveUser: function(context, id)
-    {
-        jQuery.SmartMessageBox({
-            title : "Удалить?",
-            content : "Эту операцию нельзя будет отменить.",
-            buttons : '[Нет][Да]'
-        }, function(ButtonPressed) {
-            if (ButtonPressed === "Да") {
-                jQuery.ajax({
-                    type: "POST",
-                    url: TBUser.admin_uri + '/tb/users/delete',
-                    data: { id: id },
-                    dataType: 'json',
-                    success: function(response) {
-
-                        if (response.status) {
-                            jQuery.smallBox({
-                                title : "Пользователь удален успешно",
-                                content : "",
-                                color : "#659265",
-                                iconSmall : "fa fa-check fa-2x fadeInRight animated",
-                                timeout : 4000
-                            });
-
-                            jQuery(context).parent().parent().remove();
-                        } else {
-                            jQuery.smallBox({
-                                title : "Что-то пошло не так, попробуйте позже",
-                                content : "",
-                                color : "#C46A69",
-                                iconSmall : "fa fa-times fa-2x fadeInRight animated",
-                                timeout : 4000
-                            });
-                        }
-                    }
-                });
-            }
-        });
-    }, // end removeUser
-
     deleteImage: function()
     {
-        jQuery('#tbu-avatar').attr('src', '/packages/yaro/table-builder/img/blank_avatar.gif');
+        jQuery('#tbu-avatar').attr('src', '/packages/vis/builder/img/blank_avatar.gif');
         jQuery('#tbu-image-input').val('');
     }, // end deleteImage
     
@@ -99,27 +58,15 @@ var TBUser =
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
-                    jQuery.smallBox({
-                        title : "Карточка пользователя успешно обновлена",
-                        content : "",
-                        color : "#659265",
-                        iconSmall : "fa fa-check fa-2x fadeInRight animated",
-                        timeout : 4000
-                    });
+                    TableBuilder.showSuccessNotification('Карточка пользователя успешно обновлена');
+
                 } else {
                     var errors = '';
                     jQuery(response.errors).each(function(key, val) {
                         errors += val +'<br>';
                     });
-                    
-                    jQuery.bigBox({
-                        //title : "Big Information box",
-                        content : errors,
-                        color : "#C46A69",
-                        //timeout: 6000,
-                        icon : "fa fa-warning shake animated",
-                        //number : "1",
-                    });
+
+                    TableBuilder.showErrorNotification(errors);
                 }
             }
         });
@@ -142,14 +89,9 @@ var TBUser =
             processData: false,
             success: function(response) {
                 if (response.status) {
-                    jQuery.smallBox({
-                        title : "Карточка пользователя успешно создана",
-                        content : "",
-                        color : "#659265",
-                        iconSmall : "fa fa-check fa-2x fadeInRight animated",
-                        timeout : 4000
-                    });
-                    
+
+                    TableBuilder.showSuccessNotification('Карточка пользователя успешно создана');
+
                     setTimeout(function() { 
                         window.location.href = TBUser.admin_uri + '/tb/users/'+ response.id;
                     }, 2000);
@@ -158,15 +100,8 @@ var TBUser =
                     jQuery(response.errors).each(function(key, val) {
                         errors += val +'<br>';
                     });
-                    
-                    jQuery.bigBox({
-                        //title : "Big Information box",
-                        content : errors,
-                        color : "#C46A69",
-                        //timeout: 6000,
-                        icon : "fa fa-warning shake animated",
-                        //number : "1",
-                    });
+
+                    TableBuilder.showErrorNotification(errors);
                 }
             }
         });
@@ -177,12 +112,8 @@ var TBUser =
     {
         var values = jQuery('#group-create-form').serializeArray();
         if (values.length != TBUser.groupRequiredFields) {
-            jQuery.bigBox({
-                content : 'Необходимо заполнить все поля',
-                color : "#C46A69",
-                timeout: 6000,
-                icon : "fa fa-warning shake animated",
-            });
+            TableBuilder.showErrorNotification('Необходимо заполнить все поля');
+
             return false;
         }
         
@@ -193,14 +124,8 @@ var TBUser =
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
-                    jQuery.smallBox({
-                        title : "Группа успешно создана",
-                        content : "",
-                        color : "#659265",
-                        iconSmall : "fa fa-check fa-2x fadeInRight animated",
-                        timeout : 4000
-                    });
-                    
+                    TableBuilder.showSuccessNotification("Группа успешно создана");
+
                     setTimeout(function() { 
                         window.location.href = TBUser.admin_uri + '/tb/groups/'+ response.id;
                     }, 2000);
@@ -209,15 +134,7 @@ var TBUser =
                     jQuery(response.errors).each(function(key, val) {
                         errors += val +'<br>';
                     });
-                    
-                    jQuery.bigBox({
-                        //title : "Big Information box",
-                        content : errors,
-                        color : "#C46A69",
-                        //timeout: 6000,
-                        icon : "fa fa-warning shake animated",
-                        //number : "1",
-                    });
+                    TableBuilder.showErrorNotification(errors);
                 }
             }
         });
@@ -228,12 +145,8 @@ var TBUser =
     {
         var values = jQuery('#group-edit-form').serializeArray();
         if (values.length != TBUser.groupRequiredFields) {
-            jQuery.bigBox({
-                content : 'Необходимо заполнить все поля',
-                color : "#C46A69",
-                timeout: 6000,
-                icon : "fa fa-warning shake animated",
-            });
+            TableBuilder.showErrorNotification('Необходимо заполнить все поля');
+
             return false;
         }
         
@@ -246,24 +159,14 @@ var TBUser =
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
-                    jQuery.smallBox({
-                        title : "Группа успешно обновлена",
-                        content : "",
-                        color : "#659265",
-                        iconSmall : "fa fa-check fa-2x fadeInRight animated",
-                        timeout : 4000
-                    });
+                    TableBuilder.showSuccessNotification("Группа успешно обновлена");
+
                 } else {
                     var errors = '';
                     jQuery(response.errors).each(function(key, val) {
                         errors += val +'<br>';
                     });
-                    
-                    jQuery.bigBox({
-                        content : errors,
-                        color : "#C46A69",
-                        icon : "fa fa-warning shake animated",
-                    });
+                    TableBuilder.showErrorNotification(errors);
                 }
             }
         });
@@ -272,8 +175,6 @@ var TBUser =
     
 };
 
-
-//
 jQuery(document).ready(function(){
     TBUser.init();
 });

@@ -113,11 +113,19 @@ var Core =
     setClickClosePop: function()
     {
         $(document).on('click', '#modal_form_edit .close, .modal-footer button', function (e) {
+            var url = Core.delPrm("revision_page");
+            if (url != undefined) {
+                window.history.pushState(url, '', url);
+            }
+
             var url = Core.delPrm("id");
-            window.history.pushState(url, '', url);
+
+            if (url != undefined) {
+                window.history.pushState(url, '', url);
+            }
+
         });
     } // end setClickClosePop
-
 };
 
 jQuery(document).ready(function() {

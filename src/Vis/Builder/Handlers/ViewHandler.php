@@ -102,6 +102,23 @@ class ViewHandler
 
         return $table->render();
     } // end showEditForm
+
+    public function showRevisionForm($id = false, $isTree = false)
+    {
+        if ($id) {
+            $table = View::make('admin::tb.modal_revision');
+        }
+        $table->is_tree = $isTree;
+
+        $table->def = $this->controller->getDefinition();
+        $table->controller = $this->controller;
+
+        $model = $table->def['options']['model'];
+        $objModel = $model::find($id);
+        $table->history = $objModel->revisionHistory()->orderBy("created_at", "desc")->get();
+
+        return $table->render();
+    }
     
     public function getRowHtml($data)
     {

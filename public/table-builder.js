@@ -33,9 +33,6 @@ var TableBuilder = {
         TableBuilder.initDoubleClickEditor();
         TableBuilder.initSearchOnEnterPressed();
         TableBuilder.initSelect2Hider();
-
-        //  TableBuilder.initFroalaEditor();
-        //TableBuilder.initImageEditable();
     }, // end init
 
     optionsInit : function(options)
@@ -57,7 +54,6 @@ var TableBuilder = {
             {
                 inlineMode: false,
                 imageUploadURL: '/admin/upload_image',
-
                 minHeight:100,
                 fileUploadURL: "/admin/upload_file",
                 imagesLoadURL: "/admin/load_image",
@@ -65,150 +61,13 @@ var TableBuilder = {
                 language: langEditor,
             });
 
-
         $("a[href='http://editor.froala.com']").parent().hide();
     },
-
+    
     getActionUrl: function()
     {
         return TableBuilder.action_url ? TableBuilder.action_url : '/admin/handle/tree';
     }, // end getActionUrl
-
-    initImageEditable: function()
-    {
-        TableBuilder.initSeveralImageEditable();
-        return;
-        (function (e) {
-            "use strict";
-            var t = function (e) {
-                this.init("image", e, t.defaults)
-            };
-            e.fn.editableutils.inherit(t, e.fn.editabletypes.abstractinput);
-            e.extend(t.prototype, {
-                render: function () {
-                    this.$input = this.$tpl.find("input")
-                },
-                value2html: function (t, n) {
-                    if (!t) {
-                        e(n).empty();
-                        return
-                    }
-                    var r = e("<div>").text(t.tbalt).html() + "" + e("<div>").text(t.tbtitle).html() +
-                        "" + e("<div>").text(t.tbident).html();
-                    e(n).html(r)
-                },
-                html2value: function (e) {
-                    return null
-                },
-                value2str: function (e) {
-                    var t = "";
-                    if (e)
-                        for (var n in e)
-                            t = t + n + ":" + e[n] + ";";
-                    return t
-                },
-                str2value: function (e) {
-                    return e
-                },
-                value2input: function (e) {
-                    if (!e)
-                        return;
-                    this.$input.filter('[name="tbalt"]').val(e.tbalt);
-                    this.$input.filter('[name="tbtitle"]').val(e.tbtitle);
-                    this.$input.filter('[name="tbident"]').val(e.tbident);
-                },
-                input2value: function () {
-                    return {
-                        tbalt:   this.$input.filter('[name="tbalt"]').val(),
-                        tbtitle: this.$input.filter('[name="tbtitle"]').val(),
-                        tbident: this.$input.filter('[name="tbident"]').val()
-                    };
-                },
-                activate: function () {
-                    this.$input.filter('[name="tbalt"]').focus()
-                },
-                autosubmit: function () {
-                    this.$input.keydown(function (t) {
-                        t.which === 13 && e(this).closest("form").submit()
-                    })
-                }
-            });
-            t.defaults = e.extend({}, e.fn.editabletypes.abstractinput.defaults, {
-                tpl: '<div class="editable-image"><label><span>Alt: </span><input type="text" name="tbalt" class="input-editable"></label></div><div class="editable-image"><label><span>Title: </span><input type="text" name="tbtitle" class="input-editable"></label></div><div><input type="hidden" name="tbident"></div>',
-                inputclass: ""
-            });
-            e.fn.editabletypes.image = t
-        })(window.jQuery);
-    }, // end initImageEditable
-
-    initSeveralImageEditable: function()
-    {
-        return;
-        (function (e) {
-            "use strict";
-            var t = function (e) {
-                this.init("image", e, t.defaults)
-            };
-            e.fn.editableutils.inherit(t, e.fn.editabletypes.abstractinput);
-            e.extend(t.prototype, {
-                render: function () {
-                    this.$input = this.$tpl.find("input")
-                },
-                value2html: function (t, n) {
-                    if (!t) {
-                        e(n).empty();
-                        return
-                    }
-                    var r = e("<div>").text(t.tbalt).html() + "" + e("<div>").text(t.tbtitle).html() +
-                        "" + e("<div>").text(t.tbident).html() +
-                        "" + e("<div>").text(t.tbnum).html();
-                    e(n).html(r)
-                },
-                html2value: function (e) {
-                    return null
-                },
-                value2str: function (e) {
-                    var t = "";
-                    if (e)
-                        for (var n in e)
-                            t = t + n + ":" + e[n] + ";";
-                    return t
-                },
-                str2value: function (e) {
-                    return e
-                },
-                value2input: function (e) {
-                    if (!e)
-                        return;
-                    this.$input.filter('[name="tbnum"]').val(e.tbnum);
-                    this.$input.filter('[name="tbalt"]').val(e.tbalt);
-                    this.$input.filter('[name="tbtitle"]').val(e.tbtitle);
-                    this.$input.filter('[name="tbident"]').val(e.tbident);
-                },
-                input2value: function () {
-                    return {
-                        tbnum:   this.$input.filter('[name="tbnum"]').val(),
-                        tbalt:   this.$input.filter('[name="tbalt"]').val(),
-                        tbtitle: this.$input.filter('[name="tbtitle"]').val(),
-                        tbident: this.$input.filter('[name="tbident"]').val()
-                    };
-                },
-                activate: function () {
-                    this.$input.filter('[name="tbalt"]').focus()
-                },
-                autosubmit: function () {
-                    this.$input.keydown(function (t) {
-                        t.which === 13 && e(this).closest("form").submit()
-                    })
-                }
-            });
-            t.defaults = e.extend({}, e.fn.editabletypes.abstractinput.defaults, {
-                tpl: '<div class="editable-image"><label><span>Alt: </span><input type="text" name="tbalt" class="input-editable"></label></div><div class="editable-image"><label><span>Title: </span><input type="text" name="tbtitle" class="input-editable"></label></div><div><input type="hidden" name="tbident"></div><div><input type="hidden" name="tbnum"></div>',
-                inputclass: ""
-            });
-            e.fn.editabletypes.image = t
-        })(window.jQuery);
-    }, // end initSeveralImageEditable
 
     initSingleImageEditable: function()
     {
@@ -248,9 +107,9 @@ var TableBuilder = {
                         return;
                     }
                     var html = '<b>' + jQuery('<div>').text(value.tbalt).html() + '</b>, '
-                        + jQuery('<div>').text(value.tbtitle).html() + '</b>, '
-                        + jQuery('<div>').text(value.tbident).html() + '</b>, '
-                        + jQuery('<div>').text(value.tbnum).html();
+                             + jQuery('<div>').text(value.tbtitle).html() + '</b>, '
+                             + jQuery('<div>').text(value.tbident).html() + '</b>, '
+                             + jQuery('<div>').text(value.tbnum).html();
                     jQuery(this).html(html);
                 }
             });
@@ -295,9 +154,9 @@ var TableBuilder = {
                         return;
                     }
                     var html = '<b>' + jQuery('<div>').text(value.tbalt).html() + '</b>, '
-                        + jQuery('<div>').text(value.tbtitle).html() + '</b>, '
-                        + jQuery('<div>').text(value.tbident).html() + '</b>, '
-                        + jQuery('<div>').text(value.tbnum).html();
+                             + jQuery('<div>').text(value.tbtitle).html() + '</b>, '
+                             + jQuery('<div>').text(value.tbident).html() + '</b>, '
+                             + jQuery('<div>').text(value.tbnum).html();
                     jQuery(this).html(html);
                 }
             });
@@ -318,8 +177,6 @@ var TableBuilder = {
     }, // end initSearchOnEnterPressed
 
     getOptions: function(options) {
-
-        //alert("dd");
         var defaultOptions = {
             lang: {},
             ident: null,
@@ -334,8 +191,6 @@ var TableBuilder = {
         };
 
         var options = jQuery.extend(defaultOptions, options);
-
-        // alert(TableBuilder.options.action_url)
 
         TableBuilder.checkOptions(options);
 
@@ -383,44 +238,23 @@ var TableBuilder = {
                     return {"name": this.name, "value": 0};
                 }).get()
         );
-
+        
         var $posting = jQuery.post(TableBuilder.getActionUrl(), data);
 
         $posting.done(function(response) {
             window.location.replace(window.location.origin + window.location.pathname + window.location.search);
-            //window.location.replace(response.url);
-            /*
-             TableBuilder.hideProgressBar();
-
-             $form.find('tbody')
-             .fadeOut("fast")
-             .html(response.tbody)
-             .fadeIn("fast");
-
-             $form.find('.tb-pagination')
-             .fadeOut("fast")
-             .html(response.pagination)
-             .fadeIn("fast");
-
-             if (jQuery.isFunction(TableBuilder.options.onSearchResponse)) {
-             TableBuilder.options.onSearchResponse(response);
-             }
-             TableBuilder.initDoubleClickEditor();
-             */
         });
 
     }, // end search
 
     showProgressBar: function()
     {
-        jQuery('#'+TableBuilder.options.ident)
-            .find('.ui-overlay').fadeIn();
+        jQuery('#'+TableBuilder.options.ident).find('.ui-overlay').fadeIn();
     }, // end showProgressBar
 
     hideProgressBar: function()
     {
-        jQuery('#'+TableBuilder.options.ident)
-            .find('.ui-overlay').fadeOut();
+        jQuery('#'+TableBuilder.options.ident).find('.ui-overlay').fadeOut();
     }, // end hideProgressBar
 
     initDoubleClickEditor: function()
@@ -484,7 +318,6 @@ var TableBuilder = {
             {name: "value", value: value}
         ];
 
-
         var $posting = jQuery.post(TableBuilder.getActionUrl(), data);
 
         $posting.done(function(response) {
@@ -497,14 +330,14 @@ var TableBuilder = {
         });
     }, // end saveFastEdit
 
-    getUrlParameter: function(sParam)
+    getUrlParameter: function(sParam) 
     {
         var sPageURL = window.location.search.substring(1);
         var sURLVariables = sPageURL.split('&');
-        for (var i = 0; i < sURLVariables.length; i++)
+        for (var i = 0; i < sURLVariables.length; i++) 
         {
             var sParameterName = sURLVariables[i].split('=');
-            if (sParameterName[0] == sParam)
+            if (sParameterName[0] == sParam) 
             {
                 return sParameterName[1];
             }
@@ -550,7 +383,7 @@ var TableBuilder = {
         if (TableBuilder.onGetCreateForm) {
             TableBuilder.onGetCreateForm();
         }
-        TableBuilder.showPreloader();
+          TableBuilder.showPreloader();
 
         if ($(".table_form_create #modal_form").size() == 0) {
             $.post(TableBuilder.getActionUrl(),{"query_type" : "show_add_form"},
@@ -566,22 +399,22 @@ var TableBuilder = {
         }
 
     }, // end getCreateForm
-
+    
     initSelect2Hider: function()
     {
         jQuery('.modal-dialog').on('click', function() {
             jQuery('.select2-enabled[id^="many2many"]').select2("close");
             jQuery('.select2-hidden-accessible').hide();
         });
-
+        
     }, // end initSelect2Hider
 
     getCloneForm: function(id)
     {
         $.post(TableBuilder.getActionUrl(), {"query_type" : "clone_record", "id" : id},
             function(response){
-                location.href = location.href;
-            },"json");
+               // location.href = location.href;
+        },"json");
     },
 
     handleStartLoad: function()
@@ -589,6 +422,11 @@ var TableBuilder = {
         var idPage = Core.urlParam('id');
         if ($.isNumeric(idPage)) {
             TableBuilder.getEditForm(idPage);
+        }
+
+        var idRevisionPage = Core.urlParam('revision_page');
+        if ($.isNumeric(idRevisionPage)) {
+            TableBuilder.getRevisions(idRevisionPage);
         }
 
     }, // end handleStartLoad
@@ -613,31 +451,15 @@ var TableBuilder = {
             data: data,
             dataType: 'json',
             success: function(response) {
-                console.log('edit form');
-//modal_wrapper
                 if (response.status) {
                     jQuery(TableBuilder.form_wrapper).html(response.html);
                     TableBuilder.initFroalaEditor();
 
-
                     jQuery(TableBuilder.form_edit).modal('show');
-                    jQuery(TableBuilder.form_edit).find('input[data-mask]').each(function() {
+                     jQuery(TableBuilder.form_edit).find('input[data-mask]').each(function() {
                         var $input = jQuery(this);
                         $input.mask($input.attr('data-mask'));
                     });
-
-
-
-                    // jQuery(context).parent().parent().attr('data-editing', 'true');
-
-                    //   TableBuilder.initSingleImageEditable();
-                    //   TableBuilder.initMultipleImageEditable();
-                    // TableBuilder.initSummernoteFullscreen();
-                    //   TableBuilder.initSelect2Hider();
-
-                    /* if (TableBuilder.afterGetEditForm) {
-                     TableBuilder.afterGetEditForm();
-                     }*/
                 } else {
                     TableBuilder.showErrorNotification("Что-то пошло не так, попробуйте позже");
                 }
@@ -647,16 +469,62 @@ var TableBuilder = {
         });
     }, // end getEditForm
 
-    initSummernoteFullscreen: function()
+    getRevisions: function(id, context)
     {
-        /*  jQuery('[data-event="fullscreen"]').click(function(){
-         if ($(this).hasClass('active')) {
-         jQuery('.modal-dialog').css({width: jQuery('.modal-dialog').data('width'), margin: '30px auto'});
-         } else {
-         jQuery('.modal-dialog').css({width: '100%', margin: '0px'});
-         }
-         });*/
-    }, // end initSummernoteFullscreen
+        var urlPage = "?revision_page=" + id;
+        window.history.pushState(urlPage, '', urlPage);
+        TableBuilder.showPreloader();
+
+        var data = [
+            {name: "query_type", value: "show_revisions"},
+            {name: "id", value: id},
+        ];
+        jQuery.ajax({
+            type: "POST",
+            url: TableBuilder.getActionUrl(),
+            data: data,
+            dataType: 'json',
+            success: function(response) {
+                if (response.status) {
+                    jQuery(TableBuilder.form_wrapper).html(response.html);
+                    jQuery(TableBuilder.form_edit).modal('show');
+                } else {
+                    TableBuilder.showErrorNotification("Что-то пошло не так, попробуйте позже");
+                }
+
+                TableBuilder.hidePreloader();
+            }
+        });
+    },
+
+    getReturnHistory: function(id)
+    {
+        var data = [
+            {name: "query_type", value: "return_revisions"},
+            {name: "id", value: id},
+        ];
+        jQuery.ajax({
+            type: "POST",
+            url: TableBuilder.getActionUrl(),
+            data: data,
+            dataType: 'json',
+            success: function(response) {
+                if (response.status) {
+
+                    TableBuilder.showSuccessNotification("Сохранено");
+
+                    jQuery(TableBuilder.form_edit).modal('hide');
+                    window.history.back();
+                    return;
+
+                } else {
+                    TableBuilder.showErrorNotification("Что-то пошло не так, попробуйте позже");
+                }
+
+                TableBuilder.hidePreloader();
+            }
+        });
+    },
 
     closeEditForm: function()
     {
@@ -674,30 +542,6 @@ var TableBuilder = {
             });
     }, // end closeEditForm
 
-    saveEditForm: function()
-    {
-        /*TableBuilder.showProgressBar();
-
-         var $form = jQuery('#'+ TableBuilder.options.form_ident);
-
-         var data = $form.serializeArray();
-         data.push({ name: "query_type", value: "save_edit_form" });
-
-         data = data.concat(
-         $form.find('input[type=checkbox]:not(:checked)')
-         .map(function() {
-         return {"name": this.name, "value": 0};
-         }).get()
-         );
-
-         var $posting = jQuery.post(TableBuilder.getActionUrl(), data);
-
-
-         $posting.done(function(response) {
-         alert("ddd");
-         //location.reload();
-         });*/
-    }, //saveEditForm
 
     insert: function()
     {
@@ -842,8 +686,6 @@ var TableBuilder = {
             }
         });
 
-
-
         // FIXME:
         if (TableBuilder.onDoEdit) {
             values = TableBuilder.onDoEdit(values);
@@ -856,18 +698,14 @@ var TableBuilder = {
                     return {"name": this.name, "value": 0};
                 }).get()
         );
-
+        
         var selectMultiple = [];
         jQuery(TableBuilder.edit_form).find('select[multiple="multiple"]').each(function(i, value) {
             if (!$(this).val()) {
                 selectMultiple.push({"name": this.name, "value": ''});
             }
         })
-        //  console.table(selectMultiple);
-        values = values.concat(selectMultiple);
-        //  console.table(values);
 
-        //   console.log(values);
         jQuery.ajax({
             type: "POST",
             url: TableBuilder.getActionUrl(),
@@ -886,7 +724,7 @@ var TableBuilder = {
                         window.history.back();
                         return;
                     }
-
+                    
                     jQuery(TableBuilder.form_edit).modal('hide');
 
                     jQuery('#wid-id-1').find('tr[id-row="'+id+'"]').replaceWith(response.html);
@@ -937,7 +775,7 @@ var TableBuilder = {
                 };
             }
         });
-
+        
         var selectMultiple = [];
         jQuery(TableBuilder.create_form).find('select[multiple="multiple"]').each(function(i, value) {
             if (!$(this).val()) {
@@ -978,7 +816,7 @@ var TableBuilder = {
                         window.history.back();
                         return;
                     }
-
+                    
                     jQuery('#wid-id-1').find('tbody').prepend(response.html);
 
                     TableBuilder.removeInputValues(TableBuilder.form);
@@ -1029,36 +867,36 @@ var TableBuilder = {
         } else {
             data.append('__node', TableBuilder.getUrlParameter('node'));
         }
-
+        
         var $progress = jQuery(context).parent().parent().parent().parent().parent().find('.progress-bar');
         //console.log($progress);
-
+        
         jQuery.ajax({
             xhr: function() {
                 var xhr = new window.XMLHttpRequest();
                 xhr.upload.addEventListener("progress", function(evt) {
-                    console.log(evt);
+                    console.log(evt); 
                     if (evt.lengthComputable) {
                         var percentComplete = evt.loaded / evt.total;
                         percentComplete = percentComplete * 100;
-                        console.log('upl :'+ percentComplete);
-
+                        console.log('upl :'+ percentComplete); 
+                        
                         percentComplete = percentComplete +'%';
                         //Do something with upload progress here
-
+                        
                         $progress.width(percentComplete);
                     }
-                }, false);
-
-                xhr.addEventListener("progress", function(evt) {
-                    if (evt.lengthComputable) {
-                        var percentComplete = evt.loaded / evt.total;
+               }, false);
+        
+               xhr.addEventListener("progress", function(evt) {
+                   if (evt.lengthComputable) {
+                       var percentComplete = evt.loaded / evt.total;
                         console.log('dwl :'+ percentComplete);
-                        //Do something with download progress
-                    }
-                }, false);
-
-                return xhr;
+                       //Do something with download progress
+                   }
+               }, false);
+        
+               return xhr;
             },
             data: data,
             type: "POST",
@@ -1072,7 +910,7 @@ var TableBuilder = {
 
                     TableBuilder.picture[ident] = response.data.sizes.original;
 
-                    //  alert( TableBuilder.picture[ident]);
+                  //  alert( TableBuilder.picture[ident]);
 
                     var html = '<div style="position: relative; display: inline-block;">';
                     html += '<img class="image-attr-editable" ';
@@ -1100,103 +938,103 @@ var TableBuilder = {
 
     uploadMultipleImages: function(context, ident)
     {
-        $(".no_photo").hide();
-        var arr = context.files;
-        for (var index = 0; index < arr.length; ++index) {
+      $(".no_photo").hide();
+      var arr = context.files;
+      for (var index = 0; index < arr.length; ++index) {
 
-            var data = new FormData();
-            data.append("image", context.files[index]);
-            data.append('ident', ident);
-            data.append('query_type', 'upload_photo');
+          var data = new FormData();
+          data.append("image", context.files[index]);
+          data.append('ident', ident);
+          data.append('query_type', 'upload_photo');
 
-            if (TableBuilder.getUrlParameter('node') == undefined) {
-                data.append('__node', TableBuilder.getUrlParameter('id_tree'));
-            } else {
-                data.append('__node', TableBuilder.getUrlParameter('node'));
-            }
+          if (TableBuilder.getUrlParameter('node') == undefined) {
+              data.append('__node', TableBuilder.getUrlParameter('id_tree'));
+          } else {
+              data.append('__node', TableBuilder.getUrlParameter('node'));
+          }
 
-            var $progress = jQuery(context).parent().parent().parent().parent().parent().find('.progress-bar');
+          var $progress = jQuery(context).parent().parent().parent().parent().parent().find('.progress-bar');
 
-            var num = 0;
+          var num = 0;
 
-            if (typeof TableBuilder.storage[ident] !== 'undefined') {
-                num = TableBuilder.storage[ident].length;
-            }
-            data.append('num', num);
+          if (typeof TableBuilder.storage[ident] !== 'undefined') {
+              num = TableBuilder.storage[ident].length;
+          }
+          data.append('num', num);
 
-            jQuery.ajax({
-                xhr: function () {
-                    var xhr = new window.XMLHttpRequest();
-                    xhr.upload.addEventListener("progress", function (evt) {
-                        console.log(evt);
-                        if (evt.lengthComputable) {
-                            var percentComplete = evt.loaded / evt.total;
-                            percentComplete = percentComplete * 100;
-                            console.log('upl :' + percentComplete);
+          jQuery.ajax({
+              xhr: function () {
+                  var xhr = new window.XMLHttpRequest();
+                  xhr.upload.addEventListener("progress", function (evt) {
+                      console.log(evt);
+                      if (evt.lengthComputable) {
+                          var percentComplete = evt.loaded / evt.total;
+                          percentComplete = percentComplete * 100;
+                          console.log('upl :' + percentComplete);
 
-                            percentComplete = percentComplete + '%';
-                            //Do something with upload progress here
+                          percentComplete = percentComplete + '%';
+                          //Do something with upload progress here
 
-                            $progress.width(percentComplete);
-                        }
-                    }, false);
+                          $progress.width(percentComplete);
+                      }
+                  }, false);
 
-                    xhr.addEventListener("progress", function (evt) {
-                        if (evt.lengthComputable) {
-                            var percentComplete = evt.loaded / evt.total;
-                            console.log('dwl :' + percentComplete);
-                            //Do something with download progress
-                        }
-                    }, false);
+                  xhr.addEventListener("progress", function (evt) {
+                      if (evt.lengthComputable) {
+                          var percentComplete = evt.loaded / evt.total;
+                          console.log('dwl :' + percentComplete);
+                          //Do something with download progress
+                      }
+                  }, false);
 
-                    return xhr;
-                },
-                data: data,
-                type: "POST",
-                url: TableBuilder.getActionUrl(),
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response.status) {
+                  return xhr;
+              },
+              data: data,
+              type: "POST",
+              url: TableBuilder.getActionUrl(),
+              cache: false,
+              contentType: false,
+              processData: false,
+              success: function (response) {
+                  if (response.status) {
 
-                        $progress.width('0%');
+                      $progress.width('0%');
 
 
-                        TableBuilder.storage[ident].push(
-                            response.data.sizes.original
-                        );
-                        //  alert(TableBuilder.storage[ident].length)
+                      TableBuilder.storage[ident].push(
+                          response.data.sizes.original
+                      );
+                    //  alert(TableBuilder.storage[ident].length)
 
-                        var html = '';
-                        html += '<li>';
-                        html += '<img src="' + response.link + '" class="images-attr-editable" ' +
-                        'data-tbnum="' + num + '" ' +
-                        'data-tbalt="" ' +
-                        'data-tbtitle="" ' +
-                        'data_src_original="'+response.data.sizes.original+'"'+
-                        'data-tbident="' + ident + '" />';
-                        html += '<div class="tb-btn-delete-wrap">';
-                        html += '<button class="btn btn-default btn-sm tb-btn-image-delete" '
-                        html += 'type="button" '
-                        html += "onclick=\"TableBuilder.deleteImage('" + num + "','" + ident + "', this);\">"
-                        html += '<i class="fa fa-times"></i>'
-                        html += '</button>'
-                        html += '</div>';
-                        html += '</li>';
+                      var html = '';
+                      html += '<li>';
+                      html += '<img src="' + response.link + '" class="images-attr-editable" ' +
+                      'data-tbnum="' + num + '" ' +
+                      'data-tbalt="" ' +
+                      'data-tbtitle="" ' +
+                      'data_src_original="'+response.data.sizes.original+'"'+
+                      'data-tbident="' + ident + '" />';
+                      html += '<div class="tb-btn-delete-wrap">';
+                      html += '<button class="btn btn-default btn-sm tb-btn-image-delete" '
+                      html += 'type="button" '
+                      html += "onclick=\"TableBuilder.deleteImage('" + num + "','" + ident + "', this);\">"
+                      html += '<i class="fa fa-times"></i>'
+                      html += '</button>'
+                      html += '</div>';
+                      html += '</li>';
 
-                        // FIXME: too ugly to execute
-                        jQuery(context).parent().parent().parent().parent().find('.tb-uploaded-image-container').children().append(html);
+                      // FIXME: too ugly to execute
+                      jQuery(context).parent().parent().parent().parent().find('.tb-uploaded-image-container').children().append(html);
 
-                        // TableBuilder.initMultipleImageEditable();
-                    } else {
+                     // TableBuilder.initMultipleImageEditable();
+                  } else {
 
-                        TableBuilder.showErrorNotification(phrase["Ошибка при загрузке изображения"]);
+                      TableBuilder.showErrorNotification(phrase["Ошибка при загрузке изображения"]);
 
-                    }
-                }
-            });
-        }
+                  }
+              }
+          });
+      }
     }, // end uploadMultipleImages
 
     deleteImage: function(num, ident, context)
@@ -1216,7 +1054,7 @@ var TableBuilder = {
 
 
     }, // end deleteImage
-
+    
     deleteSingleImage: function(ident, context)
     {
         var $imageWrapper = jQuery(context).parent().parent();
@@ -1512,7 +1350,7 @@ var TableBuilder = {
             dataType: 'json',
             success: function(response) {
                 jQuery(context).parent().parent().parent().removeClass('open');
-
+                
                 if (response.status) {
                     if (response.is_hide_rows) {
                         jQuery(response.ids).each(function(key, val) {
@@ -1537,11 +1375,11 @@ var TableBuilder = {
             }
         });
     }, // end doMultiActionCallWithOption
-
-    saveOrder: function(order)
+    
+    saveOrder: function(order) 
     {
         console.log(order);
-
+        
         jQuery.ajax({
             type: "POST",
             url: TableBuilder.getActionUrl(),
@@ -1557,7 +1395,7 @@ var TableBuilder = {
             }
         });
     }, // end saveOrder
-
+    
     openImageStorageModal: function(context, storageTypeSelect)
     {
         jQuery.ajax({
@@ -1566,12 +1404,12 @@ var TableBuilder = {
             data: { query_type: 'image_storage', storage_type: 'show_modal', "__node": TableBuilder.getUrlParameter('node'), storage_type_select: storageTypeSelect },
             dataType: 'json',
             success: function(response) {
-                console.log(response);
+            console.log(response);
                 if (response.status) {
                     $(TableBuilder.image_storage_wrapper).html(response.html);
                     $('.image_storage_wrapper').show();
                     $('.tb-modal:visible').addClass('superbox-modal-hide').hide();
-
+                    
                     Superbox.input = $(context).parent().parent().find('input');
                     Superbox.type_select = storageTypeSelect;
                 } else {
@@ -1580,13 +1418,13 @@ var TableBuilder = {
             }
         });
     }, // end openImageStorageModal
-
+    
     closeImageStorageModal: function()
     {
         $('.image_storage_wrapper').hide();
         $('.superbox-modal-hide').removeClass('superbox-modal-hide').show();
     }, // end closeImageStorageModal
-
+    
     openFileStorageModal: function(context)
     {
         jQuery.ajax({
@@ -1595,12 +1433,12 @@ var TableBuilder = {
             data: { query_type: 'file_storage', storage_type: 'show_modal', "__node": TableBuilder.getUrlParameter('node') },
             dataType: 'json',
             success: function(response) {
-                console.log(response);
+            console.log(response);
                 if (response.status) {
                     $(TableBuilder.image_storage_wrapper).html(response.html);
                     $('.image_storage_wrapper').show();
                     $('.tb-modal:visible').addClass('superbox-modal-hide').hide();
-
+                    
                     FileStorage.input = $(context).parent().parent().find('input');
                 } else {
                     TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
@@ -1611,7 +1449,7 @@ var TableBuilder = {
 
     reLoadTable : function ()
     {
-        alert(window.location.href);
+      //  alert(window.location.href);
     } //end reLoadTable
 };
 

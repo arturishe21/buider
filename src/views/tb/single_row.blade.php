@@ -31,6 +31,11 @@
                        data-original-title="{{ $def['fast-edit']['cancel']['caption'] or 'Cancel edit' }}"
                        onclick="TableBuilder.closeFastEdit(this, 'cancel');"></i>
                 </div>
+
+            @elseif($field->getAttribute('result_show'))
+
+               {{$field->getReplaceStr($row)}}
+
             @else
                 <span>{{ $field->getListValue($row) }}</span>
             @endif

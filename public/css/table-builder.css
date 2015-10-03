@@ -294,3 +294,20 @@ div.table-page #edit_form .nav-tabs li a,
 div.table-page #create_form .nav-tabs li a {
     color: #333 !important;
 }
+.content_revisions{
+    padding: 10px;
+}
+.revisions{
+    width: 100%;
+}
+.revisions td{
+    padding: 5px;
+}
+.revisions thead td{
+    font-weight: bold;
+}
+.value_old_new{
+    max-height: 200px;
+    overflow: auto;
+    max-width: 300px;
+}

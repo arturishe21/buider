@@ -124,6 +124,23 @@ abstract class AbstractField
         return $this->getValue($row);
     } // end getListValue
 
+    public function getReplaceStr($row)
+    {
+        if ($this->getAttribute('result_show')) {
+
+            $arrParam = explode("%", $this->getAttribute('result_show'));
+
+            foreach ($arrParam as $k => $val) {
+                if (isset($row[$val])) {
+                    $arrParam[$k] = $row[$val];
+                }
+            }
+
+            return implode("", $arrParam);
+        }
+
+    } // end getListValue
+
     public function getEditInput($row = array())
     {
         if ($this->hasCustomHandlerMethod('onGetEditInput')) {
