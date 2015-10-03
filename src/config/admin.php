@@ -5,7 +5,7 @@ return array(
     'logo_url' => asset('packages/vis/builder/img/logo.png'),
     'favicon_url' => asset('packages/vis/builder/img/favicon/favicon.ico'),
     'uri' => '/admin',
-
+    'limitation_of_ip' => array(),
     'menu' => array(
 
         /* array(

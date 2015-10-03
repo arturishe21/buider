@@ -51,7 +51,7 @@
                                 <section>
                                     <label class="label">{{__cms('Пароль')}}</label>
                                     <label class="input"> <i class="icon-append fa fa-lock"></i>
-                                        <input type="password" name="password">
+                                        <input type="password" name="password" autocomplete="off">
                                         <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> {{__cms('Введите пароль')}}</b> </label>
                                 </section>
                                 
