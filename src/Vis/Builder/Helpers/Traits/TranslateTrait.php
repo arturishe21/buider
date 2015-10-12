@@ -2,28 +2,19 @@
 namespace Vis\Builder\Helpers\Traits;
 
 use Illuminate\Support\Facades\App;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 trait TranslateTrait
 {
-    public function translate($ident, $lang = null)
+
+    public function t($ident)
     {
-        if (!$lang) {
-            $lang = App::getLocale();
-        }
-        if ($lang == 'ru') {
-            $ident .= '';
-        } else if ($lang == 'ua') {
-            $ident .= '_ua';
-        } else {
-            $ident .= '_en';
+        $lang = LaravelLocalization::setLocale();
+
+        if ($lang) {
+            $ident = $ident."_".$lang;
         }
 
         return $this->$ident;
-    } // end translate
-
-
-    public function t($ident, $lang = null)
-    {
-        return $this->translate($ident, $lang);
     } // end t
 }
