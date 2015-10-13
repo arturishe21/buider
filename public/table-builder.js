@@ -71,8 +71,6 @@ var TableBuilder = {
 
     initSingleImageEditable: function()
     {
-        TableBuilder.initImageEditable();
-        //
         var images = jQuery('div.tb-uploaded-image-container img.image-attr-editable, div.tb-uploaded-image-container img.images-attr-editable');
         jQuery.each(images, function(key, img) {
             var $img = jQuery(img);

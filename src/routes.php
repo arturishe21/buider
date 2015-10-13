@@ -80,9 +80,6 @@ Route::group(array('prefix' => Config::get('builder::admin.uri'), 'before' => ar
             'uses' => 'Vis\Builder\EditorController@doQuickEdit')
     );
 
-
-
-
     //change skin for admin panel
     Route::post('change_skin', array(
             'as' => 'change_skin',

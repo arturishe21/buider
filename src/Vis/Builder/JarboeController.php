@@ -179,9 +179,7 @@ class JarboeController
     protected function loadFields()
     {
         $definition = $this->getDefinition();
-
-
-
+        
         $fields = array();
         foreach ($definition['fields'] as $name => $info) {
             if ($this->isPatternField($name)) {

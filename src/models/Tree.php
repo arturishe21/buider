@@ -10,11 +10,23 @@ class Tree extends \Baum\Node
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
 
-    protected $table = 'tb_tree';
-    protected $parentColumn = 'parent_id';
-    protected $_nodeUrl;
+    protected $fillable = [];
+    protected $revisionFormattedFieldNames = array(
+        'title'  => 'Название',
+        'description'  => 'Описание',
+        'is_active' => 'Активация',
+        'picture' => 'Изображение',
+        'short_description' => 'Короткий текст',
+        'created_at' => 'Дата создания'
+    );
+    protected $revisionFormattedFields = array(
+        '1'  => 'string:<strong>%s</strong>',
+        'public' => 'boolean:No|Yes',
+        'deleted_at' => 'isEmpty:Active|Deleted'
+    );
 
-    protected $fillable = array("title");
+    protected $revisionCleanup = true;
+    protected $historyLimit = 500;
 
     public function getFillable()
     {
@@ -26,10 +38,11 @@ class Tree extends \Baum\Node
         $this->fillable = $params;
     }
 
-    public static function boot()
-    {
-        parent::boot();
-    }
+
+    protected $table = 'tb_tree';
+    protected $parentColumn = 'parent_id';
+    protected $_nodeUrl;
+
 
     public static function flushCache()
     {

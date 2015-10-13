@@ -4,7 +4,42 @@ class BaseModel extends Eloquent
 {
     use \Vis\Builder\Helpers\Traits\TranslateTrait,
         \Vis\Builder\Helpers\Traits\SeoTrait,
-        \Vis\Builder\Helpers\Traits\ImagesTrait;
+        \Vis\Builder\Helpers\Traits\ImagesTrait,
+        \Vis\Builder\Helpers\Traits\QuickEditTrait,
+        \Venturecraft\Revisionable\RevisionableTrait
+        ;
+    protected $fillable = [];
+    protected $revisionFormattedFieldNames = array(
+        'title'  => 'Название',
+        'description'  => 'Описание',
+        'is_active' => 'Активация',
+        'picture' => 'Изображение',
+        'short_description' => 'Короткий текст',
+        'created_at' => 'Дата создания'
+    );
+    protected $revisionFormattedFields = array(
+        '1'  => 'string:<strong>%s</strong>',
+        'public' => 'boolean:No|Yes',
+        'deleted_at' => 'isEmpty:Active|Deleted'
+    );
+
+    protected $revisionCleanup = true;
+    protected $historyLimit = 500;
+
+    public function getFillable()
+    {
+        return $this->fillable;
+    }
+
+    public function setFillable(array $params)
+    {
+        $this->fillable = $params;
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+    }
 
     /*
      * get transliteration slug this page
