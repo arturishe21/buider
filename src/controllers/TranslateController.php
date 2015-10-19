@@ -126,7 +126,7 @@ class TranslateController extends Controller
 
             $langs_def = Config::get('builder::translate_cms.lang_default');
 
-            if($lang==$langs_def){
+            if ($lang == $langs_def) {
                 $arr_res = array("lang" => $lang, "text" => $phrase);
                 return json_encode($arr_res);
             }

@@ -1,5 +1,5 @@
  <div class="{{$fieldEdit}}">
-    {{$pageEditor->$field}}
+    {{$pageEditor->t($field)}}
  </div>
 
 <link rel="stylesheet" type="text/css" media="screen" href="{{asset('/packages/vis/builder/js/plugin/editor_floala/css/froala_editor_all.min.css')}}">
@@ -23,7 +23,7 @@
          $('.{{$fieldEdit}}').on('editable.contentChanged', function (e, editor) {
              var textEditor = $('.{{$fieldEdit}}').editable("getHTML", true, true);
 
-             $.post("/admin/quick_edit", { id : "{{$pageEditor->id}}", model: "{{get_class($pageEditor)}}", text : textEditor, field : "{{$field}}" },
+             $.post("/admin/quick_edit", { id : "{{$pageEditor->id}}", model: "{{get_class($pageEditor)}}", text : textEditor, field : "{{$pageEditor->t_fild($field)}}" },
                     function(data){
 
               });

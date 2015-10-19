@@ -9,12 +9,20 @@ trait TranslateTrait
 
     public function t($ident)
     {
+
+        $ident = $this->t_fild($ident);
+
+        return $this->$ident;
+    }
+
+    public function t_fild($ident)
+    {
         $lang = LaravelLocalization::setLocale();
 
         if ($lang) {
             $ident = $ident."_".$lang;
         }
 
-        return $this->$ident;
-    } // end t
+        return $ident;
+    }
 }
