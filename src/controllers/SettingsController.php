@@ -15,12 +15,16 @@ class SettingsController extends \BaseController
     public function fetchIndex()
     {
         $breadcrumb[Config::get('builder::settings.title_page')] = "";
+        $groupsSettings = Config::get('builder::settings.groups');
 
         $allpage = Setting::orderBy('id',"desc");
+        $title = Config::get('builder::settings.title_page');
+
 
         //filter group
-        if (is_numeric(Input::get("group"))) {
-            $allpage = $allpage -> where("group_type",Input::get("group"));
+        if (Input::get("group")) {
+            $allpage = $allpage -> where("group_type", Input::get("group"));
+            $title .= " / ". $groupsSettings[Input::get("group")];
         }
 
         $allpage = $allpage -> paginate(20);
@@ -33,7 +37,7 @@ class SettingsController extends \BaseController
         }
 
         return View::make('builder::'.$view)
-            ->with('title', Config::get('builder::settings.title_page'))
+            ->with('title', $title)
             ->with('breadcrumb', $breadcrumb)
             ->with("data", $allpage)
             ->with("groups",$groups);
@@ -65,7 +69,7 @@ class SettingsController extends \BaseController
             return $validation;
         }
 
-        Setting::doSaveSetting($data, $file);
+        $setting = Setting::doSaveSetting($data, $file);
 
         if ($data["id"] != 0 && is_numeric($data["id"])) {
             $ok_messages = "Запись успешно обновлена";
@@ -76,7 +80,7 @@ class SettingsController extends \BaseController
         return Response::json(
             array(
                 'status'            => 'ok',
-                "ok_messages"       => $ok_messages
+                "ok_messages"       => $ok_messages,
             )
         );
 

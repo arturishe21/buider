@@ -78,6 +78,8 @@
 
         @include('admin::partials.translate_phrases')
 
+        <div class="load_page" style="position: absolute; display: none; z-index: 1111111; height: 50px; top: 10px; left: 50%"><i class="fa fa-spinner fa-spin" style="font-size: 30px"></i></div>
+
     </body>
 
 </html>

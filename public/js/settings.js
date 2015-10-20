@@ -120,17 +120,16 @@ var Settings =
                 if (response.status == "ok") {
                     TableBuilder.showSuccessNotification(response.ok_messages);
                     $("#modal_form").modal('hide');
-
-                    doAjaxLoadContent(window.location.href);
                     $(".modal-backdrop").remove();
 
+                    doAjaxLoadContent(window.location.href);
                 } else {
                     var messErrors = ""
                     $.each( response.errors_messages, function( key, value ) {
                         messErrors += value + "<br>";
                     });
-                    TableBuilder.showErrorNotification(messErrors);
 
+                    TableBuilder.showErrorNotification(messErrors);
                 }
             }
         });
@@ -169,7 +168,13 @@ var Settings =
 
         $("#modal_form .modal-dialog").css("margin-top",$(document).scrollTop()+30);
 
-        var urlPage = "?id_setting=" + idPage;
+        var groupParam = Core.urlParam("group");
+        if (groupParam != null) {
+            var urlPage = "?group=" + groupParam + "&id_setting=" + idPage;
+        } else {
+            var urlPage = "?id_setting=" + idPage;
+        }
+
         window.history.pushState(urlPage, '', urlPage);
 
         $.post("/admin/settings/edit_record", {id: idPage },

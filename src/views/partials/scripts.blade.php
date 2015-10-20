@@ -1,20 +1,6 @@
 
 <script src="{{asset('packages/vis/builder/js/libs/jquery-ui-1.10.3.min.js')}}"></script>
 
-{{--
-<script src="{{asset('packages/vis/builder/js/plugin/datatables/jquery.dataTables-cust.min.js')}}"></script>
-<script src="{{asset('packages/vis/builder/js/plugin/datatables/ColReorder.min.js')}}"></script>
-<script src="{{asset('packages/vis/builder/js/plugin/datatables/FixedColumns.min.js')}}"></script>
-<script src="{{asset('packages/vis/builder/js/plugin/datatables/ColVis.min.js')}}"></script>
-<script src="{{asset('packages/vis/builder/js/plugin/datatables/ZeroClipboard.js')}}"></script>
-<script src="{{asset('packages/vis/builder/js/plugin/datatables/media/js/TableTools.min.js')}}"></script>
-<script src="{{asset('packages/vis/builder/js/plugin/datatables/DT_bootstrap.js')}}"></script>
-<script src="{{asset('packages/vis/builder/js/plugin/jquery-nestable/jquery.nestable.min.js')}}"></script>
-<script src="{{asset('packages/vis/builder/js/plugin/x-editable/moment.min.js')}}"></script>
-<script src="{{asset('packages/vis/builder/js/plugin/x-editable2/x-editable.min.js')}}"></script>
-
---}}
-
 
 {{ Minify::javascript(
             array('/packages/vis/builder/js/app.config.js',
@@ -54,11 +40,12 @@
    langCms = "{{$thisLang}}";
 
    function doAjaxLoadContent(url) {
-      $("#content_admin").html("{{__cms('Загрузка...')}}");
+      $(".load_page").show();
       $.post(url, {},
          function(data){
              $("#content_admin").html(data);
               window.history.pushState(url, '', url);
+              $(".load_page").hide();
       });
    }
 

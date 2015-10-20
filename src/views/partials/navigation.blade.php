@@ -24,8 +24,22 @@
                        <ul>
                           @foreach($el['submenu'] as $k_sub_menu=>$sub_menu)
                             @if(!isset($sub_menu['check']) || $sub_menu['check']())
-                                <li {{Request::URL() == URL::to("/admin".$sub_menu['link'])?"class='active'":""}}>
-                                    <a href="/admin{{$sub_menu['link']}}">{{__cms($sub_menu['title'])}}</a>
+                                <li {{isset($sub_menu['link']) && Request::URL() == URL::to("/admin".$sub_menu['link']) ? "class='active'" : ""}}>
+                                    <a
+                                      {{isset($sub_menu['link']) && !isset($sub_menu['submenu']) ? "href='/admin".$sub_menu['link']."'" : ""}}
+                                    >{{__cms($sub_menu['title'])}}</a>
+                                     @if(isset($sub_menu['submenu']))
+
+                                          <ul>
+                                            @foreach($sub_menu['submenu'] as $k_sub_menu2=>$sub_menu2)
+                                               @if(!isset($sub_menu2['check']) || $sub_menu2['check']())
+                                                <li>
+                                                    <a {{isset($sub_menu2['link']) && !isset($sub_menu2['submenu']) ? "href='/admin".$sub_menu2['link']."'" : ""}}>{{__cms($sub_menu2['title'])}}</a>
+                                                </li>
+                                               @endif
+                                            @endforeach
+                                          </ul>
+                                     @endif
                                 </li>
                             @endif
                           @endforeach

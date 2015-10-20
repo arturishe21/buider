@@ -255,8 +255,9 @@ var Tree =
                     jQuery(TableBuilder.form_wrapper).html(response.html);
 
                     TableBuilder.initFroalaEditor();
-                    jQuery(TableBuilder.form_edit).modal('show');
-                    jQuery(TableBuilder.form_edit).find('input[data-mask]').each(function() {
+                    var marginTop = $(document).scrollTop();
+                    $(TableBuilder.form_edit).modal('show').css("margin-top", marginTop);
+                    $(TableBuilder.form_edit).find('input[data-mask]').each(function() {
                         var $input = jQuery(this);
                         $input.mask($input.attr('data-mask'));
                     });

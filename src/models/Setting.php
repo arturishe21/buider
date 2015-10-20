@@ -206,6 +206,8 @@ class Setting extends Eloquent {
         } else {
             Event::fire("setting.changed", array($settings));
         }
+
+        return $settings;
     }
 
     /*
