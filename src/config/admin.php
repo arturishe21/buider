@@ -75,8 +75,44 @@ return array(
             'icon'  => 'cog',
             'submenu' => array(
                 array(
-                    'title' => "Переменые",
-                    'link'  => '/settings/settings_all',
+                    'title' => "Управление",
+                    'submenu' => array(
+                        array(
+                            'title' => 'Общее',
+                            'link'  => '/settings/settings_all?group=general',
+                            'check' => function() {
+                                return true;
+                            }
+                        ),
+                        array(
+                            'title' => 'SEO',
+                            'link'  => '/settings/settings_all?group=seo',
+                            'check' => function() {
+                                return true;
+                            }
+                        ),
+                        array(
+                            'title' => 'Изображения',
+                            'link'  => '/settings/settings_all?group=graphics',
+                            'check' => function() {
+                                return true;
+                            }
+                        ),
+                        array(
+                            'title' => 'Безопасность',
+                            'link'  => '/settings/settings_all?group=security',
+                            'check' => function() {
+                                return true;
+                            }
+                        ),
+                        array(
+                            'title' => 'Цены',
+                            'link'  => '/settings/settings_all?group=price',
+                            'check' => function() {
+                                return true;
+                            }
+                        ),
+                    ),
                     'check' => function() {
                         return true;
                     }

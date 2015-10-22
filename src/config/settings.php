@@ -16,6 +16,7 @@ return array(
         "general" => "Общие",
         "seo" => "SEO",
         "graphics" => "Изображение",
+        "security" => "Безопасность",
         "price" => "Цены",
     )
 );

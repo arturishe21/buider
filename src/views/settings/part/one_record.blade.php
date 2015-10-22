@@ -1,5 +1,5 @@
 <td style="text-align: left;">
-    <a onclick="Settings.getEdit({{$el->id}})">{{$el->title}}</a>
+    <a onclick="Settings.getEdit({{$el->id}})">{{{$el->title}}}</a>
 </td>
 <td><span class="select_text">Setting::get("{{$el->slug}}")</span></td>
 <td>{{__cms(Config::get('builder::settings.type')[$el->type])}}</td>
