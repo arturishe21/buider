@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 try {
     $_model = Config::get('builder::tree.model');
     $arrSegments = explode("/", Request::path());

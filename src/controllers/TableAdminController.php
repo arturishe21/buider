@@ -15,12 +15,30 @@ class TableAdminController extends \BaseController
         return $controller->handle();
     } // end showTree
 
+
     public function handleTree()
     {
         $controller = JarboeFacade::tree();
 
         return $controller->process();
     } // end handleTree
+
+    public function showTreeAll()
+    {
+        $tree = Tree::all()->toHierarchy();
+
+        $idNode  = \Input::get('node', 1);
+        $current = Tree::find($idNode);
+
+        $parentIDs = array();
+        foreach ($current->getAncestors() as $anc) {
+            $parentIDs[] = $anc->id;
+        }
+
+        return View::make('admin::tree.tree')
+                ->with("tree", $tree)
+                ->with("parentIDs", $parentIDs);
+    }
 
     public function showUsers()
     {

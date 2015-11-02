@@ -6,8 +6,8 @@
     <p ><a class="show_hide_tree">{{__cms('Показать дерево')}}</a></p>
 
     <div id="tree_top">
-        <div class="tree_top_content">@include('admin::tree.tree')</div>
-    </div>    
+        <div class="tree_top_content"></div>
+    </div>
     
     <table id="tb-tree-table" class="table table-bordered">
         <thead>
@@ -35,17 +35,32 @@
     Tree.admin_prefix = '{{ Config::get('builder::admin.uri') }}';
     Tree.parent_id = '{{ $current->id }}';
 
+     showTree = 0;
     $(".show_hide_tree").click(function(){
          $("#tree_top").toggle();
 
          if($(".show_hide_tree").text() == "{{__cms('Показать дерево')}}") {
-            $(".show_hide_tree").text("{{__cms('Спрятать дерево')}}")
+            $(".show_hide_tree").text("{{__cms('Спрятать дерево')}}");
+
+             if (showTree == 0) {
+                    $(".tree_top_content").html("<p style='padding:10px'>Загрузка..</p>");
+                    $.post("/admin/show_all_tree", {},
+                          function(data){
+                              $(".tree_top_content").html(data);
+                              Tree.init();
+                              showTree = 1;
+                      });
+             }
+
          } else {
            $(".show_hide_tree").text("{{__cms('Показать дерево')}}")
          }
     });
 
  $(".breadcrumb").html("<li><a href='/admin'>{{__cms('Главная')}}</a></li> <li>{{__cms('Структура сайта')}}</li>");
-    $("title").text("{{__cms('Структура сайта')}} - {{{ __cms(Config::get('builder::admin.caption')) }}}");
+ $("title").text("{{__cms('Структура сайта')}} - {{{ __cms(Config::get('builder::admin.caption')) }}}");
+
+
+
 </script>
 

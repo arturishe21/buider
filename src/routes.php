@@ -26,6 +26,9 @@ Route::group(array('prefix' => Config::get('builder::admin.uri'), 'before' => ar
     Route::any('/tree', 'Vis\Builder\TableAdminController@showTree');
     Route::any('/handle/tree', 'Vis\Builder\TableAdminController@handleTree');
 
+    Route::post('/show_all_tree', 'Vis\Builder\TableAdminController@showTreeAll');
+
+
     //router for pages builder
     Route::get('/{page_admin}', 'Vis\Builder\TableAdminController@showPage');
     Route::post('/{page_admin}', 'Vis\Builder\TableAdminController@showPagePost');

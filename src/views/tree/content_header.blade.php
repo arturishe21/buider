@@ -3,11 +3,11 @@
 @foreach ($ancestors as $ancestor)
 
     @if ($ancestor->slug == '/' || !$ancestor->slug)
-        <a href="?node=1">{{ url($ancestor->slug) }}</a> / 
+        <a href="?node=1">{{ url($ancestor->slug) }}</a> /
     @elseif ($loop->last)
         {{ $ancestor->slug }}
     @else
-        <a href="?node={{ $ancestor->id }}">{{ $ancestor->slug }}</a> / 
+        <a href="?node={{ $ancestor->id }}">{{ $ancestor->slug }}</a> /
     @endif
 @endforeach
 
@@ -15,10 +15,10 @@
 
 @foreach ($ancestors as $ancestor)
     @if ($ancestor->slug == '/' || !$ancestor->slug)
-        <a href="?node=1">{{ $ancestor->title }}</a> / 
+        <a href="?node=1">{{ $ancestor->title }}</a> /
     @elseif ($loop->last)
         {{ $ancestor->title }}
     @else
-        <a href="?node={{ $ancestor->id }}">{{ $ancestor->title }}</a> / 
+        <a href="?node={{ $ancestor->id }}">{{ $ancestor->title }}</a> /
     @endif
 @endforeach
