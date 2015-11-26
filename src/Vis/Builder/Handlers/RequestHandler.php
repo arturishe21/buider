@@ -88,13 +88,11 @@ class RequestHandler
             case 'change_direction':
                 return $this->handleChangeDirection();
 
-                
             case 'upload_file':
                 return $this->handleFileUpload();
                 
             case 'many_to_many_ajax_search':
                 return $this->handleManyToManyAjaxSearch();
-
 
             default:
                 return $this->handleShowList();
@@ -122,10 +120,13 @@ class RequestHandler
     
     protected function handleChangeOrderAction()
     {
+        $this->controller->query->clearCache();
+
         parse_str(Input::get('order'), $order);
         $order = $order['sort'];
         
         $definition = $this->controller->getDefinition();
+
         
         $info = $definition['db']['pagination']['per_page'];
         if (is_array($info)) {
@@ -302,6 +303,8 @@ class RequestHandler
     
     protected function handlePhotoUpload()
     {
+        $this->controller->query->clearCache();
+        
         // FIXME:
         $ident = Input::get('ident');
         $file  = Input::file('image');

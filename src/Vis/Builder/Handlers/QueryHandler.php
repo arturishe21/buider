@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Cache;
 
 class QueryHandler 
 {
@@ -204,6 +205,8 @@ class QueryHandler
 
     public function updateRow($values)
     {
+        $this->clearCache();
+
         if (!$this->controller->actions->isAllowed('update')) {
             throw new \RuntimeException('Update action is not permitted');
         }
@@ -260,6 +263,8 @@ class QueryHandler
 
     public function cloneRow($id)
     {
+        $this->clearCache();
+
         if (!$this->controller->actions->isAllowed('delete')) {
             throw new \RuntimeException('Clone action is not permitted');
         }
@@ -287,6 +292,8 @@ class QueryHandler
 
     public function deleteRow($id)
     {
+        $this->clearCache();
+
         if (!$this->controller->actions->isAllowed('delete')) {
             throw new \RuntimeException('Delete action is not permitted');
         }
@@ -318,6 +325,7 @@ class QueryHandler
 
     public function insertRow($values)
     {
+        $this->clearCache();
 
         if (!$this->controller->actions->isAllowed('insert')) {
             throw new \RuntimeException('Insert action is not permitted');
@@ -499,5 +507,30 @@ class QueryHandler
             throw new \RuntimeException("Field [{$ident}] is not editable");
         }
     } // end _checkField
+
+
+    public  function clearCache() {
+        $definition = $this->controller->getDefinition();
+
+        if (isset($definition['cache'])) {
+            $cache = $definition['cache'];
+
+            foreach ($cache as $key => $cacheDelete) {
+
+                if ($key == "tags") {
+                    foreach ($cacheDelete as $tag) {
+                        Cache::tags($tag)->flush();
+                    }
+                }
+
+                if ($key == "keys") {
+                    foreach ($cacheDelete as $key) {
+                        Cache::forget($key);
+                    }
+                }
+            }
+        }
+
+    }
 
 }
