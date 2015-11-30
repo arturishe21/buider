@@ -1,5 +1,3 @@
- <link rel="stylesheet" href="/packages/vis/builder/js/plugin/jstree/themes/default/style.min.css" />
- <link rel="stylesheet" href="{{ asset('packages/vis/builder/js/plugin/resizableColumns/jquery.resizableColumns.css') }}" type="text/css" media="screen" title="no title" charset="utf-8"/>
 
  <div id="table-preloader" class="smoke_lol"><i class="fa fa-gear fa-4x fa-spin"></i></div>
 
@@ -26,11 +24,6 @@
  @include('admin::tree.create_modal')
 
 
-<script src="/packages/vis/builder/js/plugin/jstree/jstree.min.js"></script>
-<script src="{{ asset('packages/vis/builder/js/plugin/resizableColumns/jquery.resizableColumns.js') }}"></script>
-<script src="{{ asset('packages/vis/builder/js/plugin/resizableColumns/store.js') }}"></script>
-
-<script src="{{ asset('packages/vis/builder/tb-tree.js') }}"></script>
 <script>
     Tree.admin_prefix = '{{ Config::get('builder::admin.uri') }}';
     Tree.parent_id = '{{ $current->id }}';
@@ -44,7 +37,7 @@
 
              if (showTree == 0) {
                     $(".tree_top_content").html("<p style='padding:10px'>Загрузка..</p>");
-                    $.post("/admin/show_all_tree", {},
+                    $.post("/admin/show_all_tree/{{$treeName}}", {},
                           function(data){
                               $(".tree_top_content").html(data);
                               Tree.init();
@@ -59,8 +52,6 @@
 
  $(".breadcrumb").html("<li><a href='/admin'>{{__cms('Главная')}}</a></li> <li>{{__cms('Структура сайта')}}</li>");
  $("title").text("{{__cms('Структура сайта')}} - {{{ __cms(Config::get('builder::admin.caption')) }}}");
-
-
 
 </script>
 

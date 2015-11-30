@@ -27,6 +27,8 @@
                                     '/packages/vis/builder/css/demo.min.css',
                                     '/packages/vis/builder/css/table-builder.css',
                                     '/packages/vis/builder/js/plugin/editor_floala/css/froala_editor_all.min.css',
+                                    '/packages/vis/builder/js/plugin/jstree/themes/default/style.min.css',
+                                    '/packages/vis/builder/js/plugin/resizableColumns/jquery.resizableColumns.css',
                                     '/packages/vis/builder/css/your_style.css'
                                     )) }}
 
@@ -41,6 +43,7 @@
         <script src="{{asset('packages/vis/builder/table-builder.js')}}"></script>
 
         @yield('styles')
+        @yield('scripts_header')
 
     </head>
     <body class="{{ Cookie::get('tb-misc-body_class', '') }} {{ $skin }}">

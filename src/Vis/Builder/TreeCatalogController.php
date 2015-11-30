@@ -15,12 +15,13 @@ class TreeCatalogController
 {
     protected $model;
     protected $options;
+    protected $nameTree;
     
-    
-    public function __construct($model, array $options)
+    public function __construct($model, array $options, $nameTree)
     {
         $this->model   = $model;
         $this->options = $options;
+        $this->nameTree = $nameTree;
     } // end __construct
     
     // FIXME:
@@ -62,7 +63,7 @@ class TreeCatalogController
     public function doUpdateNode()
     {
         $model = $this->model;
-        echo $model;
+
         switch (Input::get('name')) {
             case 'template':
                 $node = $model::find(Input::get('pk'));
@@ -79,8 +80,8 @@ class TreeCatalogController
         
     public function doCreateNode()
     {
-        $activeField = Config::get('builder::tree.node_active_field.field');
-        $options = Config::get('builder::tree.node_active_field.options', true);
+        $activeField = Config::get('builder::' . $this->nameTree . '.node_active_field.field');
+        $options = Config::get('builder::' . $this->nameTree . '.node_active_field.options', true);
         $model = $this->model;
         
         $root = $model::find(Input::get('node', 1));
@@ -107,8 +108,8 @@ class TreeCatalogController
     
     public function doChangeActiveStatus()
     {
-        $activeField = Config::get('builder::tree.node_active_field.field');
-        $options = Config::get('builder::tree.node_active_field.options', array());
+        $activeField = Config::get('builder::' . $this->nameTree . '.node_active_field.field');
+        $options = Config::get('builder::' . $this->nameTree . '.node_active_field.options', array());
         $model = $this->model;
         
         $node = $model::find(Input::get('id'));
@@ -175,22 +176,22 @@ class TreeCatalogController
         $idNode  = Input::get('__node', Input::get('node', 1));
         $current = $model::find($idNode);
 
-        $templates = Config::get('builder::tree.templates');
-        $template = Config::get('builder::tree.default');
+        $templates = Config::get('builder::' . $this->nameTree . '.templates');
+        $template = Config::get('builder::' . $this->nameTree . '.default');
         if (isset($templates[$current->template])) {
             $template = $templates[$current->template];
         }
         
         $options = array(
             'url'      => URL::current(),
-            'def_name' => 'tree.'. $template['node_definition'],
+            'def_name' => $this->nameTree . '.'. $template['node_definition'],
             'additional' => array(
                 'node'    => $idNode,
                 'current' => $current,
             )
         );
         if ($template['type'] == 'table') {
-            $options['def_name'] = 'tree.'. $template['definition'];
+            $options['def_name'] = $this->nameTree.'.'. $template['definition'];
         }
         
         return \Jarboe::table($options);
@@ -222,53 +223,55 @@ class TreeCatalogController
             $parentIDs[] = $anc->id;
         }
 
-        $templates = Config::get('builder::tree.templates');
-        $template = Config::get('builder::tree.default');
+        $templates = Config::get('builder::' . $this->nameTree . '.templates');
+        $template = Config::get('builder::' . $this->nameTree . '.default');
         if (isset($templates[$current->template])) {
             $template = $templates[$current->template];
         }
-        
+
+        $treeName = $this->nameTree;
+
         if ($template['type'] == 'table') {
             $options = array(
                 'url'      => URL::current(),
-                'def_name' => 'tree.'. $template['definition'],
+                'def_name' => $this->nameTree.'.'. $template['definition'],
                 'additional' => array(
                     'node'    => $idNode,
                     'current' => $current,
                 )
             );
             list($table, $form) = \Jarboe::table($options);
-            $content = View::make('admin::tree.content', compact('current', 'table', 'form', 'template'));
+            $content = View::make('admin::tree.content', compact('current', 'table', 'form', 'template', 'treeName'));
         } elseif (false && $current->isLeaf()) {
             $content = 'ama leaf';
         } else {
-            $content = View::make('admin::tree.content', compact('current', 'template'));
+            $content = View::make('admin::tree.content', compact('current', 'template', 'treeName'));
         }
 
         if (Request::ajax()) {
-            return View::make('admin::tree_ajax', compact('tree', 'content', 'current', 'parentIDs'));
+            return View::make('admin::tree_ajax', compact('tree', 'content', 'current', 'parentIDs', 'treeName'));
         } else {
-            return View::make('admin::tree', compact('tree', 'content', 'current', 'parentIDs'));
+            return View::make('admin::tree', compact('tree', 'content', 'current', 'parentIDs', 'treeName'));
         }
-        
 
     } // end handleShowCatalog
     
     public function getEditModalForm()
     {
         $model = $this->model;
-        
+
         $idNode = Input::get('id');
         $current = $model::find($idNode);
-        $templates = Config::get('builder::tree.templates');
-        $template = Config::get('builder::tree.default');
+
+        $templates = Config::get('builder::' . $this->nameTree . '.templates');
+        $template = Config::get('builder::' . $this->nameTree . '.default');
         if (isset($templates[$current->template])) {
             $template = $templates[$current->template];
         }
         
         $options = array(
             'url'      => URL::current(),
-            'def_name' => 'tree.'. $template['node_definition'],
+            'def_name' => $this->nameTree . '.' . $template['node_definition'],
             'additional' => array(
                 'node'    => $idNode,
                 'current' => $current,
@@ -290,15 +293,15 @@ class TreeCatalogController
         
         $idNode    = Input::get('id');
         $current   = $model::find($idNode);
-        $templates = Config::get('builder::tree.templates');
-        $template  = Config::get('builder::tree.default');
+        $templates = Config::get('builder::' . $this->nameTree . '.templates');
+        $template  = Config::get('builder::' . $this->nameTree . '.default');
         if (isset($templates[$current->template])) {
             $template = $templates[$current->template];
         }
 
         $options = array(
             'url'        => URL::current(),
-            'def_name'   => 'tree.'. $template['node_definition'],
+            'def_name'   => $this->nameTree . '.'. $template['node_definition'],
             'additional' => array(
                 'node'    => $idNode,
                 'current' => $current,

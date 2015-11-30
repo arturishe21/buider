@@ -35,6 +35,9 @@ class BuilderServiceProvider extends ServiceProvider {
         include __DIR__.'/../../events/translate.php';
         include __DIR__.'/../../events/table.php';
 
+
+        $this->app['config']->package('builder', app_path().'/config/packages/vis/builder/', "builder");
+
         \View::addNamespace('admin', __DIR__.'/../../views/');
     } // end boot
 

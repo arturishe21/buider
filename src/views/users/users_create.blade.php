@@ -16,7 +16,7 @@
     </script>
 @stop
 
-@section('main')
+@section('main')qqqqqqqqqqqqqq
     <div id="content">
 
 <div class="widget-body no-padding">

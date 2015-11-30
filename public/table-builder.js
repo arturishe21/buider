@@ -411,7 +411,7 @@ var TableBuilder = {
     {
         $.post(TableBuilder.getActionUrl(), {"query_type" : "clone_record", "id" : id},
             function(response){
-               // location.href = location.href;
+                location.href = location.href;
         },"json");
     },
 

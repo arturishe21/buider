@@ -18,7 +18,7 @@ $all_links_str = implode("|",$all_links);
 $all_links_str = str_replace("/","",$all_links_str);
 
 Route::pattern('page_admin', $all_links_str);
-
+Route::pattern('tree_name', '[a-z0-9-_]+');
 
 Route::group(array('prefix' => Config::get('builder::admin.uri'), 'before' => array('auth_admin', 'check_permissions')), function() {
 
@@ -26,8 +26,10 @@ Route::group(array('prefix' => Config::get('builder::admin.uri'), 'before' => ar
     Route::any('/tree', 'Vis\Builder\TableAdminController@showTree');
     Route::any('/handle/tree', 'Vis\Builder\TableAdminController@handleTree');
 
-    Route::post('/show_all_tree', 'Vis\Builder\TableAdminController@showTreeAll');
+    Route::any('/{tree_name}_tree', 'Vis\Builder\TableAdminController@showTreeOther');
+    Route::any('/handle/{tree_name}_tree', 'Vis\Builder\TableAdminController@handleTreeOther');
 
+    Route::post('/show_all_tree/{tree_name}', 'Vis\Builder\TableAdminController@showTreeAll');
 
     //router for pages builder
     Route::get('/{page_admin}', 'Vis\Builder\TableAdminController@showPage');

@@ -279,6 +279,7 @@ class QueryHandler
         $page = $this->db->where("id", $id)->select("*")->first();
         Event::fire("table.clone", array($this->dbOptions['table'], $id));
         unset($page['id']);
+        $page['slug'] = $page['slug']."_";
 
         $results = $this->db->insert($page);
 

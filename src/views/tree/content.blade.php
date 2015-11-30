@@ -7,7 +7,6 @@
     @stop
         {{ $table }}
 @else
-
     <div class="smart-form">
     <table class="table table-bordered">
         <thead>
@@ -23,6 +22,14 @@
             </tr>
         </thead>
         <tbody class="ui-sortable">
+
+            @if($current->parent_id)
+                <tr>
+                    <td colspan="6">
+                        <a href="?node={{$current->parent_id}}" class="node_link">&larr; Назад</a>
+                    </td>
+                </tr>
+            @endif
             @foreach($current['children'] as $item)
                 @include('admin::tree.content_row')
             @endforeach
@@ -35,14 +42,12 @@
     </div>
 
     <script>
-    TableBuilder.action_url = "";
-
-    // FIXME: move to js file
         $(document).ready(function(){
+            TableBuilder.action_url = "/admin/handle/{{$treeName}}";
             $('.tpl-editable').editable2({
                 url: window.location.href,
                 source: [
-                <?php /* FIXME: */ $tpls = \Config::get('builder::tree.templates', array()); ?>
+                <?php $tpls = \Config::get('builder::' . $treeName . '.templates', array()); ?>
                 @foreach ($tpls as $capt => $tpl)
                     { value: '{{{$capt}}}', text: '{{{$capt}}}' }, 
                 @endforeach
@@ -60,6 +65,7 @@
                 }
             });
         });
+
     </script>
 
 @endif

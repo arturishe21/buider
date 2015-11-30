@@ -83,9 +83,9 @@ class Jarboe
         return URLify::filter($string);
     } // end urlify
 
-    public function tree($model = 'Vis\Builder\Tree', $options = array())
+    public function tree($model = 'Vis\Builder\Tree', $options = array(), $nameTree = "tree")
     {
-        $controller = new TreeCatalogController($model, $options);
+        $controller = new TreeCatalogController($model, $options, $nameTree);
 
         return $controller;
     } // end tree

@@ -23,7 +23,7 @@
                         <label for="cf-template">{{__cms('Шаблон')}}</label>
                         <select class="form-control" id="cf-template" name="template">
                             <option value="">{{__cms('Выберите шаблон')}}</option>
-                            <?php  $tpls = Config::get('builder::tree.templates', array()); ?>
+                            <?php  $tpls = Config::get('builder::'.$treeName.'.templates', array()); ?>
                             @foreach ($tpls as $capt => $tpl)
                                 <option value="{{{ $capt }}}">{{{ $capt }}}</option>
                             @endforeach

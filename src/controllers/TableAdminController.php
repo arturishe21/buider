@@ -5,6 +5,7 @@ namespace Vis\Builder;
 use Vis\Builder\Facades\Jarboe as JarboeFacade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Config;
 
 class TableAdminController extends \BaseController
 {
@@ -15,6 +16,15 @@ class TableAdminController extends \BaseController
         return $controller->handle();
     } // end showTree
 
+    public function showTreeOther($nameTree)
+    {
+        $model = Config::get('builder::' . $nameTree . '_tree.model');
+        $option = [];
+
+        $controller = JarboeFacade::tree($model, $option, $nameTree."_tree");
+
+        return $controller->handle();
+    }
 
     public function handleTree()
     {
@@ -23,12 +33,25 @@ class TableAdminController extends \BaseController
         return $controller->process();
     } // end handleTree
 
-    public function showTreeAll()
+    public function handleTreeOther($nameTree)
     {
-        $tree = Tree::all()->toHierarchy();
+        $model = Config::get('builder::' . $nameTree . '_tree.model');
+        $option = [];
+
+        $controller = JarboeFacade::tree($model, $option, $nameTree."_tree");
+
+        return $controller->process();
+    } // end handleTree
+
+
+    public function showTreeAll($nameTree)
+    {
+        $model = Config::get('builder::' . $nameTree . '.model');
+
+        $tree = $model::all()->toHierarchy();
 
         $idNode  = \Input::get('node', 1);
-        $current = Tree::find($idNode);
+        $current = $model::find($idNode);
 
         $parentIDs = array();
         foreach ($current->getAncestors() as $anc) {

@@ -15,12 +15,12 @@
                       @endforeach
                   @endif
                       <th class="e-insert_button-cell">
-                          <a href="{{ url(\Config::get('builder::admin.uri') .'/tb/users/create') }}">
-                          <button class="btn btn-default btn-sm" style="min-width: 66px;"
+                      {{--    <a href="{{ url(\Config::get('builder::admin.uri') .'/tb/users/create') }}">--}}
+                       {{--   <button class="btn btn-default btn-sm" style="min-width: 66px;"
                                   type="button" onclick="TableBuilder.getCreateForm();">
                               Добавить
-                          </button>
-                          </a>
+                          </button>--}}
+                          {{--</a>--}}
                       </th>
                   </tr>
               </thead>
@@ -31,9 +31,7 @@
                   <tr>
                     @if(isset($fields))
                       @foreach ($fields as $ident => $field)
-                          @if ($ident == 'password')
-                              <td>********</td>
-                          @elseif ($ident == 'id')
+                          @if ($ident == 'id')
                               <td style="width: 1%;">{{ $user->$ident }}</td>
                           @else
                               <td>{{ $user->$ident }}</td>
