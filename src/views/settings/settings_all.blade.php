@@ -18,4 +18,5 @@
      <div>
         @include("builder::settings.part.settings_center")
      </div>
+
 @stop

@@ -25,19 +25,18 @@ var Settings =
             langEditor = langCms;
         }
 
-        $('.text_block').editable(
+        $('.text_block').froalaEditor(
             {
                 inlineMode: false,
                 imageUploadURL: '/admin/upload_image',
-
-                minHeight:100,
+                heightMin: 100,
+                heightMax: 500,
                 fileUploadURL: "/admin/upload_file",
-                imagesLoadURL: "/admin/load_image",
+                imageManagerLoadURL: "/admin/load_image",
                 imageDeleteURL: "/admin/delete_image",
                 language: langEditor,
             });
-
-        $("a[href='http://editor.froala.com']").parent().hide();
+        $("a[href='https://froala.com/wysiwyg-editor']").parent().remove();
 
         var $checkoutForm = $('#form_page').validate({
             rules : {

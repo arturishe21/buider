@@ -16,7 +16,7 @@
         <link rel="shortcut icon" href="{{ Config::get('builder::admin.favicon_url') }}" type="image/x-icon">
 
         <!-- Basic Styles -->
-        <link rel="stylesheet" type="text/css" media="screen" href="{{asset('packages/vis/builder/css/font-awesome.min.css')}}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 
         {{ Minify::stylesheet(array(
                                     '/packages/vis/builder/css/bootstrap.min.css',
@@ -26,11 +26,24 @@
                                     '/packages/vis/builder/css/smartadmin-rtl.min.css',
                                     '/packages/vis/builder/css/demo.min.css',
                                     '/packages/vis/builder/css/table-builder.css',
-                                    '/packages/vis/builder/js/plugin/editor_floala/css/froala_editor_all.min.css',
+                                    '/packages/vis/builder/js/plugin/editor_floala/css/froala_editor.min.css',
+                                    '/packages/vis/builder/js/plugin/editor_floala/css/froala_style.min.css',
+                                    '/packages/vis/builder/js/plugin/editor_floala/css/plugins/code_view.min.css',
+                                    '/packages/vis/builder/js/plugin/editor_floala/css/plugins/colors.min.css',
+                                    '/packages/vis/builder/js/plugin/editor_floala/css/plugins/emoticons.min.css',
+                                    '/packages/vis/builder/js/plugin/editor_floala/css/plugins/image_manager.min.css',
+                                    '/packages/vis/builder/js/plugin/editor_floala/css/plugins/image.min.css',
+                                    '/packages/vis/builder/js/plugin/editor_floala/css/plugins/line_breaker.min.css',
+                                    '/packages/vis/builder/js/plugin/editor_floala/css/plugins/table.min.css',
+                                    '/packages/vis/builder/js/plugin/editor_floala/css/plugins/char_counter.min.css',
+                                    '/packages/vis/builder/js/plugin/editor_floala/css/plugins/video.min.css',
+                                    '/packages/vis/builder/js/plugin/editor_floala/css/plugins/fullscreen.min.css',
+                                    '/packages/vis/builder/js/plugin/editor_floala/css/plugins/file.min.css',
                                     '/packages/vis/builder/js/plugin/jstree/themes/default/style.min.css',
                                     '/packages/vis/builder/js/plugin/resizableColumns/jquery.resizableColumns.css',
                                     '/packages/vis/builder/css/your_style.css'
-                                    )) }}
+                                    ));
+         }}
 
         <!-- GOOGLE FONT -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">

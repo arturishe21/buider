@@ -15,25 +15,48 @@
                   '/packages/vis/builder/js/plugin/select2/select2.min.js',
                   '/packages/vis/builder/js/plugin/fastclick/fastclick.js',
                   '/packages/vis/builder/js/demo.min.js',
-            /*      '/packages/module/app_modules/core/assets/js/plugin/datatables/jquery.dataTables-cust.min.js',
-                  '/packages/module/app_modules/core/assets/js/plugin/datatables/ColReorder.min.js',
-                  '/packages/module/app_modules/core/assets/js/plugin/datatables/FixedColumns.min.js',
-                  '/packages/module/app_modules/core/assets/js/plugin/datatables/ColVis.min.js',
-                  '/packages/module/app_modules/core/assets/js/plugin/datatables/ZeroClipboard.js',
-                  '/packages/module/app_modules/core/assets/js/plugin/datatables/media/js/TableTools.min.js',
-                  '/packages/module/app_modules/core/assets/js/plugin/datatables/DT_bootstrap.js',
-                  '/packages/module/app_modules/core/assets/js/plugin/x-editable/moment.min.js',*/
                   '/packages/vis/builder/js/plugin/x-editable2/x-editable.min.js',
                   '/packages/vis/builder/js/plugin/datepicker/jquery.ui.datepicker-ru.js',
                   '/packages/vis/builder/js/plugin/datetimepicker/jquery-ui-timepicker-addon.js',
                   '/packages/vis/builder/js/plugin/datetimepicker/jquery-ui-timepicker-addon-i18n.min.js',
                   '/packages/vis/builder/js/plugin/datetimepicker/jquery-ui-sliderAccess.js',
-                  )) }}
+                  ));
+}}
 
-
+{{ Minify::javascript(
+            array('/packages/vis/builder/js/plugin/editor_floala/js/froala_editor.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/align.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/code_beautifier.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/code_view.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/colors.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/emoticons.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/font_size.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/font_family.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/image.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/file.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/image_manager.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/line_breaker.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/link.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/lists.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/paragraph_format.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/paragraph_style.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/video.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/table.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/url.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/entities.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/char_counter.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/inline_style.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/save.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/fullscreen.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/plugins/quote.min.js',
+                  '/packages/vis/builder/js/plugin/editor_floala/js/langs/'.$thisLang.'.js',
+                  ))
+}}
+{{--
 <script src="{{asset('/packages/vis/builder/js/plugin/editor_floala/js/froala_editor_all.min.js')}}"></script>
 
 <script src='/packages/vis/builder/js/plugin/editor_floala/js/langs/{{$thisLang}}.js'></script>
+--}}
 
 <script type="text/javascript">
 
