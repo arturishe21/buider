@@ -58,47 +58,51 @@ try {
  */
 
 $otherTreeUrl = Config::get('builder::tree.other_tree_url');
-$startUrl = $arrSegments[0];
 
-if ($arrSegments[0] == LaravelLocalization::setLocale()) {
-    $startUrl = $arrSegments[1];
-}
+if ($otherTreeUrl && is_array($otherTreeUrl)) {
+    $startUrl = $arrSegments[0];
 
-$urls = array_keys($otherTreeUrl);
+    if ($arrSegments[0] == LaravelLocalization::setLocale()) {
+        $startUrl = $arrSegments[1];
+    }
 
-if ($urls && count($urls) && in_array($startUrl, $urls)) {
-    if (isset($otherTreeUrl[$startUrl])) {
+    $urls = array_keys($otherTreeUrl);
 
-        $configName = $otherTreeUrl[$startUrl];
-        $model = Config::get("builder::" . $configName . ".model");
-        $slug = end($arrSegments);
-        $node = $model::where("slug", 'like', $slug)->first();
+    if ($urls && count($urls) && in_array($startUrl, $urls)) {
+        if (isset($otherTreeUrl[$startUrl])) {
 
-        if (isset($node->id)) {
+            $configName = $otherTreeUrl[$startUrl];
+            $model = Config::get("builder::" . $configName . ".model");
+            $slug = end($arrSegments);
+            $node = $model::where("slug", 'like', $slug)->first();
 
-            $_nodeUrl = $node->getUrlNoLocation();
-            $templates = Config::get("builder::" . $configName . ".templates");
+            if (isset($node->id)) {
+
+                $_nodeUrl = $node->getUrlNoLocation();
+                $templates = Config::get("builder::" . $configName
+                    . ".templates");
 
 
-           Route::group(array('prefix' => LaravelLocalization::setLocale()), function () use ($node, $_nodeUrl, $templates) {
-                Route::get($_nodeUrl, function () use ($node, $templates) {
-                    if (!isset($templates[$node->template])) {
-                        App::abort(404);
-                    }
+                Route::group(array('prefix' => LaravelLocalization::setLocale()),
+                function () use ($node, $_nodeUrl, $templates) {
+                    Route::get($_nodeUrl, function () use ($node, $templates) {
+                        if (!isset($templates[$node->template])) {
+                            App::abort(404);
+                        }
 
-                    list($controller, $method) = explode('@',
-                        $templates[$node->template]['action']);
+                        list($controller, $method) = explode('@',
+                            $templates[$node->template]['action']);
 
-                    $app = app();
-                    $controller = $app->make($controller);
+                        $app = app();
+                        $controller = $app->make($controller);
 
-                    return $controller->callAction('init',
-                        array($node, $method));
+                        return $controller->callAction('init',
+                            array($node, $method));
+                    });
+
                 });
 
-            });
-
+            }
         }
     }
 }
-
