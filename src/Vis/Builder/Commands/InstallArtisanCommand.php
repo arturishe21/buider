@@ -18,7 +18,7 @@ class InstallArtisanCommand extends Command
     public function fire()
     {
 
-        if ($this->confirm('Start install? [y|n]')) {
+       // if ($this->confirm('Start install? [y|n]')) {
 
            //create table with sql
             $f = scandir(__DIR__ . '/../../../dump_sql_table/');
@@ -28,7 +28,7 @@ class InstallArtisanCommand extends Command
                     DB::unprepared(file_get_contents(__DIR__ . '/../../../dump_sql_table/'.$file));
                 }
             }
-       
+
 
             //create folder 'public/css/builds'
             if (!is_dir(public_path() . '/css/builds')) {
@@ -142,7 +142,7 @@ class InstallArtisanCommand extends Command
             $this->call('cache:clear');
 
             $this->call('ide-helper:generate');
-        }
+      //  }
 
         return;
     } // end fire
