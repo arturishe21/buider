@@ -57,6 +57,19 @@
 
         @yield('styles')
         @yield('scripts_header')
+         <script src="/packages/vis/builder/js/plugin/jstree/jstree.min.js"></script>
+            <script src="{{ asset('packages/vis/builder/js/plugin/resizableColumns/jquery.resizableColumns.js') }}"></script>
+            <script src="{{ asset('packages/vis/builder/js/plugin/resizableColumns/store.js') }}"></script>
+
+            <script src="{{ asset('packages/vis/builder/tb-tree.js') }}"></script>
+
+            <script>
+                $(document).on('click', 'a.node_link', function (e) {
+                    var href = $(this).attr('href');
+                    doAjaxLoadContent(href);
+                    e.preventDefault();
+                });
+            </script>
 
     </head>
     <body class="{{ Cookie::get('tb-misc-body_class', '') }} {{ $skin }}">

@@ -64,7 +64,7 @@ var TableBuilder = {
 
         $("a[href='https://froala.com/wysiwyg-editor']").parent().remove();
     },
-    
+
     getActionUrl: function()
     {
         return TableBuilder.action_url ? TableBuilder.action_url : '/admin/handle/tree';
@@ -108,9 +108,9 @@ var TableBuilder = {
                         return;
                     }
                     var html = '<b>' + jQuery('<div>').text(value.tbalt).html() + '</b>, '
-                             + jQuery('<div>').text(value.tbtitle).html() + '</b>, '
-                             + jQuery('<div>').text(value.tbident).html() + '</b>, '
-                             + jQuery('<div>').text(value.tbnum).html();
+                        + jQuery('<div>').text(value.tbtitle).html() + '</b>, '
+                        + jQuery('<div>').text(value.tbident).html() + '</b>, '
+                        + jQuery('<div>').text(value.tbnum).html();
                     jQuery(this).html(html);
                 }
             });
@@ -155,9 +155,9 @@ var TableBuilder = {
                         return;
                     }
                     var html = '<b>' + jQuery('<div>').text(value.tbalt).html() + '</b>, '
-                             + jQuery('<div>').text(value.tbtitle).html() + '</b>, '
-                             + jQuery('<div>').text(value.tbident).html() + '</b>, '
-                             + jQuery('<div>').text(value.tbnum).html();
+                        + jQuery('<div>').text(value.tbtitle).html() + '</b>, '
+                        + jQuery('<div>').text(value.tbident).html() + '</b>, '
+                        + jQuery('<div>').text(value.tbnum).html();
                     jQuery(this).html(html);
                 }
             });
@@ -239,7 +239,7 @@ var TableBuilder = {
                     return {"name": this.name, "value": 0};
                 }).get()
         );
-        
+
         var $posting = jQuery.post(TableBuilder.getActionUrl(), data);
 
         $posting.done(function(response) {
@@ -331,14 +331,14 @@ var TableBuilder = {
         });
     }, // end saveFastEdit
 
-    getUrlParameter: function(sParam) 
+    getUrlParameter: function(sParam)
     {
         var sPageURL = window.location.search.substring(1);
         var sURLVariables = sPageURL.split('&');
-        for (var i = 0; i < sURLVariables.length; i++) 
+        for (var i = 0; i < sURLVariables.length; i++)
         {
             var sParameterName = sURLVariables[i].split('=');
-            if (sParameterName[0] == sParam) 
+            if (sParameterName[0] == sParam)
             {
                 return sParameterName[1];
             }
@@ -384,7 +384,7 @@ var TableBuilder = {
         if (TableBuilder.onGetCreateForm) {
             TableBuilder.onGetCreateForm();
         }
-          TableBuilder.showPreloader();
+        TableBuilder.showPreloader();
 
         if ($(".table_form_create #modal_form").size() == 0) {
             $.post(TableBuilder.getActionUrl(),{"query_type" : "show_add_form"},
@@ -400,14 +400,14 @@ var TableBuilder = {
         }
 
     }, // end getCreateForm
-    
+
     initSelect2Hider: function()
     {
         jQuery('.modal-dialog').on('click', function() {
             jQuery('.select2-enabled[id^="many2many"]').select2("close");
             jQuery('.select2-hidden-accessible').hide();
         });
-        
+
     }, // end initSelect2Hider
 
     getCloneForm: function(id)
@@ -415,7 +415,7 @@ var TableBuilder = {
         $.post(TableBuilder.getActionUrl(), {"query_type" : "clone_record", "id" : id},
             function(response){
                 location.href = location.href;
-        },"json");
+            },"json");
     },
 
     handleStartLoad: function()
@@ -446,6 +446,7 @@ var TableBuilder = {
             {name: "id", value: id},
             {name: "__node", value: TableBuilder.getUrlParameter('node')}
         ];
+
         jQuery.ajax({
             type: "POST",
             url: TableBuilder.getActionUrl(),
@@ -457,7 +458,7 @@ var TableBuilder = {
                     TableBuilder.initFroalaEditor();
 
                     jQuery(TableBuilder.form_edit).modal('show');
-                     jQuery(TableBuilder.form_edit).find('input[data-mask]').each(function() {
+                    jQuery(TableBuilder.form_edit).find('input[data-mask]').each(function() {
                         var $input = jQuery(this);
                         $input.mask($input.attr('data-mask'));
                     });
@@ -465,6 +466,12 @@ var TableBuilder = {
                     TableBuilder.showErrorNotification("Что-то пошло не так, попробуйте позже");
                 }
 
+                TableBuilder.hidePreloader();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
                 TableBuilder.hidePreloader();
             }
         });
@@ -494,6 +501,12 @@ var TableBuilder = {
                 }
 
                 TableBuilder.hidePreloader();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
+                TableBuilder.hidePreloader();
             }
         });
     },
@@ -522,6 +535,12 @@ var TableBuilder = {
                     TableBuilder.showErrorNotification("Что-то пошло не так, попробуйте позже");
                 }
 
+                TableBuilder.hidePreloader();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
                 TableBuilder.hidePreloader();
             }
         });
@@ -649,6 +668,12 @@ var TableBuilder = {
                         }
 
                         TableBuilder.hidePreloader();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                        TableBuilder.showErrorNotification(errorResult.message);
+                        TableBuilder.hidePreloader();
                     }
                 });
 
@@ -699,7 +724,7 @@ var TableBuilder = {
                     return {"name": this.name, "value": 0};
                 }).get()
         );
-        
+
         var selectMultiple = [];
         jQuery(TableBuilder.edit_form).find('select[multiple="multiple"]').each(function(i, value) {
             if (!$(this).val()) {
@@ -725,7 +750,7 @@ var TableBuilder = {
                         window.history.back();
                         return;
                     }
-                    
+
                     jQuery(TableBuilder.form_edit).modal('hide');
 
                     jQuery('#wid-id-1').find('tr[id-row="'+id+'"]').replaceWith(response.html);
@@ -739,6 +764,12 @@ var TableBuilder = {
 
                     TableBuilder.showBigErrorNotification(errors);
                 }
+                TableBuilder.hidePreloader();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
                 TableBuilder.hidePreloader();
             }
         });
@@ -776,7 +807,7 @@ var TableBuilder = {
                 };
             }
         });
-        
+
         var selectMultiple = [];
         jQuery(TableBuilder.create_form).find('select[multiple="multiple"]').each(function(i, value) {
             if (!$(this).val()) {
@@ -817,7 +848,7 @@ var TableBuilder = {
                         window.history.back();
                         return;
                     }
-                    
+
                     jQuery('#wid-id-1').find('tbody').prepend(response.html);
 
                     TableBuilder.removeInputValues(TableBuilder.form);
@@ -832,7 +863,14 @@ var TableBuilder = {
                 }
 
                 TableBuilder.hidePreloader();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
+                TableBuilder.hidePreloader();
             }
+
         });
     }, // end doCreate
 
@@ -868,36 +906,36 @@ var TableBuilder = {
         } else {
             data.append('__node', TableBuilder.getUrlParameter('node'));
         }
-        
+
         var $progress = jQuery(context).parent().parent().parent().parent().parent().find('.progress-bar');
         //console.log($progress);
-        
+
         jQuery.ajax({
             xhr: function() {
                 var xhr = new window.XMLHttpRequest();
                 xhr.upload.addEventListener("progress", function(evt) {
-                    console.log(evt); 
+                    console.log(evt);
                     if (evt.lengthComputable) {
                         var percentComplete = evt.loaded / evt.total;
                         percentComplete = percentComplete * 100;
-                        console.log('upl :'+ percentComplete); 
-                        
+                        console.log('upl :'+ percentComplete);
+
                         percentComplete = percentComplete +'%';
                         //Do something with upload progress here
-                        
+
                         $progress.width(percentComplete);
                     }
-               }, false);
-        
-               xhr.addEventListener("progress", function(evt) {
-                   if (evt.lengthComputable) {
-                       var percentComplete = evt.loaded / evt.total;
+                }, false);
+
+                xhr.addEventListener("progress", function(evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
                         console.log('dwl :'+ percentComplete);
-                       //Do something with download progress
-                   }
-               }, false);
-        
-               return xhr;
+                        //Do something with download progress
+                    }
+                }, false);
+
+                return xhr;
             },
             data: data,
             type: "POST",
@@ -911,7 +949,7 @@ var TableBuilder = {
 
                     TableBuilder.picture[ident] = response.data.sizes.original;
 
-                  //  alert( TableBuilder.picture[ident]);
+                    //  alert( TableBuilder.picture[ident]);
 
                     var html = '<div style="position: relative; display: inline-block;">';
                     html += '<img class="image-attr-editable" ';
@@ -933,109 +971,121 @@ var TableBuilder = {
                 } else {
                     TableBuilder.showErrorNotification(phrase["Ошибка при загрузке изображения"]);
                 }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
+                TableBuilder.hidePreloader();
             }
         });
     }, // end uploadImage
 
     uploadMultipleImages: function(context, ident)
     {
-      $(".no_photo").hide();
-      var arr = context.files;
-      for (var index = 0; index < arr.length; ++index) {
+        $(".no_photo").hide();
+        var arr = context.files;
+        for (var index = 0; index < arr.length; ++index) {
 
-          var data = new FormData();
-          data.append("image", context.files[index]);
-          data.append('ident', ident);
-          data.append('query_type', 'upload_photo');
+            var data = new FormData();
+            data.append("image", context.files[index]);
+            data.append('ident', ident);
+            data.append('query_type', 'upload_photo');
 
-          if (TableBuilder.getUrlParameter('node') == undefined) {
-              data.append('__node', TableBuilder.getUrlParameter('id_tree'));
-          } else {
-              data.append('__node', TableBuilder.getUrlParameter('node'));
-          }
+            if (TableBuilder.getUrlParameter('node') == undefined) {
+                data.append('__node', TableBuilder.getUrlParameter('id_tree'));
+            } else {
+                data.append('__node', TableBuilder.getUrlParameter('node'));
+            }
 
-          var $progress = jQuery(context).parent().parent().parent().parent().parent().find('.progress-bar');
+            var $progress = jQuery(context).parent().parent().parent().parent().parent().find('.progress-bar');
 
-          var num = 0;
+            var num = 0;
 
-          if (typeof TableBuilder.storage[ident] !== 'undefined') {
-              num = TableBuilder.storage[ident].length;
-          }
-          data.append('num', num);
+            if (typeof TableBuilder.storage[ident] !== 'undefined') {
+                num = TableBuilder.storage[ident].length;
+            }
+            data.append('num', num);
 
-          jQuery.ajax({
-              xhr: function () {
-                  var xhr = new window.XMLHttpRequest();
-                  xhr.upload.addEventListener("progress", function (evt) {
-                      console.log(evt);
-                      if (evt.lengthComputable) {
-                          var percentComplete = evt.loaded / evt.total;
-                          percentComplete = percentComplete * 100;
-                          console.log('upl :' + percentComplete);
+            jQuery.ajax({
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (evt) {
+                        console.log(evt);
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            percentComplete = percentComplete * 100;
+                            console.log('upl :' + percentComplete);
 
-                          percentComplete = percentComplete + '%';
-                          //Do something with upload progress here
+                            percentComplete = percentComplete + '%';
+                            //Do something with upload progress here
 
-                          $progress.width(percentComplete);
-                      }
-                  }, false);
+                            $progress.width(percentComplete);
+                        }
+                    }, false);
 
-                  xhr.addEventListener("progress", function (evt) {
-                      if (evt.lengthComputable) {
-                          var percentComplete = evt.loaded / evt.total;
-                          console.log('dwl :' + percentComplete);
-                          //Do something with download progress
-                      }
-                  }, false);
+                    xhr.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            console.log('dwl :' + percentComplete);
+                            //Do something with download progress
+                        }
+                    }, false);
 
-                  return xhr;
-              },
-              data: data,
-              type: "POST",
-              url: TableBuilder.getActionUrl(),
-              cache: false,
-              contentType: false,
-              processData: false,
-              success: function (response) {
-                  if (response.status) {
+                    return xhr;
+                },
+                data: data,
+                type: "POST",
+                url: TableBuilder.getActionUrl(),
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.status) {
 
-                      $progress.width('0%');
+                        $progress.width('0%');
 
 
-                      TableBuilder.storage[ident].push(
-                          response.data.sizes.original
-                      );
-                    //  alert(TableBuilder.storage[ident].length)
+                        TableBuilder.storage[ident].push(
+                            response.data.sizes.original
+                        );
+                        //  alert(TableBuilder.storage[ident].length)
 
-                      var html = '';
-                      html += '<li>';
-                      html += '<img src="' + response.link + '" class="images-attr-editable" ' +
-                      'data-tbnum="' + num + '" ' +
-                      'data-tbalt="" ' +
-                      'data-tbtitle="" ' +
-                      'data_src_original="'+response.data.sizes.original+'"'+
-                      'data-tbident="' + ident + '" />';
-                      html += '<div class="tb-btn-delete-wrap">';
-                      html += '<button class="btn btn-default btn-sm tb-btn-image-delete" '
-                      html += 'type="button" '
-                      html += "onclick=\"TableBuilder.deleteImage('" + num + "','" + ident + "', this);\">"
-                      html += '<i class="fa fa-times"></i>'
-                      html += '</button>'
-                      html += '</div>';
-                      html += '</li>';
+                        var html = '';
+                        html += '<li>';
+                        html += '<img src="' + response.link + '" class="images-attr-editable" ' +
+                        'data-tbnum="' + num + '" ' +
+                        'data-tbalt="" ' +
+                        'data-tbtitle="" ' +
+                        'data_src_original="'+response.data.sizes.original+'"'+
+                        'data-tbident="' + ident + '" />';
+                        html += '<div class="tb-btn-delete-wrap">';
+                        html += '<button class="btn btn-default btn-sm tb-btn-image-delete" '
+                        html += 'type="button" '
+                        html += "onclick=\"TableBuilder.deleteImage('" + num + "','" + ident + "', this);\">"
+                        html += '<i class="fa fa-times"></i>'
+                        html += '</button>'
+                        html += '</div>';
+                        html += '</li>';
 
-                      // FIXME: too ugly to execute
-                      jQuery(context).parent().parent().parent().parent().find('.tb-uploaded-image-container').children().append(html);
+                        // FIXME: too ugly to execute
+                        jQuery(context).parent().parent().parent().parent().find('.tb-uploaded-image-container').children().append(html);
 
-                     // TableBuilder.initMultipleImageEditable();
-                  } else {
+                        // TableBuilder.initMultipleImageEditable();
+                    } else {
 
-                      TableBuilder.showErrorNotification(phrase["Ошибка при загрузке изображения"]);
+                        TableBuilder.showErrorNotification(phrase["Ошибка при загрузке изображения"]);
 
-                  }
-              }
-          });
-      }
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                    TableBuilder.showErrorNotification(errorResult.message);
+                    TableBuilder.hidePreloader();
+                }
+            });
+        }
     }, // end uploadMultipleImages
 
     deleteImage: function(num, ident, context)
@@ -1055,7 +1105,7 @@ var TableBuilder = {
 
 
     }, // end deleteImage
-    
+
     deleteSingleImage: function(ident, context)
     {
         var $imageWrapper = jQuery(context).parent().parent();
@@ -1090,6 +1140,12 @@ var TableBuilder = {
             success: function(response) {
                 // FIXME: or not
                 window.location.reload();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
+                TableBuilder.hidePreloader();
             }
         });
     }, // end doChangeSortingDirection
@@ -1119,6 +1175,12 @@ var TableBuilder = {
                 } else {
                     TableBuilder.showErrorNotification("Ошибка при загрузке файла");
                 }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
+                TableBuilder.hidePreloader();
             }
         });
     }, // end uploadFile
@@ -1130,7 +1192,8 @@ var TableBuilder = {
             content : "",
             color : "#C46A69",
             iconSmall : "fa fa-times fa-2x fadeInRight animated",
-            timeout : 4000
+            timeout : 10000,
+            class : "error"
         });
     }, // end showErrorNotification
 
@@ -1141,7 +1204,7 @@ var TableBuilder = {
             content : "",
             color : "#659265",
             iconSmall : "fa fa-check fadeInRight animated",
-            timeout : 4000
+            timeout : 3000
         });
     }, // end showSuccessNotification
 
@@ -1161,6 +1224,12 @@ var TableBuilder = {
                 } else {
                     TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                 }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
+                TableBuilder.hidePreloader();
             }
         });
     }, // end doEmbedToText
@@ -1260,6 +1329,12 @@ var TableBuilder = {
                             }
                         }
                         TableBuilder.hidePreloader();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                        TableBuilder.showErrorNotification(errorResult.message);
+                        TableBuilder.hidePreloader();
                     }
                 });
 
@@ -1330,6 +1405,12 @@ var TableBuilder = {
                 }
 
                 TableBuilder.hidePreloader();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
+                TableBuilder.hidePreloader();
             }
         });
     }, // end doMultiActionCall
@@ -1351,7 +1432,7 @@ var TableBuilder = {
             dataType: 'json',
             success: function(response) {
                 jQuery(context).parent().parent().parent().removeClass('open');
-                
+
                 if (response.status) {
                     if (response.is_hide_rows) {
                         jQuery(response.ids).each(function(key, val) {
@@ -1373,14 +1454,20 @@ var TableBuilder = {
                 }
 
                 TableBuilder.hidePreloader();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
+                TableBuilder.hidePreloader();
             }
         });
     }, // end doMultiActionCallWithOption
-    
-    saveOrder: function(order) 
+
+    saveOrder: function(order)
     {
         console.log(order);
-        
+
         jQuery.ajax({
             type: "POST",
             url: TableBuilder.getActionUrl(),
@@ -1393,10 +1480,16 @@ var TableBuilder = {
 
                     TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                 }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
+                TableBuilder.hidePreloader();
             }
         });
     }, // end saveOrder
-    
+
     openImageStorageModal: function(context, storageTypeSelect)
     {
         jQuery.ajax({
@@ -1405,27 +1498,33 @@ var TableBuilder = {
             data: { query_type: 'image_storage', storage_type: 'show_modal', "__node": TableBuilder.getUrlParameter('node'), storage_type_select: storageTypeSelect },
             dataType: 'json',
             success: function(response) {
-            console.log(response);
+
                 if (response.status) {
                     $(TableBuilder.image_storage_wrapper).html(response.html);
                     $('.image_storage_wrapper').show();
                     $('.tb-modal:visible').addClass('superbox-modal-hide').hide();
-                    
+
                     Superbox.input = $(context).parent().parent().find('input');
                     Superbox.type_select = storageTypeSelect;
                 } else {
                     TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                 }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
+                TableBuilder.hidePreloader();
             }
         });
     }, // end openImageStorageModal
-    
+
     closeImageStorageModal: function()
     {
         $('.image_storage_wrapper').hide();
         $('.superbox-modal-hide').removeClass('superbox-modal-hide').show();
     }, // end closeImageStorageModal
-    
+
     openFileStorageModal: function(context)
     {
         jQuery.ajax({
@@ -1434,23 +1533,29 @@ var TableBuilder = {
             data: { query_type: 'file_storage', storage_type: 'show_modal', "__node": TableBuilder.getUrlParameter('node') },
             dataType: 'json',
             success: function(response) {
-            console.log(response);
+
                 if (response.status) {
                     $(TableBuilder.image_storage_wrapper).html(response.html);
                     $('.image_storage_wrapper').show();
                     $('.tb-modal:visible').addClass('superbox-modal-hide').hide();
-                    
+
                     FileStorage.input = $(context).parent().parent().find('input');
                 } else {
                     TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                 }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
+                TableBuilder.hidePreloader();
             }
         });
     }, // end openFileStorageModal
 
     reLoadTable : function ()
     {
-      //  alert(window.location.href);
+        //  alert(window.location.href);
     } //end reLoadTable
 };
 

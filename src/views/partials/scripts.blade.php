@@ -64,12 +64,17 @@
 
    function doAjaxLoadContent(url) {
       $(".load_page").show();
-      $.post(url, {},
-         function(data){
-             $("#content_admin").html(data);
-              window.history.pushState(url, '', url);
-              $(".load_page").hide();
-      });
+
+      $.post( url, { })
+        .done(function( data ) {
+           $("#content_admin").html(data);
+            window.history.pushState(url, '', url);
+            $(".load_page").hide();
+        }).fail(function(xhr, ajaxOptions, thrownError) {
+            var errorResult = jQuery.parseJSON(xhr.responseText);
+            TableBuilder.showErrorNotification(errorResult.message);
+            TableBuilder.hidePreloader();
+        });
    }
 
         $(document).on('click', 'nav a', function (e) {

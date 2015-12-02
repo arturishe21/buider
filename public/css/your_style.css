@@ -209,3 +209,6 @@ div.tb-uploaded-image-container ul{
 .modal .modal-dialog {
     transform: none !important;
 }
+#divSmallBoxes .SmallBox{
+    width: 300px;
+}

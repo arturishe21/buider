@@ -19,6 +19,7 @@ $all_links_str = str_replace("/","",$all_links_str);
 
 Route::pattern('page_admin', $all_links_str);
 Route::pattern('tree_name', '[a-z0-9-_]+');
+Route::pattern('any', '[a-z0-9-_/\]+');
 
 Route::group(array('prefix' => Config::get('builder::admin.uri'), 'before' => array('auth_admin', 'check_permissions')), function() {
 
@@ -120,7 +121,27 @@ include 'route_translation.php';
 //routers for settings
 include 'route_settings.php';
 
-//default 404 error
-App::missing(function ($exception) {
-    return Response::view('admin::errors.404', array(), 404);
-});
+
+if (Request::ajax() && Request::is('admin/*')) {
+    App::error(function (Exception $exception, $code) {
+        return Vis\Builder\TBController::returnError($exception, $code);
+        /*switch ($code) {
+            case 403:
+                return Response::view('errors.403', array(), 403);
+            case 404:
+                return Vis\Builder\LoginController@showLogin;
+
+            case 500:
+                return Response::view('errors.500', array($exception), 500);
+
+            default:
+                return Response::view('errors.default', array(), $code);
+        }*/
+    });
+} else {
+    //default 404 error
+    App::missing(function ($exception) {
+        return Response::view('admin::errors.404', array(), 404);
+    });
+}
+

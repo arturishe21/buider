@@ -25,7 +25,7 @@ class TBController extends Controller
 
         return Redirect::back();
     }
-    
+
     public function doSaveMenuPreference()
     {
         $option = Input::get('option');
@@ -40,4 +40,20 @@ class TBController extends Controller
         return $response;
     } // end doSaveMenuPreference
 
+    public static function returnError($exception, $code)
+    {
+
+        $message = $exception->getMessage();
+
+        if (!$message) {
+            $message = "404 error";
+        }
+
+        $data = array(
+                "status" => "error",
+                "code" => $code,
+                "message" => $message
+            );
+        return Response::json($data, $code);
+    }
 }
