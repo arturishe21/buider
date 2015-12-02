@@ -134,10 +134,14 @@ class InstallArtisanCommand extends Command
                             'package' => 'vis/builder',
                         ));
 
-            $this->call('config:publish',
-                array(
-                    'package' => 'cartalyst/sentry',
-                ));
+           if(!File::exists(app_path() . '/config/packages/cartalyst/sentry/config.php')) {
+
+               $this->call('config:publish',
+                   array(
+                       'package' => 'cartalyst/sentry',
+                   ));
+           }
+
 
             $this->call('cache:clear');
 
