@@ -56,11 +56,13 @@ class InstallArtisanCommand extends Command
             $this->info('Replace HomeController.php - OK');
 
             //replace router.php
-            copy(
-                __DIR__ . '/../../../misc/routes.php',
-                app_path() . '/routes.php'
-            );
-            $this->info('Replace routes.php - OK');
+          if(!File::exists(app_path() . '/routes.php')) {
+              copy(
+                  __DIR__ . '/../../../misc/routes.php',
+                  app_path() . '/routes.php'
+              );
+              $this->info('Replace routes.php - OK');
+          }
 
             //replace view_composers.php
             copy(
