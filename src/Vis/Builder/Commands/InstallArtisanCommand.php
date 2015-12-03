@@ -44,18 +44,22 @@ class InstallArtisanCommand extends Command
         }
 
         //replace htaccess
-        copy(
-            __DIR__ . '/../../../misc/.htaccess',
-            public_path() . '/.htaccess'
-        );
-        $this->info('Replace htaccess - OK');
+      //  if(!File::exists(public_path() . '/.htaccess')) {
+            copy(
+                __DIR__ . '/../../../misc/.htaccess',
+                public_path() . '/.htaccess'
+            );
+            $this->info('Replace htaccess - OK');
+        //}
 
         //replace HomeController
-        copy(
-            __DIR__ . '/../../../misc/HomeController.php',
-            app_path() . '/controllers/HomeController.php'
-        );
-        $this->info('Replace HomeController.php - OK');
+        if(!File::exists(app_path() . '/controllers/HomeController.php')) {
+            copy(
+                __DIR__ . '/../../../misc/HomeController.php',
+                app_path() . '/controllers/HomeController.php'
+            );
+            $this->info('Replace HomeController.php - OK');
+        }
 
         //replace router.php
         if(!File::exists(app_path() . '/routes.php')) {
@@ -69,11 +73,13 @@ class InstallArtisanCommand extends Command
 
 
         //replace view_composers.php
-        copy(
-            __DIR__ . '/../../../misc/view_composers.php',
-            app_path() . '/view_composers.php'
-        );
-        $this->info('Replace view_composers.php - OK');
+        if(!File::exists(app_path() . '/view_composers.php')) {
+            copy(
+                __DIR__ . '/../../../misc/view_composers.php',
+                app_path() . '/view_composers.php'
+            );
+            $this->info('Replace view_composers.php - OK');
+        }
 
         //create folder mcamara/laravel-localization'
         if (!is_dir(app_path() . '/config/packages/mcamara/laravel-localization')) {
@@ -89,46 +95,57 @@ class InstallArtisanCommand extends Command
 
 
         //replace BaseModel.php
-        copy(
-            __DIR__ . '/../../../misc/BaseModel.php',
-            app_path() . '/models/BaseModel.php'
-        );
-        $this->info('Replace BaseModel.php - OK');
+        if(!File::exists(app_path() . '/models/BaseModel.php')) {
+            copy(
+                __DIR__ . '/../../../misc/BaseModel.php',
+                app_path() . '/models/BaseModel.php'
+            );
+            $this->info('Replace BaseModel.php - OK');
+        }
 
         //replace News.php
-        copy(
-            __DIR__ . '/../../../misc/News.php',
-            app_path() . '/models/News.php'
-        );
-        $this->info('Replace News.php - OK');
+        if(!File::exists(app_path() . '/models/News.php')) {
+            copy(
+                __DIR__ . '/../../../misc/News.php',
+                app_path() . '/models/News.php'
+            );
+            $this->info('Replace News.php - OK');
+        }
 
         //replace Tree.php
-        copy(
-            __DIR__ . '/../../../misc/Tree.php',
-            app_path() . '/models/Tree.php'
-        );
-        $this->info('Replace Tree.php - OK');
+        if(!File::exists(app_path() . '/models/Tree.php')) {
+            copy(
+                __DIR__ . '/../../../misc/Tree.php',
+                app_path() . '/models/Tree.php'
+            );
+            $this->info('Replace Tree.php - OK');
+        }
 
         //replace User.php
-        copy(
-            __DIR__ . '/../../../misc/User.php',
-            app_path() . '/models/User.php'
-        );
-        $this->info('Replace User.php - OK');
+        if(!File::exists(app_path() . '/models/User.php')) {
+            copy(
+                __DIR__ . '/../../../misc/User.php',
+                app_path() . '/models/User.php'
+            );
+            $this->info('Replace User.php - OK');
+        }
 
         //replace Util.php
-        copy(
-            __DIR__ . '/../../../misc/Util.php',
-            app_path() . '/models/Util.php'
-        );
-        $this->info('Replace Util.php - OK');
-
+        if(!File::exists(app_path() . '/models/Util.php')) {
+            copy(
+                __DIR__ . '/../../../misc/Util.php',
+                app_path() . '/models/Util.php'
+            );
+            $this->info('Replace Util.php - OK');
+        }
         //replace Breadcrumbs.php
-        copy(
-            __DIR__ . '/../../../misc/Breadcrumbs.php',
-            app_path() . '/models/Breadcrumbs.php'
-        );
-        $this->info('Replace Breadcrumbs.php - OK');
+        if(!File::exists(app_path() . '/models/Breadcrumbs.php')) {
+            copy(
+                __DIR__ . '/../../../misc/Breadcrumbs.php',
+                app_path() . '/models/Breadcrumbs.php'
+            );
+            $this->info('Replace Breadcrumbs.php - OK');
+        }
 
 
         $this->call('asset:publish',
