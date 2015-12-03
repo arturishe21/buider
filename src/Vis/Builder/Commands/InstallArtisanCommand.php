@@ -22,14 +22,16 @@ class InstallArtisanCommand extends Command
         // if ($this->confirm('Start install? [y|n]')) {
 
         //create table with sql
-        $f = scandir(__DIR__ . '/../../../dump_sql_table/');
-        foreach ($f as $file){
-            if(preg_match('/\.(sql)/', $file)){
-                $this->info("Processed file ".$file);
-                DB::unprepared(file_get_contents(__DIR__ . '/../../../dump_sql_table/'.$file));
+        if(!File::exists(app_path() . '/models/Tree.php')) {
+            $f = scandir(__DIR__ . '/../../../dump_sql_table/');
+            foreach ($f as $file) {
+                if (preg_match('/\.(sql)/', $file)) {
+                    $this->info("Processed file " . $file);
+                    DB::unprepared(file_get_contents(__DIR__
+                            . '/../../../dump_sql_table/' . $file));
+                }
             }
         }
-
 
 
         //create folder 'public/css/builds'
