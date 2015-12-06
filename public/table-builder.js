@@ -412,10 +412,14 @@ var TableBuilder = {
 
     getCloneForm: function(id)
     {
-        $.post(TableBuilder.getActionUrl(), {"query_type" : "clone_record", "id" : id},
-            function(response){
+        $.post( TableBuilder.getActionUrl(), {"query_type" : "clone_record", "id" : id})
+            .done(function( data ) {
                 location.href = location.href;
-            },"json");
+            }).fail(function(xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+                TableBuilder.showErrorNotification(errorResult.message);
+                TableBuilder.hidePreloader();
+            });
     },
 
     handleStartLoad: function()
