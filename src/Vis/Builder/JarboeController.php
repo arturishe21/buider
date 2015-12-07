@@ -56,9 +56,6 @@ class JarboeController
         $this->view    = new ViewHandler($this);
         $this->request = new RequestHandler($this);
 
-       // $this->imageStorage = new ImageStorage($this);
-      //  $this->fileStorage  = new FileStorage($this);
-
         // HACK:
         $this->currentID = \Input::get('id');
     } // end __construct
@@ -179,7 +176,7 @@ class JarboeController
     protected function loadFields()
     {
         $definition = $this->getDefinition();
-        
+
         $fields = array();
         foreach ($definition['fields'] as $name => $info) {
             if ($this->isPatternField($name)) {

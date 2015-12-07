@@ -22,7 +22,12 @@ Route::filter('auth_admin', function()
 
     if (!Sentry::check()) {
         if (Request::ajax()) {
-            return Response::make('Unauthorized', 401);
+            $data = array(
+                "status" => "error",
+                "code" => "401",
+                "message" => "Unauthorized"
+            );
+            return Response::json($data, "401");
         } else {
             return Redirect::guest('login');
         }
@@ -32,7 +37,12 @@ Route::filter('auth_admin', function()
             $admin = Sentry::findGroupByName('admin');
             if (!Sentry::getUser()->inGroup($admin)) {
                 if (Request::ajax()) {
-                    return Response::make('Unauthorized', 401);
+                    $data = array(
+                        "status" => "error",
+                        "code" => "401",
+                        "message" => "Unauthorized"
+                    );
+                    return Response::json($data, "401");
                 } else {
                     return Redirect::guest('/');
                 }

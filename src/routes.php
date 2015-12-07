@@ -125,18 +125,6 @@ include 'route_settings.php';
 if (Request::ajax() && Request::is('admin/*')) {
     App::error(function (Exception $exception, $code) {
         return Vis\Builder\TBController::returnError($exception, $code);
-        /*switch ($code) {
-            case 403:
-                return Response::view('errors.403', array(), 403);
-            case 404:
-                return Vis\Builder\LoginController@showLogin;
-
-            case 500:
-                return Response::view('errors.500', array($exception), 500);
-
-            default:
-                return Response::view('errors.default', array(), $code);
-        }*/
     });
 } else {
     //default 404 error

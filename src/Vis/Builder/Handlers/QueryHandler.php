@@ -27,6 +27,12 @@ class QueryHandler
 
         $definition = $controller->getDefinition();
 
+        if (isset($definition['cache']['tags'])) {
+            $this->cache = $definition['cache']['tags'];
+        } else {
+            $this->cache = "";
+        }
+
         $this->dbOptions = $definition['db'];
     } // end __construct
 
@@ -81,8 +87,15 @@ class QueryHandler
         if ($this->hasOptionDB('pagination') && $isPagination) {
             $pagination = $this->getOptionDB('pagination');
             $perPage = $this->getPerPageAmount($pagination['per_page']);
-            $paginator = $this->db->paginate($perPage);
+
+            if ($this->cache && is_array($this->cache)) {
+                $paginator = $this->db->cacheTags($this->cache)->rememberForever()->paginate($perPage);
+            } else {
+                $paginator = $this->db->paginate($perPage);
+            }
+
             $paginator->setBaseUrl($pagination['uri']);
+
             return $paginator;
         }
 
@@ -169,18 +182,18 @@ class QueryHandler
 
     public function getTableAllowedIds()
     {
-
-        if (!Schema::hasTable($this->getOptionDB('table')))
-        {
-            Schema::create($this->getOptionDB('table'), function($table)
-            {
-                $table->increments('id');
-            });
+        if (!Session::has($this->getOptionDB('table') . "_exist")) {
+            if (!Schema::hasTable($this->getOptionDB('table'))) {
+                Schema::create($this->getOptionDB('table'), function ($table) {
+                    $table->increments('id');
+                });
+            }
         }
-
         $this->db = DB::table($this->getOptionDB('table'));
         $this->prepareFilterValues();
         $ids = $this->db->lists('id');
+
+        Session::push($this->getOptionDB('table') . "_exist", 'created');
 
         return $ids;
     } // end getTableAllowedIds

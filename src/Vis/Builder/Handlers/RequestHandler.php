@@ -127,7 +127,6 @@ class RequestHandler
         
         $definition = $this->controller->getDefinition();
 
-        
         $info = $definition['db']['pagination']['per_page'];
         if (is_array($info)) {
             $definitionName = $this->controller->getOption('def_name');
@@ -304,7 +303,7 @@ class RequestHandler
     protected function handlePhotoUpload()
     {
         $this->controller->query->clearCache();
-        
+
         // FIXME:
         $ident = Input::get('ident');
         $file  = Input::file('image');

@@ -278,6 +278,7 @@ abstract class AbstractField
         $data = Session::all();
 
         if (!Session::has($table_name.'.'.$field_name)) {
+
             if ($field_bd && !Schema::hasColumn($table_name, $field_name)) {
                 Session::push($table_name . '.' . $field_name, 'created');
 
@@ -290,6 +291,8 @@ abstract class AbstractField
                         $field_add->length($param);
                     }
                 });
+            } else {
+                Session::push($table_name . '.' . $field_name, 'created');
             }
         }
     }
@@ -312,6 +315,7 @@ abstract class AbstractField
         $tabs  = $this->getAttribute('tabs');
         
         $data = compact('rules', 'name', 'tabs');
+
         return View::make('admin::tb.validator_rules', $data)->render();
     } // end getClientsideValidatorRules
     
