@@ -353,6 +353,7 @@ class RequestHandler
             'status' => $status,
             'link'   => URL::to($destinationPath . $fileName)
         );
+
         return Response::json($data);
     } // end handlePhotoUploadFromWysiwyg
     
@@ -381,6 +382,7 @@ class RequestHandler
         $data = array(
             'filelink'   => URL::to($destinationPath . $fileName)
         );
+
         return Response::json($data);
     } // end handlePhotoUploadFromWysiwygRedactor
     

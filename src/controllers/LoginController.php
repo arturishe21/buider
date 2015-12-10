@@ -54,6 +54,7 @@ class LoginController extends Controller
             Event::fire("user.login_error");
 
             Session::put('tb_login_not_found', Lang::get('builder::login.not_found'));
+
             return Redirect::to(Config::get('builder::admin.uri'));
         }
     } // end 

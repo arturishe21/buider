@@ -5,6 +5,8 @@ namespace Vis\Builder\Fields;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\App;
 
 
 class ImageField extends AbstractField 
@@ -105,12 +107,16 @@ class ImageField extends AbstractField
         $input->caption = $this->getAttribute('caption');
         $input->is_multiple = $this->getAttribute('is_multiple');
         $input->delimiter   = $this->getAttribute('delimiter');
+        $input->width   = $this->getAttribute('img_width') ? $this->getAttribute('img_width') : 200;
+        $input->height   = $this->getAttribute('img_height') ? $this->getAttribute('img_height') : 200;
 
         return $input->render();
     } // end getEditInput
     
     public function doUpload($file)
     {
+        $this->checkSizeFile($file);
+
         $extension = $file->guessExtension();
         $rawFileName = md5_file($file->getRealPath()) .'_'. time();
         $fileName = $rawFileName .'.'. $extension;
@@ -138,17 +144,30 @@ class ImageField extends AbstractField
             $img->save(public_path() .'/'. $path, $quality);
             $data['sizes'][$type] = $path;
         }
+
+        $width   = $this->getAttribute('img_width') ? $this->getAttribute('img_width') : 200;
+        $height   = $this->getAttribute('img_height') ? $this->getAttribute('img_height') : 200;
         
         $response = array(
             'data'       => $data,
             'status'     => $status,
-            'link'       => glide($destinationPath . $fileName, ['w' => '200', 'h' => '200']),
+            'link'       => glide($destinationPath . $fileName, ['w' => $width, 'h' => $height]),
             'short_link' => $destinationPath . $fileName,
             // FIXME: naughty hack
             'delimiter' => ','
         );
         return $response;
     } // end doUpload
+
+    private function checkSizeFile($file)
+    {
+        if ($this->getAttribute('limit_mb')) {
+            $limit_mb = $this->getAttribute('limit_mb')*1000000;
+            if ($file->getSize() > $limit_mb) {
+                App::abort(500, "Ошибка загрузки файла. Файл больше чем ".$this->getAttribute('limit_mb')." МБ");
+            }
+        }
+    }
     
     public function prepareQueryValue($value)
     {

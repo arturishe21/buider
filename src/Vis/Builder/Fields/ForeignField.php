@@ -105,6 +105,15 @@ class ForeignField extends AbstractField
         }
     } // end onSelectValue
 
+    public function getValueId($row)
+    {
+        $fieldName = $this->getFieldName();
+
+        $value = isset($row[$fieldName]) ? $row[$fieldName] : '';
+
+        return $value;
+    }
+
     public function getValue($row, $postfix = '')
     {
         if ($this->hasCustomHandlerMethod('onGetValue')) {
@@ -144,7 +153,7 @@ class ForeignField extends AbstractField
         }
 
         $input = View::make('admin::tb.input_foreign');
-        $input->selected = $this->getValue($row);
+        $input->selected = $this->getValueId($row);
         $input->name     = $this->getFieldName();
         $input->options  = $this->getForeignKeyOptions();
         $input->is_null  = $this->getAttribute('is_null');

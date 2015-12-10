@@ -246,14 +246,6 @@ class CustomClosureHandler
             $closure = $closure->bindTo($this);
             return $closure($file);
         }
-        /*
-        $data = array(
-            'status'     => true|false,
-            'link'       => absolute path,
-            'short_link' => relative path,
-        );
-        return Response::json($data);
-        */
     } // end onFileUpload
     
     public function onPhotoUpload($formField, $file)
@@ -263,15 +255,7 @@ class CustomClosureHandler
             $closure = $closure->bindTo($this);
             return $closure($formField, $file);
         }
-        /*
-        $data = array(
-            'status'     => true|false,
-            'link'       => absolute path,
-            'short_link' => relative path,
-            'delimiter'  => ','
-        );
-        return Response::json($data);
-        */
+
     } // end onPhotoUpload
     
     public function onPhotoUploadFromWysiwyg($file)

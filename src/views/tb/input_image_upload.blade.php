@@ -89,7 +89,7 @@
             <div style="position: relative; display: inline-block;">
                 <img class="image-attr-editable"
                      data-tbident="{{$name}}"
-                     src="{{ glide($value, ['w'=>200,'h'=>'200']) }}" />
+                     src="{{ glide($value, ['w'=>$width,'h'=>$height]) }}" />
                 <div class="tb-btn-delete-wrap">
                     <button class="btn btn-default btn-sm tb-btn-image-delete" type="button"
                             onclick="TableBuilder.deleteSingleImage('{{$name}}', this);">
