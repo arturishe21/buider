@@ -207,6 +207,17 @@ class ManyToManyField extends AbstractField
 
         $options->where($this->getAttribute('mtm_key_field'), $row['id']);
 
+        $externalOrder = $this->getAttribute('mtm_external_order');
+        if ($externalOrder) {
+            if (is_callable($externalOrder)) {
+                $externalOrder($options);
+            } else {
+                foreach ($externalOrder as $key => $opt) {
+                    $options->orderBy($key, $opt);
+                }
+            }
+        }
+
         $res = $options->get();
         $options = array();
         foreach ($res as $opt) {

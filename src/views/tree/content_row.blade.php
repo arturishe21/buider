@@ -63,6 +63,7 @@
        <div style="display: inline-block">
          <div class="btn-group hidden-phone pull-right">
               <a class="btn dropdown-toggle btn-default"  data-toggle="dropdown"><i class="fa fa-cog"></i> <i class="fa fa-caret-down"></i></a>
+
                 <ul class="dropdown-menu">
                      <li>
                         <a onclick="Tree.showEditForm('{{ $item->id }}');">
@@ -70,10 +71,12 @@
                             {{__cms("Редактировать")}}
                         </a>
                     </li>
-                   <li><a href="{{ url($item->getUrl()) }}?show=1" target="_blank"><i class="fa fa-eye"></i> {{__cms('Предпросмотр')}} </a></li>
+                   @if (Config::get('builder::'.$treeName.'.preview') != "hide")
+                    <li><a href="{{ url($item->getUrl()) }}?show=1" target="_blank"><i class="fa fa-eye"></i> {{__cms('Предпросмотр')}} </a></li>
+                   @endif
                    <li><a onclick="TableBuilder.getCloneForm({{ $item->id }}, this);" ><i class="fa fa-copy"></i> {{__cms('Клонировать')}} </a></li>
 
-                    <li><a onclick="TableBuilder.getRevisions({{ $item->id }}, this);" ><i class="fa fa-history"></i> {{__cms('Версии')}} </a></li>
+                   <li><a onclick="TableBuilder.getRevisions({{ $item->id }}, this);" ><i class="fa fa-history"></i> {{__cms('Версии')}} </a></li>
 
                     <li>
                         <a onclick="Tree.doDelete('{{ $item->id }}', this);" class="node-del-{{$item->id}}" style="color: red">
