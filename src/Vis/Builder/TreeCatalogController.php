@@ -314,7 +314,8 @@ class TreeCatalogController
         $model::flushCache();
         
         $item = $model::find($idNode);
-        $result['html'] = View::make('admin::tree.content_row', compact('item'))->render();
+        $treeName = $this->nameTree;
+        $result['html'] = View::make('admin::tree.content_row', compact('item', 'treeName'))->render();
 
         return Response::json($result);   
     } // end doEditNode

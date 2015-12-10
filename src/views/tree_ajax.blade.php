@@ -25,6 +25,7 @@
 
 
 <script>
+
     Tree.admin_prefix = '{{ Config::get('builder::admin.uri') }}';
     Tree.parent_id = '{{ $current->id }}';
 
