@@ -68,7 +68,12 @@ if ($arrSegments[0] != "admin") {
         $startUrl = $arrSegments[0];
 
         if ($arrSegments[0] == LaravelLocalization::setLocale()) {
-            $startUrl = $arrSegments[1];
+            if (isset($arrSegments[1])) {
+                $startUrl = $arrSegments[1];
+            } else {
+                $startUrl = "/";
+            }
+
         }
 
         $urls = array_keys($otherTreeUrl);
