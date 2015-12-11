@@ -4,7 +4,7 @@ return array(
 
     'is_active' => true,
 
-    'model' => 'Tree',
+    'model' => 'Vis\Builder\Tree',
 
     // !isset options - tinyint(1)
     // isset options  - set
