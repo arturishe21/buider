@@ -95,6 +95,17 @@ class InstallArtisanCommand extends Command
             $this->info('Replace laravel-localization/config.php - OK');
         }
 
+        if (!is_dir(app_path() . '/config/packages/intervention/imagecache')) {
+            File::makeDirectory(app_path() . '/config/packages/intervention/imagecache', 0777, true);
+            $this->info('Folder /config/packages/intervention/imagecache is created');
+
+            copy(
+                __DIR__ . '/../../../misc/imagecache_config.php',
+                app_path() . '/config/packages/intervention/imagecache/config.php'
+            );
+            $this->info('Replace imagecache/config.php - OK');
+        }
+
 
         //replace BaseModel.php
         if(!File::exists(app_path() . '/models/BaseModel.php')) {
