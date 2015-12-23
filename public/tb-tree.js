@@ -25,6 +25,42 @@ var Tree =
             Tree.showEditForm(idPage);
         }
 
+        jQuery('.ui-sortable').sortable({
+            scroll: true,
+            axis: "y",
+            handle: ".tb-sort-me-gently",
+            update: function ( event, ui ) {
+
+                var $currentItem =  ui.item;
+
+                var node = Core.urlParam('node');
+                if (!$.isNumeric(node)) {
+                    node = 1;
+                }
+                jQuery.ajax({
+                    url: window.location.href,
+                    type: 'POST',
+                    dataType: 'json',
+                    cache: false,
+                    data: {
+                        id:               $currentItem.attr('data-id'),
+                        parent_id:        node,
+                        left_sibling_id:  $currentItem.prev().attr('data-id'),
+                        right_sibling_id: $currentItem.next().attr('data-id'),
+                        query_type:       'do_change_position'
+                    },
+                    success: function(response) {
+
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                        TableBuilder.showErrorNotification(errorResult.message);
+                        TableBuilder.hidePreloader();
+                    }
+                });
+            }
+        });
 
         $('#tb-tree').on('after_open.jstree', function (e, data) {
             Tree.setdbl();
@@ -85,42 +121,13 @@ var Tree =
 
                                 $(obj.reference[0].parentElement).remove();
                             },
+
                             "separator_before" : true
                         }
                     };
                 }
             },
             "plugins" : [ "dnd", "search", "contextmenu" ]
-        }).bind("move_node.jstree", function(e, data) {
-            //console.log(data);
-            //console.log($('#'+data.node.id).prev());
-
-            var $current = jQuery('#'+data.node.id);
-            jQuery.ajax({
-                url: window.location.href,
-                type: 'POST',
-                dataType: 'json',
-                cache: false,
-                data: {
-                    id:               $current.data('id'),
-                    parent_id:        jQuery('#'+data.parent).data('id'),
-                    left_sibling_id:  $current.prev().data('id'),
-                    right_sibling_id: $current.next().data('id'),
-                    query_type:       'do_change_position'
-                },
-                success: function(response) {
-                    if (response.status) {
-                        $current.data('parent-id', response.parent_id);
-                        Tree.setdbl();
-                    }
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    var errorResult = jQuery.parseJSON(xhr.responseText);
-
-                    TableBuilder.showErrorNotification(errorResult.message);
-                    TableBuilder.hidePreloader();
-                }
-            });
         }).bind("select_node.jstree", function (e, data) {
 
         }).bind("dblclick.jstree", function (event) {
@@ -425,44 +432,6 @@ jQuery(document).ready(function(){
     $(document).on('click', '#modal_form_edit .close, .modal-footer button', function (e) {
         var url = Core.delPrm("id_tree");
         window.history.pushState(url, '', url);
-    });
-
-    jQuery('.ui-sortable').sortable({
-        scroll: true,
-        axis: "y",
-        handle: ".tb-sort-me-gently",
-        update: function ( event, ui ) {
-
-            var $currentItem =  ui.item;
-
-            var node = Core.urlParam('node');
-            if (!$.isNumeric(node)) {
-                node = 1;
-            }
-
-            jQuery.ajax({
-                url: window.location.href,
-                type: 'POST',
-                dataType: 'json',
-                cache: false,
-                data: {
-                    id:               $currentItem.attr('data-id'),
-                    parent_id:        node,
-                    left_sibling_id:  $currentItem.prev().attr('data-id'),
-                    right_sibling_id: $currentItem.next().attr('data-id'),
-                    query_type:       'do_change_position'
-                },
-                success: function(response) {
-
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    var errorResult = jQuery.parseJSON(xhr.responseText);
-
-                    TableBuilder.showErrorNotification(errorResult.message);
-                    TableBuilder.hidePreloader();
-                }
-            });
-        }
     });
 
 });

@@ -54,5 +54,11 @@
  $(".breadcrumb").html("<li><a href='/admin'>{{__cms('Главная')}}</a></li> <li>{{__cms('Структура сайта')}}</li>");
  $("title").text("{{__cms('Структура сайта')}} - {{{ __cms(Config::get('builder::admin.caption')) }}}");
 
+  try {
+   Tree.init();
+  } catch (err) { }
+
+
+
 </script>
 

@@ -14,32 +14,39 @@ if ($arrSegments[0] != "admin") {
         }
 
         $nodes = $_model::where("slug", 'like', $slug)->get();
-
         foreach ($nodes as $node) {
 
             if (isset($node->id)) {
 
-                $_nodeUrl = $node->getUrlNoLocation();
+                $slugTree = $slug;
+
+                $_nodeUrl = trim($node->getUrlNoLocation());
+
+
 
                 Route::group(array('prefix' => LaravelLocalization::setLocale()),
-                function () use ($node, $_nodeUrl, $templates) {
+                    function () use ($node, $_nodeUrl, $templates) {
 
-                    Route::get($_nodeUrl, function () use ($node, $templates) {
-                        if (!isset($templates[$node->template])) {
-                            App::abort(404);
-                        }
+                        Route::get($_nodeUrl, function () use ($node, $templates) {
 
-                        list($controller, $method) = explode('@',
-                            $templates[$node->template]['action']);
 
-                        $app = app();
-                        $controller = $app->make($controller);
+                            if (!isset($templates[$node->template])) {
+                                App::abort(404);
+                            }
 
-                        return $controller->callAction('init',
-                            array($node, $method));
+                            list($controller, $method) = explode('@',
+                                $templates[$node->template]['action']);
+
+                            $app = app();
+                            $controller = $app->make($controller);
+
+                            return $controller->callAction('init',
+                                array($node, $method));
+                        });
+
                     });
 
-                });
+
 
                 if (LaravelLocalization::setLocale() == "") {
                     $pathUrl = "/" . Request::path();
@@ -76,45 +83,57 @@ if ($arrSegments[0] != "admin") {
 
         }
 
+
         $urls = array_keys($otherTreeUrl);
 
+
+
         if ($urls && count($urls) && in_array($startUrl, $urls)) {
+
             if (isset($otherTreeUrl[$startUrl])) {
 
                 $configName = $otherTreeUrl[$startUrl];
-                $model = Config::get("builder::" . $configName . ".model");
+
+                $path = app_path() .'/config/packages/vis/builder/'. $configName .'.php';
+
+                $definition = require_once($path);
+
+                $model = $definition['model'];
+
                 $slug = end($arrSegments);
-                $node = $model::where("slug", 'like', $slug)->first();
 
-                if (isset($node->id)) {
+                if (!isset($slugTree)) {
 
-                    $_nodeUrl = $node->getUrlNoLocation();
-                    $templates = Config::get("builder::" . $configName
-                        . ".templates");
+                    $node = $model::where("slug", 'like', $slug)->first();
+                    
+                    if (isset($node->id)) {
 
+                        $_nodeUrl = $node->getUrlNoLocation();
+                        $templates = $definition['templates'];
+                        Route::group(array('prefix' => LaravelLocalization::setLocale()),
+                            function () use ($node, $_nodeUrl, $templates) {
+                                Route::get($_nodeUrl,
+                                    function () use ($node, $templates) {
+                                        if (!isset($templates[$node->template])) {
+                                            App::abort(404);
+                                        }
 
-                    Route::group(array('prefix' => LaravelLocalization::setLocale()),
-                        function () use ($node, $_nodeUrl, $templates) {
-                            Route::get($_nodeUrl,
-                            function () use ($node, $templates) {
-                                if (!isset($templates[$node->template])) {
-                                    App::abort(404);
-                                }
+                                        list($controller, $method) = explode('@',
+                                            $templates[$node->template]['action']);
 
-                                list($controller, $method) = explode('@',
-                                    $templates[$node->template]['action']);
+                                        $app = app();
+                                        $controller = $app->make($controller);
 
-                                $app = app();
-                                $controller = $app->make($controller);
+                                        return $controller->callAction('init',
+                                            array($node, $method));
+                                    });
 
-                                return $controller->callAction('init',
-                                    array($node, $method));
                             });
 
-                        });
-
+                    }
                 }
             }
         }
     }
+
 }
