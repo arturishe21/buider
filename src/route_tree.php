@@ -105,7 +105,7 @@ if ($arrSegments[0] != "admin") {
                 if (!isset($slugTree)) {
 
                     $node = $model::where("slug", 'like', $slug)->first();
-                    
+
                     if (isset($node->id)) {
 
                         $_nodeUrl = $node->getUrlNoLocation();

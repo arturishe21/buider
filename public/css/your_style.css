@@ -206,9 +206,26 @@ div.tb-uploaded-image-container ul{
     background-position: -144px -154px;
 }
 
+
+/*alexkor 01.12.2015 fixed table resize plugin in modal window */
 .modal .modal-dialog {
     transform: none !important;
 }
+
 #divSmallBoxes .SmallBox{
     width: 300px;
+}
+.sorting_desc, .sorting_asc{
+    background-color: #eee;
+}
+.sorting{
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0) url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATAgMAAAAPPt5fAAAACVBMVEUAAADIyMjl5eVIBBP/AAAAAXRSTlMAQObYZgAAAClJREFUCNdjwAYEwGQKiGDsBJFsTA5AUoJhAqZaiDhEDVg9RC/MHEwAANsMA91AQfd/AAAAAElFTkSuQmCC") no-repeat scroll right center;
+}
+
+.sorting_asc {
+    background: #eee url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATAQMAAABInqSPAAAABlBMVEUAAABVVVUT3Vn+AAAAAXRSTlMAQObYZgAAAB1JREFUCNdjwAkcgPgBAwPjBwYG5h8MDOx/GAgBAKRJBBCQbHkwAAAAAElFTkSuQmCC") no-repeat scroll right center;
+}
+.sorting_desc {
+    background: #eee url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATAQMAAABInqSPAAAABlBMVEUAAABVVVUT3Vn+AAAAAXRSTlMAQObYZgAAABxJREFUCNdjIATY/zAwMP9gYGD8AOQ8AGIHnEoBkNkEEEbbutQAAAAASUVORK5CYII=") no-repeat scroll right center;
 }

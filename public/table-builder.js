@@ -835,7 +835,6 @@ var TableBuilder = {
                 }).get()
         );
 
-        console.log(values);
         jQuery.ajax({
             type: "POST",
             url: TableBuilder.getActionUrl(),
@@ -1121,7 +1120,7 @@ var TableBuilder = {
 
     doChangeSortingDirection: function(ident, context)
     {
-        TableBuilder.showPreloader();
+        // TableBuilder.showPreloader();
 
         var $context = jQuery(context);
 
@@ -1142,14 +1141,11 @@ var TableBuilder = {
             cache: false,
             dataType: "json",
             success: function(response) {
-                // FIXME: or not
-                window.location.reload();
+                doAjaxLoadContent(window.location.href);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 var errorResult = jQuery.parseJSON(xhr.responseText);
-
                 TableBuilder.showErrorNotification(errorResult.message);
-                TableBuilder.hidePreloader();
             }
         });
     }, // end doChangeSortingDirection
