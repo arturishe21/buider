@@ -278,10 +278,6 @@ class QueryHandler
     {
         $this->clearCache();
 
-        if (!$this->controller->actions->isAllowed('delete')) {
-            throw new \RuntimeException('Clone action is not permitted');
-        }
-
         if ($this->controller->hasCustomHandlerMethod('handleCloneRow')) {
             $res = $this->controller->getCustomHandler()->handleCloneRow($id);
             if ($res) {

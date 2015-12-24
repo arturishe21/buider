@@ -167,7 +167,7 @@ class TreeCatalogController
         );
         return Response::json($data);
     } // end doChangePosition
-    
+
     // FIXME: fix me, fix
     public function process()
     {
@@ -181,7 +181,7 @@ class TreeCatalogController
         if (isset($templates[$current->template])) {
             $template = $templates[$current->template];
         }
-        
+
         $options = array(
             'url'      => URL::current(),
             'def_name' => $this->nameTree . '.'. $template['node_definition'],

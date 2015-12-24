@@ -59,7 +59,7 @@ var TableBuilder = {
                 fileUploadURL: "/admin/upload_file",
                 imageManagerLoadURL: "/admin/load_image",
                 imageDeleteURL: "/admin/delete_image",
-                language: langEditor,
+                language: langEditor
             });
 
         $("a[href='https://froala.com/wysiwyg-editor']").parent().remove();
@@ -69,100 +69,6 @@ var TableBuilder = {
     {
         return TableBuilder.action_url ? TableBuilder.action_url : '/admin/handle/tree';
     }, // end getActionUrl
-
-    initSingleImageEditable: function()
-    {
-        TableBuilder.initImageEditable();
-        //
-        var images = jQuery('div.tb-uploaded-image-container img.image-attr-editable, div.tb-uploaded-image-container img.images-attr-editable');
-        jQuery.each(images, function(key, img) {
-            var $img = jQuery(img);
-            $img.editable({
-                type: 'image',
-                showbuttons: 'bottom',
-                url: function(params) {
-                    var vals = params.value;
-
-                    // single image doesnt have tbnum
-                    if (vals.tbnum === "") {
-                        console.log('s');
-                        TableBuilder.storage[vals.tbident].alt   = vals.tbalt;
-                        TableBuilder.storage[vals.tbident].title = vals.tbtitle;
-                    } else {
-                        console.log('m');
-                        console.log(TableBuilder.storage[vals.tbident]);
-                        TableBuilder.storage[vals.tbident][vals.tbnum].alt = vals.tbalt;
-                        TableBuilder.storage[vals.tbident][vals.tbnum].title = vals.tbtitle;
-                        console.log(TableBuilder.storage[vals.tbident][vals.tbnum]);
-                    }
-                },
-                value: {
-                    tbalt:   $img.data('tbalt'),
-                    tbtitle: $img.data('tbtitle'),
-                    tbident: $img.data('tbident'),
-                    tbnum:   $img.data('tbnum')
-                },
-                display: function (value) {
-                    if (!value) {
-                        $(this).empty();
-                        return;
-                    }
-                    var html = '<b>' + jQuery('<div>').text(value.tbalt).html() + '</b>, '
-                        + jQuery('<div>').text(value.tbtitle).html() + '</b>, '
-                        + jQuery('<div>').text(value.tbident).html() + '</b>, '
-                        + jQuery('<div>').text(value.tbnum).html();
-                    jQuery(this).html(html);
-                }
-            });
-        });
-    }, // end initSingleImageEditable
-
-    initMultipleImageEditable: function()
-    {
-        TableBuilder.initSeveralImageEditable();
-        //
-        var images = jQuery('div.tb-uploaded-image-container img.images-attr-editable');
-        jQuery.each(images, function(key, img) {
-            var $img = jQuery(img);
-            $img.editable({
-                type: 'image',
-                showbuttons: 'bottom',
-                url: function(params) {
-                    var vals = params.value;
-
-                    // single image doesnt have tbnum
-                    if (vals.tbnum === "") {
-                        console.log('s');
-                        TableBuilder.storage[vals.tbident].alt   = vals.tbalt;
-                        TableBuilder.storage[vals.tbident].title = vals.tbtitle;
-                    } else {
-                        console.log('m');
-                        console.log(TableBuilder.storage[vals.tbident]);
-                        TableBuilder.storage[vals.tbident][vals.tbnum].alt = vals.tbalt;
-                        TableBuilder.storage[vals.tbident][vals.tbnum].title = vals.tbtitle;
-                        console.log(TableBuilder.storage[vals.tbident][vals.tbnum]);
-                    }
-                },
-                value: {
-                    tbnum:   $img.data('tbnum'),
-                    tbalt:   $img.data('tbalt'),
-                    tbtitle: $img.data('tbtitle'),
-                    tbident: $img.data('tbident')
-                },
-                display: function (value) {
-                    if (!value) {
-                        $(this).empty();
-                        return;
-                    }
-                    var html = '<b>' + jQuery('<div>').text(value.tbalt).html() + '</b>, '
-                        + jQuery('<div>').text(value.tbtitle).html() + '</b>, '
-                        + jQuery('<div>').text(value.tbident).html() + '</b>, '
-                        + jQuery('<div>').text(value.tbnum).html();
-                    jQuery(this).html(html);
-                }
-            });
-        });
-    }, // end initMultipleImageEditable
 
     initSearchOnEnterPressed: function()
     {
@@ -243,7 +149,8 @@ var TableBuilder = {
         var $posting = jQuery.post(TableBuilder.getActionUrl(), data);
 
         $posting.done(function(response) {
-            window.location.replace(window.location.origin + window.location.pathname + window.location.search);
+            doAjaxLoadContent(location.href);
+            // window.location.replace(window.location.origin + window.location.pathname + window.location.search);
         });
 
     }, // end search
@@ -258,36 +165,6 @@ var TableBuilder = {
         jQuery('#'+TableBuilder.options.ident).find('.ui-overlay').fadeOut();
     }, // end hideProgressBar
 
-    initDoubleClickEditor: function()
-    {
-        jQuery("body").on('click', function() {
-            var $editElem = jQuery(".dblclick-edit-opened");
-            $editElem.removeClass('dblclick-edit-opened');
-
-            jQuery.each($editElem, function(i, obj) {
-                var $editElem = jQuery(obj);
-                var $elem = $editElem.find(".dblclick-edit");
-                // var previousValue = $elem.attr('previous-value');
-                var previousValue = $elem.parent().find('.tb-previous-value').text();
-
-                $elem.html(previousValue);
-                $editElem.find(".dblclick-edit-input").val(previousValue);
-            });
-        });
-        jQuery("td").on('click', function(e) {
-            e.stopPropagation();
-        });
-
-        var $editForm = jQuery('span.dblclick-edit', '#'+TableBuilder.options.table_ident).parent();
-        $editForm.dblclick(function() {
-            var $elem = jQuery(this).find('span.dblclick-edit');
-            var value = $elem.text();
-
-            $elem.parent().addClass('dblclick-edit-opened');
-            // $elem.attr('previous-value', value);
-            $elem.parent().find('.tb-previous-value').text(value);
-        });
-    }, // end initDoubleClickEditor
 
     closeFastEdit: function(context, type, response)
     {
@@ -345,41 +222,8 @@ var TableBuilder = {
         }
     }, // end getUrlParameter
 
-    showEditForm: function(idRow)
-    {
-        // FIXME: not used?
-        TableBuilder.showProgressBar();
-
-        var data = [
-            {name: "query_type", value: "show_edit_form"},
-            {name: "id", value: idRow},
-            {name: "__node", value: TableBuilder.getUrlParameter('node')}
-        ];console.table(data);
-        var $posting = jQuery.post(TableBuilder.getActionUrl(), data);
-
-        $posting.done(function(response) {
-            if (jQuery.isFunction(TableBuilder.options.onShowEditFormResponse)) {
-                TableBuilder.options.onShowEditFormResponse(response);
-            }
-            jQuery('#'+TableBuilder.options.form_ident).html(response);
-
-            jQuery('#'+TableBuilder.options.table_ident)
-                .hide("slide", { direction: "left" }, 500)
-                .promise()
-                .done(function() {
-                    jQuery('#'+TableBuilder.options.form_ident)
-                        .show("slide", { direction: "right" }, 500)
-                        .promise()
-                        .done(function() {
-                            TableBuilder.hideProgressBar();
-                        });
-                });
-        });
-    }, // end showEditForm
-
     getCreateForm: function()
     {
-
         // FIXME:
         if (TableBuilder.onGetCreateForm) {
             TableBuilder.onGetCreateForm();
@@ -414,7 +258,7 @@ var TableBuilder = {
     {
         $.post( TableBuilder.getActionUrl(), {"query_type" : "clone_record", "id" : id})
             .done(function( data ) {
-                location.href = location.href;
+                doAjaxLoadContent(location.href);
             }).fail(function(xhr, ajaxOptions, thrownError) {
                 var errorResult = jQuery.parseJSON(xhr.responseText);
                 TableBuilder.showErrorNotification(errorResult.message);
@@ -549,102 +393,6 @@ var TableBuilder = {
             }
         });
     },
-
-    closeEditForm: function()
-    {
-        TableBuilder.showProgressBar();
-        jQuery('#'+TableBuilder.options.form_ident)
-            .hide("slide", { direction: "left" }, 500)
-            .promise()
-            .done(function() {
-                jQuery('#'+TableBuilder.options.table_ident)
-                    .show("slide", { direction: "right" }, 500)
-                    .promise()
-                    .done(function() {
-                        TableBuilder.hideProgressBar();
-                    });
-            });
-    }, // end closeEditForm
-
-
-    insert: function()
-    {
-        TableBuilder.showProgressBar();
-
-        var data = [
-            {name: "query_type", value: "show_add_form"}
-        ];
-        var $posting = jQuery.post(TableBuilder.getActionUrl(), data);
-
-        $posting.done(function(response) {
-            if (jQuery.isFunction(TableBuilder.options.onShowEditFormResponse)) {
-                TableBuilder.options.onShowEditFormResponse(response);
-            }
-            jQuery('#'+TableBuilder.options.form_ident).html(response);
-
-            jQuery('#'+TableBuilder.options.table_ident)
-                .hide("slide", { direction: "left" }, 500)
-                .promise()
-                .done(function() {
-                    jQuery('#'+TableBuilder.options.form_ident)
-                        .show("slide", { direction: "right" }, 500)
-                        .promise()
-                        .done(function() {
-                            TableBuilder.hideProgressBar();
-                        });
-                });
-        });
-    }, // end insert
-
-    saveInsertForm: function()
-    {
-        TableBuilder.showProgressBar();
-
-        var $form = jQuery('#'+ TableBuilder.options.form_ident);
-
-        var data = $form.serializeArray();
-        data.push({ name: "query_type", value: "save_add_form" });
-
-        /* Because serializeArray() ignores unset checkboxes and radio buttons: */
-        data = data.concat(
-            $form.find('input[type=checkbox]:not(:checked)')
-                .map(function() {
-                    return {"name": this.name, "value": 0};
-                }).get()
-        );
-
-        var $posting = jQuery.post(TableBuilder.getActionUrl(), data);
-
-        $posting.done(function(response) {
-            location.reload();
-        });
-    }, //saveInsertForm
-
-    delete: function(id)
-    {
-        TableBuilder.showProgressBar();
-
-        if (!confirm("Are you sure?")) {
-            TableBuilder.hideProgressBar();
-            return;
-        }
-
-        var data = [
-            {name: "query_type", value: "delete_row"},
-            {name: "id", value: id}
-        ];
-        var $posting = jQuery.post(TableBuilder.getActionUrl(), data);
-
-        $posting.done(function(response) {
-
-            jQuery('tr[id-row="'+response.id+'"]')
-                .remove()
-                .promise()
-                .done(function() {
-                    TableBuilder.hideProgressBar();
-                });
-        });
-    }, // end delete
 
     doDelete: function(id, context)
     {
@@ -810,6 +558,13 @@ var TableBuilder = {
                     value: json
                 };
             }
+
+            if (typeof TableBuilder.picture[val.name] !== 'undefined') {
+                values[index] = {
+                    name:  val.name,
+                    value: TableBuilder.picture[val.name]
+                };
+            }
         });
 
         var selectMultiple = [];
@@ -818,9 +573,8 @@ var TableBuilder = {
                 selectMultiple.push({"name": this.name, "value": ''});
             }
         })
-        console.table(selectMultiple);
+
         values = values.concat(selectMultiple);
-        console.table(values);
 
         // FIXME:
         if (TableBuilder.onDoCreate) {
@@ -904,11 +658,7 @@ var TableBuilder = {
         data.append('ident', ident);
         data.append('query_type', 'upload_photo');
 
-        if (TableBuilder.getUrlParameter('node') == undefined) {
-            data.append('__node', TableBuilder.getUrlParameter('id_tree'));
-        } else {
-            data.append('__node', TableBuilder.getUrlParameter('node'));
-        }
+        data.append('__node', TableBuilder.getUrlParameter('id_tree'));
 
         var $progress = jQuery(context).parent().parent().parent().parent().parent().find('.progress-bar');
         //console.log($progress);
@@ -921,11 +671,7 @@ var TableBuilder = {
                     if (evt.lengthComputable) {
                         var percentComplete = evt.loaded / evt.total;
                         percentComplete = percentComplete * 100;
-                        console.log('upl :'+ percentComplete);
-
                         percentComplete = percentComplete +'%';
-                        //Do something with upload progress here
-
                         $progress.width(percentComplete);
                     }
                 }, false);
@@ -933,8 +679,6 @@ var TableBuilder = {
                 xhr.addEventListener("progress", function(evt) {
                     if (evt.lengthComputable) {
                         var percentComplete = evt.loaded / evt.total;
-                        console.log('dwl :'+ percentComplete);
-                        //Do something with download progress
                     }
                 }, false);
 
@@ -952,8 +696,6 @@ var TableBuilder = {
 
                     TableBuilder.picture[ident] = response.data.sizes.original;
 
-                    //  alert( TableBuilder.picture[ident]);
-
                     var html = '<div style="position: relative; display: inline-block;">';
                     html += '<img class="image-attr-editable" ';
                     html +=      'data-tbident="'+ ident +'" ';
@@ -970,7 +712,7 @@ var TableBuilder = {
                     // FIXME: too ugly to execute
                     jQuery(context).parent().parent().parent().parent().find('.tb-uploaded-image-container').html(html);
 
-                    TableBuilder.initSingleImageEditable();
+
                 } else {
                     TableBuilder.showErrorNotification(phrase["Ошибка при загрузке изображения"]);
                 }
@@ -1074,7 +816,6 @@ var TableBuilder = {
                         // FIXME: too ugly to execute
                         jQuery(context).parent().parent().parent().parent().find('.tb-uploaded-image-container').children().append(html);
 
-                        // TableBuilder.initMultipleImageEditable();
                     } else {
 
                         TableBuilder.showErrorNotification(phrase["Ошибка при загрузке изображения"]);
@@ -1100,21 +841,13 @@ var TableBuilder = {
         // remove deleted image from storage
         var arr_img = TableBuilder.storage[ident];
 
-        console.log(TableBuilder.storage[ident]);
-
         arr_img.splice(num, 1);
-
-        console.log(TableBuilder.storage[ident]);
-
-
     }, // end deleteImage
 
     deleteSingleImage: function(ident, context)
     {
         var $imageWrapper = jQuery(context).parent().parent();
         $imageWrapper.hide();
-
-        // remove deleted image from storage
         TableBuilder.picture[ident] = "";
     }, // end deleteSingleImage
 

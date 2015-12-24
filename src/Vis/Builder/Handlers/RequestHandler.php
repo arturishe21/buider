@@ -401,7 +401,8 @@ class RequestHandler
         $idRow = $this->_getRowID();
         $this->checkEditPermission($idRow);
         $result = $this->controller->query->cloneRow($idRow);
-        $result['html'] = $this->controller->view->getRowHtml($result);
+
+        $result['html'] = "ok";
 
         return Response::json($result);
     } // end handleDeleteAction
