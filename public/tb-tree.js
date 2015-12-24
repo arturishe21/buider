@@ -16,15 +16,9 @@ var Tree =
         });
     }, // end
 
-    init: function()
+
+    sortTable : function()
     {
-        Tree.initModalCallbacks();
-
-        var idPage = Core.urlParam('id_tree');
-        if ($.isNumeric(idPage)) {
-            Tree.showEditForm(idPage);
-        }
-
         jQuery('.ui-sortable').sortable({
             scroll: true,
             axis: "y",
@@ -61,6 +55,17 @@ var Tree =
                 });
             }
         });
+    },
+
+    init: function()
+    {
+        Tree.initModalCallbacks();
+        Tree.sortTable();
+
+        var idPage = Core.urlParam('id_tree');
+        if ($.isNumeric(idPage)) {
+            Tree.showEditForm(idPage);
+        }
 
         $('#tb-tree').on('after_open.jstree', function (e, data) {
             Tree.setdbl();

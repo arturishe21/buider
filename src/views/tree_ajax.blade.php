@@ -23,13 +23,12 @@
     </table>
  @include('admin::tree.create_modal')
 
-
-<script>
+ <script>
 
     Tree.admin_prefix = '{{ Config::get('builder::admin.uri') }}';
     Tree.parent_id = '{{ $current->id }}';
 
-     showTree = 0;
+    showTree = 0;
     $(".show_hide_tree").click(function(){
          $("#tree_top").toggle();
 
@@ -55,10 +54,8 @@
  $("title").text("{{__cms('Структура сайта')}} - {{{ __cms(Config::get('builder::admin.caption')) }}}");
 
   try {
-   Tree.init();
+   Tree.sortTable()
   } catch (err) { }
-
-
 
 </script>
 
