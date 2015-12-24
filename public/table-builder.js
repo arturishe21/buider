@@ -305,7 +305,7 @@ var TableBuilder = {
                     jQuery(TableBuilder.form_wrapper).html(response.html);
                     TableBuilder.initFroalaEditor();
 
-                    jQuery(TableBuilder.form_edit).modal('show');
+                    jQuery(TableBuilder.form_edit).modal('show').css("top", $(window).scrollTop());;
                     jQuery(TableBuilder.form_edit).find('input[data-mask]').each(function() {
                         var $input = jQuery(this);
                         $input.mask($input.attr('data-mask'));
@@ -343,7 +343,7 @@ var TableBuilder = {
             success: function(response) {
                 if (response.status) {
                     jQuery(TableBuilder.form_wrapper).html(response.html);
-                    jQuery(TableBuilder.form_edit).modal('show');
+                    jQuery(TableBuilder.form_edit).modal('show').css("top", $(window).scrollTop());
                 } else {
                     TableBuilder.showErrorNotification("Что-то пошло не так, попробуйте позже");
                 }

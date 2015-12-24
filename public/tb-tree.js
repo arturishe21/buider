@@ -250,8 +250,9 @@ var Tree =
             data: data,
             success: function(response) {
                 if (response.status) {
-                    // FIXME:
-                    window.location.reload();
+                    $('#tree-create-modal').modal('hide');
+                    doAjaxLoadContent(location.href);
+
                 } else {
                     TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                 }
@@ -291,7 +292,7 @@ var Tree =
                     jQuery(TableBuilder.form_wrapper).html(response.html);
 
                     TableBuilder.initFroalaEditor();
-                    jQuery(TableBuilder.form_edit).modal('show');
+                    jQuery(TableBuilder.form_edit).modal('show').css("top", $(window).scrollTop());;
                     jQuery(TableBuilder.form_edit).find('input[data-mask]').each(function() {
                         var $input = jQuery(this);
                         $input.mask($input.attr('data-mask'));
@@ -353,9 +354,8 @@ var Tree =
                 selectMultiple.push({"name": this.name, "value": ''});
             }
         })
-        console.table(selectMultiple);
+
         values = values.concat(selectMultiple);
-        console.table(values);
 
         jQuery.ajax({
             type: "POST",
