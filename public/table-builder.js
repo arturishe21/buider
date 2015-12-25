@@ -504,7 +504,7 @@ var TableBuilder = {
                     }
 
                     jQuery(TableBuilder.form_edit).modal('hide');
-
+                    $(document).height($(window).height());
                     jQuery('#wid-id-1').find('tr[id-row="'+id+'"]').replaceWith(response.html);
 
                 } else {

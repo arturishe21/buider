@@ -370,7 +370,7 @@ var Tree =
                     TableBuilder.showSuccessNotification(phrase['Сохранено']);
                     jQuery(TableBuilder.form_edit).modal('hide');
                     jQuery('.tb-tree-content-inner').find('tr[data-id="'+ id +'"]').replaceWith(response.html);
-
+                    $(document).height($(window).height());
                 } else {
                     var errors = '';
                     jQuery(response.errors).each(function(key, val) {
@@ -436,6 +436,7 @@ jQuery(document).ready(function(){
 
     $(document).on('click', '#modal_form_edit .close, .modal-footer button', function (e) {
         var url = Core.delPrm("id_tree");
+        $(document).height($(window).height());
         window.history.pushState(url, '', url);
     });
 
