@@ -229,3 +229,15 @@ div.tb-uploaded-image-container ul{
 .sorting_desc {
     background: #eee url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATAQMAAABInqSPAAAABlBMVEUAAABVVVUT3Vn+AAAAAXRSTlMAQObYZgAAABxJREFUCNdjIATY/zAwMP9gYGD8AOQ8AGIHnEoBkNkEEEbbutQAAAAASUVORK5CYII=") no-repeat scroll right center;
 }
+.uploaded-files ul{
+    padding: 10px 0 0 0;
+}
+.uploaded-files ul li{
+    list-style: none;
+}
+.uploaded-files ul a{
+    margin: 0 5px;
+}
+.uploaded-files ul a.delete{
+    color: red;
+}
