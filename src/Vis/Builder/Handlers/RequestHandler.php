@@ -272,7 +272,6 @@ class RequestHandler
     
     protected function handleFileUpload()
     {
-        // FIXME:
         $file = Input::file('file');
         
         if ($this->controller->hasCustomHandlerMethod('onFileUpload')) {
@@ -283,7 +282,8 @@ class RequestHandler
         }
         
         $extension = $file->getClientOriginalExtension();
-        $fileName  = time() .'_'. \Jarboe::urlify($file->getClientOriginalName()) .'.'. $extension;
+        $nameFile = explode(".", $file->getClientOriginalName());
+        $fileName  = time() .'_'. \Jarboe::urlify($nameFile[0]) .'.'. $extension;
         
         $definitionName = $this->controller->getOption('def_name');
         $prefixPath = 'storage/tb-'.$definitionName.'/';
@@ -295,8 +295,10 @@ class RequestHandler
         $data = array(
             'status' => $status,
             'link'   => URL::to($destinationPath . $fileName),
-            'short_link' => $destinationPath . $fileName,
+            'short_link' => $fileName,
+            'long_link' =>  "/". $destinationPath . $fileName,
         );
+
         return Response::json($data);
     } // end handleFileUpload
     

@@ -246,6 +246,7 @@ class QueryHandler
 
         $modelObj = $model::find($values['id']);
         $modelObj->setFillable(array_keys($updateData));
+
         $modelObj->update($updateData);
 
         Event::fire("table.updated", array($this->dbOptions['table'], $values['id']));
@@ -256,9 +257,12 @@ class QueryHandler
         }
         
         // FIXME:
+
         $fields = $this->controller->getFields();
+
         foreach ($fields as $field) {
             if (preg_match('~^many2many~', $field->getFieldName())) {
+
                 $this->onManyToManyValues($field->getFieldName(), $values, $values['id']);
             }
         }
