@@ -5,6 +5,7 @@ var TableBuilder = {
     options: null,
     storage: {},
     picture: {},
+    files: {},
     admin_prefix: '',
     action_url: '',
     table: '#widget-grid',
@@ -29,8 +30,6 @@ var TableBuilder = {
     init: function(options)
     {
         TableBuilder.options = TableBuilder.getOptions(options);
-
-        TableBuilder.initDoubleClickEditor();
         TableBuilder.initSearchOnEnterPressed();
         TableBuilder.initSelect2Hider();
     }, // end init
@@ -464,6 +463,15 @@ var TableBuilder = {
             }
         });
 
+        if ($(".file_multi").size() != 0) {
+            TableBuilder.buildFiles();
+            for (var key in TableBuilder.files) {
+                var filesRes = TableBuilder.files[key];
+                var json = JSON.stringify(filesRes);
+                values.push({ name: key, value: json });
+            }
+        }
+
         // FIXME:
         if (TableBuilder.onDoEdit) {
             values = TableBuilder.onDoEdit(values);
@@ -482,7 +490,7 @@ var TableBuilder = {
             if (!$(this).val()) {
                 selectMultiple.push({"name": this.name, "value": ''});
             }
-        })
+        });
 
         jQuery.ajax({
             type: "POST",
@@ -527,6 +535,22 @@ var TableBuilder = {
         });
     }, // end doEdit
 
+    buildFiles : function()
+    {
+        $( ".file_multi" ).each(function( index ) {
+            var ident = $(this).attr("nameident") ;
+            TableBuilder.files[ident] = {};
+        });
+
+        var k = 0;
+        $( ".file_multi" ).each(function( index ) {
+            var ident = $(this).attr("nameident");
+            TableBuilder.files[ident][k] = $(this).attr("value");
+            k++;
+        });
+
+    },
+
     removeInputValues: function(context)
     {
         jQuery(':input', context)
@@ -566,6 +590,15 @@ var TableBuilder = {
                 };
             }
         });
+
+        if ($(".file_multi").size() != 0) {
+            TableBuilder.buildFiles();
+            for (var key in TableBuilder.files) {
+                var filesRes = TableBuilder.files[key];
+                var json = JSON.stringify(filesRes);
+                values.push({ name: key, value: json });
+            }
+        }
 
         var selectMultiple = [];
         jQuery(TableBuilder.create_form).find('select[multiple="multiple"]').each(function(i, value) {
@@ -890,7 +923,7 @@ var TableBuilder = {
         data.append("file", context.files[0]);
         data.append('query_type', 'upload_file');
         data.append('ident', ident);
-        data.append('__node', TableBuilder.getUrlParameter('node'));
+        data.append('__node', TableBuilder.getUrlParameter('id_tree'));
 
         jQuery.ajax({
             data: data,
@@ -918,6 +951,84 @@ var TableBuilder = {
         });
     }, // end uploadFile
 
+
+    uploadFileMulti : function(context, ident)
+    {
+        var arr = context.files;
+        for (var index = 0; index < arr.length; ++index) {
+            var data = new FormData();
+            data.append("file", context.files[index]);
+            data.append('query_type', 'upload_file');
+            data.append('ident', ident);
+            data.append('__node', TableBuilder.getUrlParameter('id_tree'));
+            var $progress = jQuery(context).parent().parent().parent().parent().parent().find('.progress-bar');
+
+            jQuery.ajax({
+                xhr: function() {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function(evt) {
+                        console.log(evt);
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            percentComplete = percentComplete * 100;
+                            percentComplete = percentComplete +'%';
+                            $progress.width(percentComplete);
+                        }
+                    }, false);
+
+                    xhr.addEventListener("progress", function(evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                        }
+                    }, false);
+
+                    return xhr;
+                },
+                data: data,
+                type: "POST",
+                url: TableBuilder.getActionUrl(),
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if (response.status) {
+                        $progress.width('0%');
+                        var html = '<li>' + response.short_link + '<a href="'+ response.link +'" target="_blank">Скачать</a> <a class="delete" onclick="TableBuilder.doDeleteFile(this)">Удалить</a>';
+                        html += '<input type="hidden" class="file_multi" nameident = "'+ident+'" value="' + response.long_link + '"></li>';
+                        jQuery(context).parent().parent().parent().next().find("ul").append(html);
+
+                        TableBuilder.doSortFileUpload();
+                    } else {
+                        TableBuilder.showErrorNotification("Ошибка при загрузке файла");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                    TableBuilder.showErrorNotification(errorResult.message);
+                    TableBuilder.hidePreloader();
+                }
+            });
+        }
+    }, // end uploadFileMulti
+
+    doDeleteFile : function(context)
+    {
+        jQuery(context).parent().remove();
+        return false;
+    },
+
+    doSortFileUpload : function ()
+    {
+        $('.uploaded-files ul').sortable(
+            {
+                items: "> li",
+                update: function( event, ui ) {
+                }
+            }
+        );
+    },
+
     showErrorNotification: function(message)
     {
         jQuery.smallBox({
@@ -940,32 +1051,6 @@ var TableBuilder = {
             timeout : 3000
         });
     }, // end showSuccessNotification
-
-    doEmbedToText: function($summernote, text)
-    {
-        jQuery.ajax({
-            type: "POST",
-            // FIXME: move action url to options
-            url: TableBuilder.admin_prefix +'/tb/embed-to-text',
-            data: {text: text},
-            dataType: 'json',
-            success: function(response) {
-                if (response.status) {
-                    console.log(response);
-                    var html = $summernote.code().replace(text, response.html);
-                    $summernote.code('').html(html);
-                } else {
-                    TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
-                }
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                var errorResult = jQuery.parseJSON(xhr.responseText);
-
-                TableBuilder.showErrorNotification(errorResult.message);
-                TableBuilder.hidePreloader();
-            }
-        });
-    }, // end doEmbedToText
 
     setPerPageAmount: function(perPage)
     {

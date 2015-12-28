@@ -340,6 +340,14 @@ var Tree =
             }
         });
 
+        if ($(".file_multi").size() != 0) {
+            TableBuilder.buildFiles();
+            for (var key in TableBuilder.files) {
+                var filesRes = TableBuilder.files[key];
+                var json = JSON.stringify(filesRes);
+                values.push({ name: key, value: json });
+            }
+        }
 
         /* Because serializeArray() ignores unset checkboxes and radio buttons: */
         values = values.concat(
@@ -353,7 +361,7 @@ var Tree =
             if (!$(this).val()) {
                 selectMultiple.push({"name": this.name, "value": ''});
             }
-        })
+        });
 
         values = values.concat(selectMultiple);
 
@@ -388,6 +396,7 @@ var Tree =
                 TableBuilder.hidePreloader();
             }
         });
+
     }, // end doEdit
 
     doDelete: function(id, context)
