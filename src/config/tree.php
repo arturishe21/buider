@@ -11,16 +11,10 @@ return array(
     'node_active_field' => array(
         'field' => 'is_active',
     ),
-    /*
-    'node_active_field' => array(
-        'field' => 'active',
-        'options' => array(
-            // set var => caption
-            'ru' => 'Рус',
-            'en' => 'Eng',
-        ),
+
+    'cache' => array(
+        'tags' => array('tree'),
     ),
-    */
 
     'templates' => array(
         'О нас' => array(

@@ -1,18 +1,13 @@
 
 <div class="tb-tree-content-inner">
 
-@if ($current->hasTableDefinition())
-    @section('table_form')
-        {{ $form }}
-    @stop
-        {{ $table }}
-@else
+
     <div class="smart-form">
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th style="width: 10px"></th>
-                <th>{{__cms('Название')}}</th>
+                <th>{{__cms('Название')}}ww</th>
                 <th>{{__cms('Шаблон')}}</th>
                 <th>Url</th>
                 <th style="width: 60px">{{__cms('Активный')}}</th>
@@ -68,6 +63,5 @@
 
     </script>
 
-@endif
     
 </div>

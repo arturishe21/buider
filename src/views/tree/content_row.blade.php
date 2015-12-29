@@ -3,7 +3,7 @@
         <i class="fa fa-sort"></i>
     </td>
     <td>
-    @if($item->children()->count())
+    @if($item->isHasChilder())
         <i class="fa fa-folder"></i>
     @else
         <i class="fa fa-file-o"></i>

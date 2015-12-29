@@ -23,6 +23,7 @@ Route::pattern('any', '[a-z0-9-_/\]+');
 
 Route::group(array('prefix' => Config::get('builder::admin.uri'), 'before' => array('auth_admin', 'check_permissions')), function() {
 
+    Vis\Builder\Tree::observe(new Vis\Builder\TreeObserver);
     //router for tree site
     Route::any('/tree', 'Vis\Builder\TableAdminController@showTree');
     Route::any('/handle/tree', 'Vis\Builder\TableAdminController@handleTree');

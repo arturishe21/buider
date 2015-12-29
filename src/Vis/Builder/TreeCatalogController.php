@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Cache;
 
 
 class TreeCatalogController 
@@ -213,8 +214,6 @@ class TreeCatalogController
     {
         $model = $this->model;
 
-        $tree = $model::all()->toHierarchy();
-        
         $idNode  = Input::get('node', 1);
         $current = $model::find($idNode);
 
@@ -231,27 +230,12 @@ class TreeCatalogController
 
         $treeName = $this->nameTree;
 
-        if ($template['type'] == 'table') {
-            $options = array(
-                'url'      => URL::current(),
-                'def_name' => $this->nameTree.'.'. $template['definition'],
-                'additional' => array(
-                    'node'    => $idNode,
-                    'current' => $current,
-                )
-            );
-            list($table, $form) = \Jarboe::table($options);
-            $content = View::make('admin::tree.content', compact('current', 'table', 'form', 'template', 'treeName'));
-        } elseif (false && $current->isLeaf()) {
-            $content = 'ama leaf';
-        } else {
-            $content = View::make('admin::tree.content', compact('current', 'template', 'treeName'));
-        }
+        $content = View::make('admin::tree.content', compact('current', 'template', 'treeName'));
 
         if (Request::ajax()) {
-            return View::make('admin::tree_ajax', compact('tree', 'content', 'current', 'parentIDs', 'treeName'));
+            return View::make('admin::tree_ajax', compact('content', 'current', 'parentIDs', 'treeName'));
         } else {
-            return View::make('admin::tree', compact('tree', 'content', 'current', 'parentIDs', 'treeName'));
+            return View::make('admin::tree', compact('content', 'current', 'parentIDs', 'treeName'));
         }
 
     } // end handleShowCatalog

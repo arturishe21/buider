@@ -28,6 +28,8 @@ class Tree extends \Baum\Node
     protected $revisionCleanup = true;
     protected $historyLimit = 500;
 
+    protected $fileDefinition = "tree";
+
     public function getFillable()
     {
         return $this->fillable;
@@ -133,6 +135,24 @@ class Tree extends \Baum\Node
 
     public function getGeneratedUrl()
     {
+
+        $tags = $this->getCacheTags();
+        if ($tags) {
+
+            $url = Cache::tags($tags)->rememberForever("tree_".$this->id, function() {
+               return $this->getGeneratedUrlInCache();
+            });
+
+            return $url;
+
+        } else {
+            $this->getGeneratedUrlInCache();
+        }
+
+    } // end getGeneratedUrl
+
+    private function getGeneratedUrlInCache()
+    {
         $all = $this->getAncestorsAndSelf();
 
         $slugs = array();
@@ -144,6 +164,36 @@ class Tree extends \Baum\Node
         }
 
         return implode('/', $slugs);
-    } // end getGeneratedUrl
+    }
+
+    public function isHasChilder()
+    {
+        $tags = $this->getCacheTags();
+        if ($tags) {
+            return $this->children()->cacheTags($tags)->rememberForever()->count();
+        }
+
+        return $this->children()->count();
+    }
+
+    public function clearCache()
+    {
+        $tags = $this->getCacheTags();
+        if ($tags) {
+            Cache::tags($tags)->flush();
+        }
+    }
+
+    private function getCacheTags()
+    {
+        if ($this->fileDefinition) {
+            $tags = Config::get("builder::" . $this->fileDefinition . ".cache");
+            if (isset($tags['tags']) && is_array($tags['tags'])) {
+                return $tags['tags'];
+            }
+        }
+
+        return false;
+    }
 
 }
