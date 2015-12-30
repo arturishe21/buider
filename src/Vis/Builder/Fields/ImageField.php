@@ -35,21 +35,13 @@ class ImageField extends AbstractField
     
     private function getListSingle($row)
     {
-        if (!$this->getValue($row)) {
+        $pathPhoto = $this->getValue($row);;
+        if (!$pathPhoto) {
             return '';
         }
-        
-        $source = json_decode($this->getValue($row), true);
-        
-        $src = $this->getAttribute('before_link')
-              . $source['sizes']['original']
-              . $this->getAttribute('after_link');
-              
-        // FIXME: move to template
-        $src = $this->getAttribute('is_remote') ? $src : URL::asset($src);
-        $html = '<img height="'.$this->getAttribute('img_height', '50px').'" src="'
-              . $src
-              . '" />';
+
+        $html = '<img src="' . glide($pathPhoto, ['w' => '50']) . '" />';
+
         return $html;
     } // end getListSingle    
     
@@ -87,17 +79,14 @@ class ImageField extends AbstractField
     
     public function getEditInput($row = array())
     {
+
         if ($this->hasCustomHandlerMethod('onGetEditInput')) {
             $res = $this->handler->onGetEditInput($this, $row);
             if ($res) {
                 return $res;
             }
         }
-        
-        if (!$this->getAttribute('is_upload')) {
-            return parent::getEditInput($row);
-        }
-        
+
         // TODO: review
         // FIXME: separate templates
         $input = View::make('admin::tb.input_image_upload');
@@ -109,6 +98,7 @@ class ImageField extends AbstractField
         $input->delimiter   = $this->getAttribute('delimiter');
         $input->width   = $this->getAttribute('img_width') ? $this->getAttribute('img_width') : 200;
         $input->height   = $this->getAttribute('img_height') ? $this->getAttribute('img_height') : 200;
+
 
         return $input->render();
     } // end getEditInput

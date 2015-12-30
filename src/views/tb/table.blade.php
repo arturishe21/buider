@@ -27,7 +27,7 @@
                 data-widget-colorbutton="false"
                 data-widget-deletebutton="false"
                 data-widget-sortable="false">
-
+                @include('admin::tb.table_filter')
 
                 <header>
                     <span class="widget-icon"> <i class="fa fa-table"></i> </span>

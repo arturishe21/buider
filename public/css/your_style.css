@@ -241,3 +241,6 @@ div.tb-uploaded-image-container ul{
 .uploaded-files ul a.delete{
     color: red;
 }
+[name=filter] td{
+    padding: 0 10px 0 0;
+}

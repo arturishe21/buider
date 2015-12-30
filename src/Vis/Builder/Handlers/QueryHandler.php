@@ -62,6 +62,8 @@ class QueryHandler
             $this->onSearchFilterQuery();
         }
 
+        $this->dofilter();
+
         $definitionName = $this->controller->getOption('def_name');
         $sessionPath = 'table_builder.'.$definitionName.'.order';
         $order = Session::get($sessionPath, array());
@@ -101,6 +103,19 @@ class QueryHandler
 
         return $this->db->get();
     } // end getRows
+
+    private function dofilter()
+    {
+        if (Input::has("filter")) {
+           $filters = Input::get("filter");
+
+           foreach($filters as $nameField => $valueField) {
+               if ($valueField) {
+                   $this->db->where($nameField, $valueField);
+               }
+           }
+        }
+    }
 
     private function getPerPageAmount($info)
     {
@@ -231,6 +246,7 @@ class QueryHandler
             }
         }
 
+
         $updateData = $this->_getRowQueryValues($values);
         $def = $this->controller->getDefinition();
 
@@ -247,7 +263,15 @@ class QueryHandler
         $modelObj = $model::find($values['id']);
         $modelObj->setFillable(array_keys($updateData));
 
-        $modelObj->update($updateData);
+        foreach($updateData as $fild => $data) {
+            if (is_array($data)) {
+                $updateDataRes[$fild] = json_encode($data);
+            } else {
+                $updateDataRes[$fild] = $data;
+            }
+        }
+
+        $modelObj->update($updateDataRes);
 
         Event::fire("table.updated", array($this->dbOptions['table'], $values['id']));
 
@@ -257,12 +281,9 @@ class QueryHandler
         }
         
         // FIXME:
-
         $fields = $this->controller->getFields();
-
         foreach ($fields as $field) {
             if (preg_match('~^many2many~', $field->getFieldName())) {
-
                 $this->onManyToManyValues($field->getFieldName(), $values, $values['id']);
             }
         }
@@ -367,7 +388,16 @@ class QueryHandler
         if (!$id) {
             $this->doValidate($insertData);
             $this->doPrependFilterValues($insertData);
-            $id = $this->db->insertGetId($insertData);
+
+            foreach($insertData as $fild => $data) {
+                if (is_array($data)) {
+                    $insertDataRes[$fild] = json_encode($data);
+                } else {
+                    $insertDataRes[$fild] = $data;
+                }
+            }
+
+            $id = $this->db->insertGetId($insertDataRes);
         }
         
         // FIXME: patterns
