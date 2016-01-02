@@ -1,6 +1,4 @@
-<?php 
-
-namespace Vis\Builder\Fields;
+<?php namespace Vis\Builder\Fields;
 
 use Vis\Builder\Exceptions\JarboePreValidationException;
 use Illuminate\Support\Facades\View;
@@ -11,17 +9,15 @@ use Illuminate\Support\Facades\Schema;
 
 abstract class AbstractField 
 {
-
     protected $fieldName;
     protected $attributes;
     protected $options;
     protected $definition;
-
     protected $handler;
-
 
     public function __construct($fieldName, $attributes, $options, $definition, $handler)
     {
+        //echo $fieldName."<br>";
         $this->attributes = $this->_prepareAttributes($attributes);
         $this->options    = $options;
         $this->definition = $definition;
@@ -91,6 +87,7 @@ abstract class AbstractField
             $tabs = $this->getAttribute('tabs');
             $fieldName = $fieldName . $tabs[0]['postfix'];
         }
+
         $value = isset($row[$fieldName]) ? $row[$fieldName] : '';
         
         return $value;

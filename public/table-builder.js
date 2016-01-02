@@ -453,14 +453,8 @@ var TableBuilder = {
                     name:  val.name,
                     value: json
                 };
+            }
 
-            }
-            if (typeof TableBuilder.picture[val.name] !== 'undefined') {
-                values[index] = {
-                    name:  val.name,
-                    value: TableBuilder.picture[val.name]
-                };
-            }
         });
 
         if ($(".file_multi").size() != 0) {
@@ -504,7 +498,7 @@ var TableBuilder = {
                 if (response.id) {
 
                     TableBuilder.showSuccessNotification(phrase['Сохранено']);
-
+                    $(document).height($(window).height());
                     if (TableBuilder.options.is_page_form) {
                         //window.location.href = TableBuilder.options.list_url;
                         window.history.back();
@@ -583,12 +577,6 @@ var TableBuilder = {
                 };
             }
 
-            if (typeof TableBuilder.picture[val.name] !== 'undefined') {
-                values[index] = {
-                    name:  val.name,
-                    value: TableBuilder.picture[val.name]
-                };
-            }
         });
 
         if ($(".file_multi").size() != 0) {
@@ -727,7 +715,7 @@ var TableBuilder = {
                 if (response.status) {
                     $progress.width('0%');
 
-                    TableBuilder.picture[ident] = response.data.sizes.original;
+                    //TableBuilder.picture[ident] = response.data.sizes.original;
 
                     var html = '<div style="position: relative; display: inline-block;">';
                     html += '<img class="image-attr-editable" ';
@@ -742,9 +730,10 @@ var TableBuilder = {
                     html += ' </div>';
                     html += '</div>';
 
+
                     // FIXME: too ugly to execute
                     jQuery(context).parent().parent().parent().parent().find('.tb-uploaded-image-container').html(html);
-
+                    jQuery(context).parent().parent().find('[type=hidden]').val(response.data.sizes.original);
 
                 } else {
                     TableBuilder.showErrorNotification(phrase["Ошибка при загрузке изображения"]);
@@ -880,8 +869,10 @@ var TableBuilder = {
     deleteSingleImage: function(ident, context)
     {
         var $imageWrapper = jQuery(context).parent().parent();
+        var $imageInput = jQuery(context).parent().parent().parent().parent().find("input[type=hidden]");
         $imageWrapper.hide();
-        TableBuilder.picture[ident] = "";
+        $imageInput.val("")
+
     }, // end deleteSingleImage
 
     doChangeSortingDirection: function(ident, context)
@@ -1374,12 +1365,32 @@ var TableBuilder = {
     reLoadTable : function ()
     {
         //  alert(window.location.href);
-    } //end reLoadTable
+    }, //end reLoadTable
+
+    addGroup : function(context)
+    {
+        var sectionGroup = $(context).parent().find(".section_group").first().clone();
+        $(sectionGroup).find("input, textarea").val("");
+        $(sectionGroup).find(".tb-uploaded-image-container").html("");
+
+        $(context).parent().find(".other_section").append(sectionGroup);
+    },
+
+    deleteGroup : function(context)
+    {
+        var sizeGroup = $(context).parent().parent().parent().find(".section_group").size();
+        var sectionGroup = $(context).parent().parent();
+        if (sizeGroup == 1) {
+            $(sectionGroup).find("input, textarea").val("");
+            $(sectionGroup).find(".tb-uploaded-image-container").html("");
+        } else {
+            $(sectionGroup).remove();
+        }
+    }
 };
 
 $(window).load(function() {
     TableBuilder.initFroalaEditor();
     TableBuilder.handleStartLoad();
 });
-
 

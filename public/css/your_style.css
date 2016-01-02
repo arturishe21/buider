@@ -244,3 +244,10 @@ div.tb-uploaded-image-container ul{
 [name=filter] td{
     padding: 0 10px 0 0;
 }
+.add_group{
+    color: green;
+}
+.delete_group{
+    color: red;
+    cursor: pointer;
+}

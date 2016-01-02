@@ -306,7 +306,6 @@ class RequestHandler
     {
         $this->controller->query->clearCache();
 
-        // FIXME:
         $ident = Input::get('ident');
         $file  = Input::file('image');
         $num   = Input::get('num');

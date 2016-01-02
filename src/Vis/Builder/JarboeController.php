@@ -20,6 +20,7 @@ class JarboeController
     protected $handler;
     protected $callbacks;
     protected $fields;
+    protected $groupFields;
     protected $patterns = array();
 
     public $view;
@@ -44,6 +45,7 @@ class JarboeController
             $this->callbacks = new CustomClosureHandler($this->definition['callbacks'], $this);
         }
         $this->fields  = $this->loadFields();
+        $this->groupFields  = $this->loadGroupFields();
 
         $this->actions = new ActionsHandler($this->definition['actions'], $this);
 
@@ -137,9 +139,10 @@ class JarboeController
     {
         if (isset($this->fields[$ident])) {
             return $this->fields[$ident];
-        // FIXME:
         } else if (isset($this->patterns[$ident])) {
             return $this->patterns[$ident];
+        } else if (isset($this->groupFields[$ident])) {
+            return $this->groupFields[$ident];
         }
 
         throw new \RuntimeException("Field [{$ident}] does not exist for current scheme.");
@@ -179,14 +182,32 @@ class JarboeController
 
         $fields = array();
         foreach ($definition['fields'] as $name => $info) {
+
             if ($this->isPatternField($name)) {
                 $this->patterns[$name] = $this->createPatternInstance($name, $info);
             } else {
                 $fields[$name] = $this->createFieldInstance($name, $info);
             }
+
         }
+
         return $fields;
     } // end loadFields
+
+    protected function loadGroupFields()
+    {
+        $definition = $this->getDefinition();
+        $fields = array();
+        foreach ($definition['fields'] as $name => $info) {
+            if ($info['type'] == "group" && count($info['filds'])) {
+                foreach ($info['filds'] as $nameGroup => $infoGroup) {
+                    $fields[$nameGroup] =  $this->createFieldInstance($nameGroup, $infoGroup);
+                }
+            }
+        }
+
+        return $fields;
+    }
     
     public function getPatterns()
     {
