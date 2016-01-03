@@ -1,4 +1,3 @@
-
 <section>
     <div class="tab-pane active">
                 
@@ -10,7 +9,6 @@
                 @else
                     <li class="">
                 @endif
-                
                     <a href="#{{$pre .  $name . $tab['postfix']}}" data-toggle="tab">{{__cms($tab['caption'])}}</a>
                 </li>
             @endforeach
@@ -18,22 +16,15 @@
         
         <div class="tab-content padding-5">
             @foreach ($tabs as $tab)
-                
                 @if ($loop->first)
                     <div class="tab-pane active" id="{{ $pre . $name . $tab['postfix']}}">
                 @else
                     <div class="tab-pane" id="{{ $pre . $name . $tab['postfix']}}">
                 @endif
-                    
-                    <textarea id="{{$pre . $name . $tab['postfix']}}-wysiwyg" name="{{ $name . $tab['postfix'] }}" class="text_block">{{ $tab['value'] }}</textarea>
-                    
-
-                    
+                    <textarea toolbar = "{{$toolbar}}" id="{{$pre . $name . $tab['postfix']}}-wysiwyg" name="{{ $name . $tab['postfix'] }}" class="text_block">{{ $tab['value'] }}</textarea>
                 </div>
             @endforeach
-            
         </div>
-
     </div>
 </section>
 

@@ -34,10 +34,10 @@ class WysiwygField extends AbstractField
 
         $wysiwyg = $this->getAttribute('wysiwyg', 'summernote');
 
-        $input = \View::make('admin::tb.input_wysiwyg' .'_'. $wysiwyg);
+        $input = \View::make('admin::tb.input_wysiwyg_redactor');
         $input->value = $this->getValue($row);
         $input->name  = $this->getFieldName();
-        $input->options = $this->getWysiwygOptions();
+        $input->toolbar = $this->getAttribute('toolbar');
         
         $action = $this->definition['options']['action_url'];
         if (isset($this->definition['options']['action_url_tree'])) {
@@ -47,26 +47,7 @@ class WysiwygField extends AbstractField
 
         return $input->render();
     } // end getEditInput
-    
-    private function getWysiwygOptions()
-    {
-        $options = $this->getAttribute('editor-options', array());
-        if (!array_key_exists('lang', $options)) {
-            $options['lang'] = 'ru-RU';
-        }
-        
-        if (!array_key_exists('height', $options)) {
-            $options['height'] = 200;
-        }
-        if (!array_key_exists('minHeight', $options)) {
-            $options['minHeight'] = null;
-        }
-        if (!array_key_exists('maxHeight', $options)) {
-            $options['maxHeight'] = null;
-        }
-        
-        return $options;
-    } // end getWysiwygOptions
+
     
     public function getTabbedEditInput($row = array())
     {
@@ -79,10 +60,10 @@ class WysiwygField extends AbstractField
         
         $wysiwyg = $this->getAttribute('wysiwyg', 'summernote');
         
-        $input = \View::make('admin::tb.tab_input_wysiwyg' .'_'. $wysiwyg);
+        $input = \View::make('admin::tb.tab_input_wysiwyg_redactor');
         $input->value = $this->getValue($row);
         $input->name  = $this->getFieldName();
-        $input->options = $this->getWysiwygOptions();
+        $input->toolbar = $this->getAttribute('toolbar');
         $input->tabs = $this->getPreparedTabs($row);
         $input->caption = $this->getAttribute('caption');
         
