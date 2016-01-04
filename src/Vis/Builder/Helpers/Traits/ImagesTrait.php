@@ -1,6 +1,4 @@
-<?php
-
-namespace Vis\Builder\Helpers\Traits;
+<?php namespace Vis\Builder\Helpers\Traits;
 
 use App\Modules\Settings\Models\Setting;
 use Illuminate\Support\Facades\Config;
