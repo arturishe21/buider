@@ -45,4 +45,25 @@ class TextField extends AbstractField
         return View::make('admin::tb.subactions', compact('subactions'))->render();
     } // end getSubActions
 
+    public function getEditInput($row = array())
+    {
+        if ($this->hasCustomHandlerMethod('onGetEditInput')) {
+            $res = $this->handler->onGetEditInput($this, $row);
+            if ($res) {
+                return $res;
+            }
+        }
+
+        $type = $this->getAttribute('type');
+
+        $input = View::make('admin::tb.input_'. $type);
+        $input->value = $this->getValue($row);
+        $input->name  = $this->getFieldName();
+        $input->rows  = $this->getAttribute('rows');
+        $input->mask  = $this->getAttribute('mask');
+        $input->placeholder = $this->getAttribute('placeholder');
+        $input->is_password = $this->getAttribute('is_password');
+
+        return $input->render();
+    } // end getEditInput
 }

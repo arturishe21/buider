@@ -80,9 +80,7 @@
                     </button>
                 </div>
             </div>
-            <script>
-                TableBuilder.picture['{{$name}}'] = '{{$value}}';
-            </script>
+
         @else
             <p style="padding: 20px 0 10px 0">{{__cms('Нет изображения')}}</p>
         @endif

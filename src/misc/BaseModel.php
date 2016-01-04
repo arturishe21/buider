@@ -6,7 +6,8 @@ class BaseModel extends Eloquent
         \Vis\Builder\Helpers\Traits\SeoTrait,
         \Vis\Builder\Helpers\Traits\ImagesTrait,
         \Vis\Builder\Helpers\Traits\QuickEditTrait,
-        \Venturecraft\Revisionable\RevisionableTrait
+        \Venturecraft\Revisionable\RevisionableTrait,
+        \Vis\Builder\Helpers\Traits\GroupsFieldTrait
         ;
     protected $fillable = [];
     protected $revisionFormattedFieldNames = array(

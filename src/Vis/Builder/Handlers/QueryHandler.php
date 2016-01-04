@@ -261,13 +261,19 @@ class QueryHandler
         $this->doPrependFilterValues($updateData);
 
         $modelObj = $model::find($values['id']);
-        $modelObj->setFillable(array_keys($updateData));
+
+        if (method_exists($modelObj, "setFillable")) {
+            $modelObj->setFillable(array_keys($updateData));
+        }
 
         foreach($updateData as $fild => $data) {
             if (is_array($data)) {
                 $updateDataRes[$fild] = json_encode($data);
             } else {
                 $updateDataRes[$fild] = $data;
+                if ($fild == "password" && $data == "password") {
+                    unset($updateDataRes[$fild]);
+                }
             }
         }
 
@@ -435,7 +441,6 @@ class QueryHandler
     private function doValidate($values)
     {
         $errors = array();
-
         $definition = $this->controller->getDefinition();
 
         $fields = $definition['fields'];

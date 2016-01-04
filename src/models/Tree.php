@@ -1,6 +1,4 @@
-<?php
-
-namespace Vis\Builder;
+<?php namespace Vis\Builder;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;

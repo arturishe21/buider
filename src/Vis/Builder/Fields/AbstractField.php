@@ -1,5 +1,6 @@
 <?php namespace Vis\Builder\Fields;
 
+use Illuminate\Support\Facades\Input;
 use Vis\Builder\Exceptions\JarboePreValidationException;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
@@ -329,6 +330,7 @@ abstract class AbstractField
         $tabs     = $this->getAttribute('tabs');
         
         $data = compact('messages', 'name', 'tabs');
+
         return View::make('admin::tb.validator_messages', $data)->render();
     } // end getClientsideValidatorMessages
     

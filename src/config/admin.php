@@ -147,14 +147,14 @@ return array(
             'submenu' => array(
                 array(
                     'title' => "Пользователи",
-                    'link'  => '/tb/users',
+                    'link'  => '/users',
                     'check' => function() {
                         return true;
                     }
                 ),
                 array(
                     'title' => "Группы",
-                    'link'  => '/tb/groups',
+                    'link'  => '/groups',
                     'check' => function() {
                         return true;
                     }

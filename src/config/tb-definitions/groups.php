@@ -3,7 +3,7 @@
 return array(
     'db' => array(
         'table' => 'groups',
-            'order' => array(
+        'order' => array(
             'id' => 'ASC',
         ),
         'pagination' => array(
@@ -12,14 +12,15 @@ return array(
         ),
     ),
     'options' => array(
-        'caption' => 'Группы пользоватилей',
+        'caption' => __cms('Группы пользователей'),
         'ident' => 'groups-container',
         'form_ident' => 'groups-form',
         'table_ident' => 'groups-table',
         'action_url' => '/admin/handle/groups',
         'not_found'  => 'NOT FOUND',
+        'model' => 'Vis\Builder\Group',
     ),
-    
+
     'fields' => array(
         'id' => array(
             'caption' => '#',
@@ -27,41 +28,37 @@ return array(
             'class' => 'col-id',
             'width' => '1%',
             'hide' => true,
-            'is_sorting' => true,
+            'is_sorting' => false,
         ),
         'title' => array(
-            'caption' => 'Имя',
+            'caption' => __cms('Имя'),
             'type' => 'text',
             'filter' => 'text',
             'is_sorting' => true,
         ),
         'name' => array(
-            'caption' => 'Название',
+            'caption' => __cms('Название'),
             'type' => 'text',
             'filter' => 'text',
-            'is_sorting' => true,
+            'is_sorting' => false,
         ),
     ),
-    
+
     'actions' => array(
         'search' => array(
-            'caption' => 'Поиск',
+            'caption' => __cms("Поиск"),
         ),
         'insert' => array(
-            'caption' => 'Добавить',
+            'caption' => __cms("Добавить"),
         ),
-        'custom' => array(
-            array(
-                'caption' => 'Редактировать',
-                'icon' => 'pencil',
-                'link' => '/admin/tb/groups/%d',
-                'params' => array(
-                    'id'
-                )
-            )
+        'update' => array(
+            'caption' => 'Редактировать',
+            'check' => function() {
+                return true;
+            }
         ),
         'delete' => array(
-            'caption' => 'Удалить',
+            'caption' => __cms("Удалить"),
         ),
     ),
 );
