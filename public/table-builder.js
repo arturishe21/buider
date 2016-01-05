@@ -563,17 +563,7 @@ var TableBuilder = {
         values.push({ name: "__node", value: TableBuilder.getUrlParameter('node') });
 
         // take values from temp storage (for images)
-        /* jQuery.each(values, function(index, val) {
-         if (typeof TableBuilder.storage[val.name] !== 'undefined') {
-         var json = JSON.stringify(TableBuilder.storage[val.name]);
-         values[index] = {
-         name:  val.name,
-         value: json
-         };
-         }
 
-         });
-         */
         if ($(".file_multi").size() != 0) {
             TableBuilder.buildFiles();
             for (var key in TableBuilder.files) {
@@ -763,11 +753,6 @@ var TableBuilder = {
             var $progress = jQuery(context).parent().parent().parent().parent().parent().find('.progress-bar');
 
             var num = 0;
-
-            if (typeof TableBuilder.storage[ident] !== 'undefined') {
-                num = TableBuilder.storage[ident].length;
-            }
-            data.append('num', num);
 
             jQuery.ajax({
                 xhr: function () {

@@ -322,24 +322,6 @@ var Tree =
         values.push({ name: 'id', value: id });
         values.push({ name: 'query_type', value: "do_edit_node" });
 
-        // take values from temp storage (for images)
-        jQuery.each(values, function(index, val) {
-            if (typeof TableBuilder.storage[val.name] !== 'undefined') {
-                var json = JSON.stringify(TableBuilder.storage[val.name]);
-                values[index] = {
-                    name:  val.name,
-                    value: json
-                };
-            }
-
-            if (typeof TableBuilder.picture[val.name] !== 'undefined') {
-                values[index] = {
-                    name:  val.name,
-                    value: TableBuilder.picture[val.name]
-                };
-            }
-        });
-
         if ($(".file_multi").size() != 0) {
             TableBuilder.buildFiles();
             for (var key in TableBuilder.files) {
