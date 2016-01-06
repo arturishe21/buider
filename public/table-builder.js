@@ -744,11 +744,11 @@ var TableBuilder = {
             data.append('ident', ident);
             data.append('query_type', 'upload_photo');
 
-            if (TableBuilder.getUrlParameter('node') == undefined) {
+           // if (TableBuilder.getUrlParameter('node') == undefined) {
                 data.append('__node', TableBuilder.getUrlParameter('id_tree'));
-            } else {
+          /*  } else {
                 data.append('__node', TableBuilder.getUrlParameter('node'));
-            }
+            }*/
 
             var $progress = jQuery(context).parent().parent().parent().parent().parent().find('.progress-bar');
 
