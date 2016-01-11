@@ -7,6 +7,7 @@
             <input type="file" multiple onchange="TableBuilder.uploadFileMulti(this, '{{$name}}');">
             Выбрать
         </span>
+        <input type="hidden" name="{{$name}}" value='{{$value}}'>
         <input type="text"
                id="{{ $name }}"
                value=""
@@ -14,15 +15,15 @@
                readonly="readonly">
     </div>
     </label>
+
     <label>
     <div class="tb-uploaded-file-container-{{$name}} uploaded-files">
         <ul>
-            @if($value && is_object($value))
-                @foreach($value as $file)
+            @if(isset($source) && is_array($source))
+                @foreach($source as $file)
                     <li>
-                        {{basename($file)}} <a href="{{$file}}" target="_blank">Скачать</a>
+                        {{basename($file)}} <a href="{{$file}}" path = "{{$file}}" target="_blank">Скачать</a>
                         <a class="delete" onclick="TableBuilder.doDeleteFile(this)">Удалить</a>
-                        <input type="hidden" class="file_multi" nameident = "{{$name}}" value="{{$file}}">
                     </li>
                 @endforeach
             @endif

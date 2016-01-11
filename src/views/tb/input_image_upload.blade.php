@@ -8,6 +8,7 @@
             <input type="file" multiple accept="image/*" class="image_{{$name}}"  onchange="TableBuilder.uploadMultipleImages(this, '{{$name}}');">
             Выбрать
         </span>
+
         <input type="hidden" name="{{$name}}" value='{{ $value }}'>
         <input type="text"
                id="{{ $name }}"

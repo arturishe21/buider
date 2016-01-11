@@ -21,15 +21,9 @@
 </div>
 <script>
     $(".group[name={{$name}}] input, .group[name={{$name}}] textarea" ).each(function( index ) {
-
-        if ($(this).hasClass("multiimage")) {
-
-        }
-
         if ($(this).attr("name") != undefined) {
            $(this).attr("id", "{{$name}}_" + $(this).attr("name"));
            $(this).attr("name", "{{$name}}[" + $(this).attr("name")+ "][]");
         }
-
     });
 </script>

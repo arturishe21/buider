@@ -744,11 +744,11 @@ var TableBuilder = {
             data.append('ident', ident);
             data.append('query_type', 'upload_photo');
 
-           // if (TableBuilder.getUrlParameter('node') == undefined) {
-                data.append('__node', TableBuilder.getUrlParameter('id_tree'));
-          /*  } else {
-                data.append('__node', TableBuilder.getUrlParameter('node'));
-            }*/
+            // if (TableBuilder.getUrlParameter('node') == undefined) {
+            data.append('__node', TableBuilder.getUrlParameter('id_tree'));
+            /*  } else {
+             data.append('__node', TableBuilder.getUrlParameter('node'));
+             }*/
 
             var $progress = jQuery(context).parent().parent().parent().parent().parent().find('.progress-bar');
 
@@ -903,10 +903,11 @@ var TableBuilder = {
             processData: false,
             success: function(response) {
                 if (response.status) {
-                    jQuery(context).parent().next().val(response.short_link);
+                    $(context).parent().next().val(response.long_link);
 
                     var html = '<a href="'+ response.link +'" target="_blank">Скачать</a>';
-                    jQuery(context).parent().parent().next().html(html);
+                    $(context).parent().parent().next().html(html);
+
                 } else {
                     TableBuilder.showErrorNotification("Ошибка при загрузке файла");
                 }
@@ -962,9 +963,10 @@ var TableBuilder = {
                 success: function(response) {
                     if (response.status) {
                         $progress.width('0%');
-                        var html = '<li>' + response.short_link + '<a href="'+ response.link +'" target="_blank">Скачать</a> <a class="delete" onclick="TableBuilder.doDeleteFile(this)">Удалить</a>';
-                        html += '<input type="hidden" class="file_multi" nameident = "'+ident+'" value="' + response.long_link + '"></li>';
-                        jQuery(context).parent().parent().parent().next().find("ul").append(html);
+                        var html = '<li>' + response.short_link + '<a href="'+ response.link +'" target="_blank" path="'+response.long_link+'">Скачать</a> <a class="delete" onclick="TableBuilder.doDeleteFile(this)">Удалить</a></li>';
+                        $(context).parent().parent().parent().next().find("ul").append(html);
+
+                        TableBuilder.doSetInputFiles($(context).parent().parent().parent().next().find("ul"));
 
                         TableBuilder.doSortFileUpload();
                     } else {
@@ -981,9 +983,27 @@ var TableBuilder = {
         }
     }, // end uploadFileMulti
 
+    doSetInputFiles : function(context)
+    {
+        var arrFiles = new Array();
+        $(context).find('li a' ).each(function( index ) {
+            if ($(this).attr("path") != null) {
+                arrFiles.push($(this).attr("path"));
+            }
+        });
+        var jsonArray = JSON.stringify(arrFiles);
+        if (jsonArray == "[]") {
+            jsonArray = "";
+        }
+        $(context).parent().parent().parent().find("[type=hidden]").val(jsonArray);
+    },
+
     doDeleteFile : function(context)
     {
-        jQuery(context).parent().remove();
+        var ul = $(context).parent().parent();
+        $(context).parent().remove();
+        TableBuilder.doSetInputFiles(ul);
+
         return false;
     },
 
@@ -993,6 +1013,7 @@ var TableBuilder = {
             {
                 items: "> li",
                 update: function( event, ui ) {
+                    TableBuilder.doSetInputFiles($(this));
                 }
             }
         );
@@ -1348,6 +1369,7 @@ var TableBuilder = {
         var sectionGroup = $(context).parent().find(".section_group").first().clone();
         $(sectionGroup).find("input, textarea").val("");
         $(sectionGroup).find(".tb-uploaded-image-container").html("<ul class='dop_foto'></ul>");
+        $(sectionGroup).find(".uploaded-files").html("<ul class='ui-sortable'></ul>");
 
         $(context).parent().find(".other_section").append(sectionGroup);
     },
