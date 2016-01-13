@@ -277,7 +277,7 @@ class QueryHandler
             }
         }
 
-        if ($updateDataRes['slug'] == "/") {
+        if (isset($updateDataRes['slug']) && $updateDataRes['slug'] == "/") {
             unset($updateDataRes['slug']);
         }
 
