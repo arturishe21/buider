@@ -277,6 +277,10 @@ class QueryHandler
             }
         }
 
+        if ($updateDataRes['slug'] == "/") {
+            unset($updateDataRes['slug']);
+        }
+
         $modelObj->update($updateDataRes);
 
         Event::fire("table.updated", array($this->dbOptions['table'], $values['id']));
