@@ -4,7 +4,7 @@
     </div>
     <div class="input input-file">
         <span class="button">
-            <input type="file" multiple onchange="TableBuilder.uploadFileMulti(this, '{{$name}}');">
+            <input type="file"  multiple onchange="TableBuilder.uploadFileMulti(this, '{{$name}}');" {{$accept ? "accept='$accept'" : ""}}>
             Выбрать
         </span>
         <input type="hidden" name="{{$name}}" value='{{$value}}'>
@@ -39,7 +39,7 @@
     </div>
      <div class="input input-file">
          <span class="button">
-             <input type="file" onchange="TableBuilder.uploadFile(this, '{{$name}}');">
+             <input type="file" onchange="TableBuilder.uploadFile(this, '{{$name}}');" {{$accept ? "accept='$accept'" : ""}}>
              Выбрать
          </span>
          <input type="text"

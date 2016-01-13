@@ -43,6 +43,7 @@ class FileField extends AbstractField
         $input->is_multiple  = $this->getAttribute('is_multiple');
         $input->mask  = $this->getAttribute('mask');
         $input->placeholder = $this->getAttribute('placeholder');
+        $input->accept = $this->getAttribute('accept');
 
         if (isset($filesArray)) {
             $input->source  = $filesArray;
