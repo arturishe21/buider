@@ -42,6 +42,9 @@ class Tree extends \Baum\Node
     protected $table = 'tb_tree';
     protected $parentColumn = 'parent_id';
     protected $_nodeUrl;
+    private $treeMy;
+    private $treeOptions;
+    private $recursiveOnlyLastLevel;
 
 
     public static function flushCache()
@@ -194,4 +197,40 @@ class Tree extends \Baum\Node
         return false;
     }
 
+    public  function getCategory($id, $recursiveOnlyLastLevel = false) {
+
+        $this->recursiveOnlyLastLevel = $recursiveOnlyLastLevel;
+        $node = \Tree::find($id);
+        $children = $node->descendants()->get(array("id", "title", "parent_id"))->toArray();
+        $result = array();
+        foreach ($children as $row) {
+            $result[$row["parent_id"]][] = $row;
+        }
+        $this->treeMy = $result;
+        $this->printCategories($id, 0);
+
+        return $this->treeOptions;
+    }
+
+   private  function printCategories($parent_id, $level) {
+        if (isset($this->treeMy[$parent_id])) {
+            foreach ($this->treeMy[$parent_id] as $value) {
+                if (isset($this->treeMy[$value["id"]]) && $this->recursiveOnlyLastLevel) {
+                    $disable = "disabled";
+                } else {
+                    $disable = "";
+                }
+
+                $paddingLeft = "";
+                for($i=0; $i<$level; $i++) {
+                    $paddingLeft .= "--";
+                }
+
+                $this->treeOptions[$value["id"]] = "<option $disable value ='" . $value["id"] . "'>" . $paddingLeft . $value["title"] . "</option>";
+                $level = $level + 1;
+                $this->printCategories($value["id"], $level);
+                $level = $level - 1;
+            }
+        }
+    }
 }

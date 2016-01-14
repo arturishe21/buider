@@ -199,8 +199,12 @@ class ForeignField extends AbstractField
                 }
 
                 $selectOption = $this->selectOption == $value["id"] ? "selected" : "";
+                $paddingLeft = "";
+                for($i=0; $i<$level; $i++) {
+                    $paddingLeft .= "--";
+                }
 
-                $this->treeOptions[] = "<option $selectOption style='padding-left:" . ($level * 15) . "px;' $disable value ='" . $value["id"] . "'>" . $value["title"] . "</option>";
+                $this->treeOptions[] = "<option $selectOption $disable value ='" . $value["id"] . "'>". $paddingLeft . $value["title"] . "</option>";
                 $level = $level + 1;
                 $this->printCategories($value["id"], $level);
                 $level = $level - 1;

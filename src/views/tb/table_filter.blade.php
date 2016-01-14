@@ -15,10 +15,22 @@
                                            <option  value="">{{$field['caption']}}</option>
                                            @if (isset($field['options']) && count($field['options']))
                                                 @foreach($field['options'] as $option)
-                                                 <option value="{{{$option['value']}}}"
-                                                 {{Input::get("filter.".$field['name_field']) == $option['value'] ? "selected" : ""}}>
-                                                 {{{$option['title']}}}</option>
+                                                     <option value="{{{$option['value']}}}"
+                                                     {{Input::get("filter.".$field['name_field']) == $option['value'] ? "selected" : ""}}>
+                                                     {{{$option['title']}}}</option>
                                                 @endforeach
+                                           @elseif(isset($field['recursive']))
+                                               <?
+                                               $optionResult = $field['recursive']();
+                                               ?>
+                                               @foreach($optionResult as $id => $option)
+                                                    @if ($id == Input::get("filter.".$field['name_field']))
+                                                        {{str_replace("<option", "<option selected", $option);}}
+                                                    @else
+                                                        {{$option}}
+                                                    @endif
+                                               @endforeach
+
                                            @endif
 
                                        </select>
