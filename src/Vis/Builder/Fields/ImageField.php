@@ -40,7 +40,8 @@ class ImageField extends AbstractField
             return '';
         }
 
-        $html = '<img src="' . glide($pathPhoto, ['w' => '50']) . '" />';
+        $html = '<a class="screenshot"  rel="' . glide($pathPhoto, ['w' => '350']) . '">
+                    <img src="' . glide($pathPhoto, ['w' => '50']) . '" /></a>';
 
         return $html;
     } // end getListSingle    

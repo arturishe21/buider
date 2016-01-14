@@ -251,3 +251,11 @@ div.tb-uploaded-image-container ul{
     color: red;
     cursor: pointer;
 }
+#screenshot{
+    position:absolute;
+    border:1px solid #ccc;
+    background:#333;
+    padding:5px;
+    display:none;
+    color:#fff;
+}

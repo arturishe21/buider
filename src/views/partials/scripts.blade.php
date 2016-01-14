@@ -20,6 +20,7 @@
                   '/packages/vis/builder/js/plugin/datetimepicker/jquery-ui-timepicker-addon.js',
                   '/packages/vis/builder/js/plugin/datetimepicker/jquery-ui-timepicker-addon-i18n.min.js',
                   '/packages/vis/builder/js/plugin/datetimepicker/jquery-ui-sliderAccess.js',
+                   '/packages/vis/builder/js/preview_img.js',
                   ));
 }}
 
