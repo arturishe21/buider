@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class ForeignField extends AbstractField 
 {
+    private $treeMy;
+    private $treeOptions;
+    private $recursiveOnlyLastLevel = false;
+    private $selectOption;
+
 
     public function isEditable()
     {
@@ -155,12 +160,53 @@ class ForeignField extends AbstractField
         $input = View::make('admin::tb.input_foreign');
         $input->selected = $this->getValueId($row);
         $input->name     = $this->getFieldName();
-        $input->options  = $this->getForeignKeyOptions();
         $input->is_null  = $this->getAttribute('is_null');
         $input->null_caption = $this->getAttribute('null_caption');
+        $input->recursive = $this->getAttribute('recursive');
+
+        if ($input->recursive) {
+            $this->treeMy = $this->getCategory($this->getAttribute('recursiveIdCatalog'));
+            $this->recursiveOnlyLastLevel = $this->getAttribute('recursiveOnlyLastLevel');
+            $this->selectOption = $input->selected;
+            $this->printCategories($this->getAttribute('recursiveIdCatalog'), 0);
+
+            $input->options = $this->treeOptions;
+        } else {
+            $input->options  = $this->getForeignKeyOptions();
+        }
 
         return $input->render();
     } // end getEditInput
+
+   private function getCategory($id) {
+       $node = \Tree::find($id);
+       $children = $node->descendants()->get(array("id", "title", "parent_id"))->toArray();
+        $result = array();
+       foreach ($children as $row) {
+            $result[$row["parent_id"]][] = $row;
+        }
+        return $result;
+    }
+
+    private function printCategories($parent_id, $level) {
+        //Делаем переменную $category_arr видимой в функции
+        if (isset($this->treeMy[$parent_id])) { //Если категория с таким parent_id существует
+            foreach ($this->treeMy[$parent_id] as $value) { //Обходим
+                if (isset($this->treeMy[$value["id"]]) && $this->recursiveOnlyLastLevel) {
+                   $disable = "disabled";
+                } else {
+                    $disable = "";
+                }
+
+                $selectOption = $this->selectOption == $value["id"] ? "selected" : "";
+
+                $this->treeOptions[] = "<option $selectOption style='padding-left:" . ($level * 15) . "px;' $disable value ='" . $value["id"] . "'>" . $value["title"] . "</option>";
+                $level = $level + 1;
+                $this->printCategories($value["id"], $level);
+                $level = $level - 1;
+            }
+        }
+    }
 
     protected function getForeignKeyOptions()
     {
@@ -183,10 +229,7 @@ class ForeignField extends AbstractField
         foreach ($res as $val) {
             $options[$val[$foreignKey]] = $val[$foreignValue];
         }
-        
-        
 
         return $options;
     } // end getForeignKeyOptions
-
 }
