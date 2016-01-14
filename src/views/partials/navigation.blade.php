@@ -18,6 +18,12 @@
                      <a  {{isset($el['link']) && !isset($el['submenu'])?"href='/admin".$el['link']."'":""}}>
                         <i class="fa fa-lg fa-fw fa-{{$el['icon']}}"></i>
                         <span class="menu-item-parent">{{__cms($el['title'])}}</span>
+                        @if (isset($el['badge']))
+                           <? $countBadge = $el['badge'](); ?>
+                           @if (is_numeric($countBadge))
+                            <span class="badge bg-color-greenLight pull-right inbox-badge">{{$countBadge}}</span>
+                           @endif
+                        @endif
                      </a>
 
                       @if(isset($el['submenu']))
@@ -27,7 +33,15 @@
                                 <li {{isset($sub_menu['link']) && Request::URL() == URL::to("/admin".$sub_menu['link']) ? "class='active'" : ""}}>
                                     <a
                                       {{isset($sub_menu['link']) && !isset($sub_menu['submenu']) ? "href='/admin".$sub_menu['link']."'" : ""}}
-                                    >{{__cms($sub_menu['title'])}}</a>
+                                    >{{__cms($sub_menu['title'])}}
+
+                                    @if (isset($sub_menu['badge']))
+                                       <? $countBadge = $sub_menu['badge'](); ?>
+                                       @if (is_numeric($countBadge))
+                                        <span class="badge bg-color-greenLight pull-right inbox-badge">{{$countBadge}}</span>
+                                       @endif
+                                     @endif
+                                    </a>
                                      @if(isset($sub_menu['submenu']))
 
                                           <ul>
@@ -35,6 +49,13 @@
                                                @if(!isset($sub_menu2['check']) || $sub_menu2['check']())
                                                 <li>
                                                     <a {{isset($sub_menu2['link']) && !isset($sub_menu2['submenu']) ? "href='/admin".$sub_menu2['link']."'" : ""}}>{{__cms($sub_menu2['title'])}}</a>
+
+                                                     @if (isset($sub_menu2['badge']))
+                                                       <? $countBadge = $sub_menu2['badge'](); ?>
+                                                       @if (is_numeric($countBadge))
+                                                        <span class="badge bg-color-greenLight pull-right inbox-badge">{{$countBadge}}</span>
+                                                       @endif
+                                                     @endif
                                                 </li>
                                                @endif
                                             @endforeach
