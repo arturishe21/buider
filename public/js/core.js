@@ -3,20 +3,20 @@
 var Core =
 {
     init: function()
-    { 
-          Core.setOnlyNum();
-          Core.setClickClosePop();
+    {
+        Core.setOnlyNum();
+        Core.setClickClosePop();
     },
 
     //delete record
     Delete: function(id, table)
     {
         jQuery.SmartMessageBox({
-            title : "Удалить?",
-            content : "Эту операцию нельзя будет отменить.",
-            buttons : '[Нет][Да]'
+            title : phrase["Удалить?"],
+            content : phrase["Эту операцию нельзя будет отменить."],
+            buttons : '['+phrase['Нет']+']['+phrase['Да']+']'
         }, function(ButtonPressed) {
-            if (ButtonPressed === "Да") {
+            if (ButtonPressed === phrase['Да']) {
                 jQuery.ajax({
                     type: "POST",
                     url: "/admin/delete",
@@ -25,25 +25,13 @@ var Core =
                     success: function(response) {
 
                         if (response.status) {
-
-                            jQuery.smallBox({
-                                title : "Запись удалена успешно",
-                                content : "",
-                                color : "#659265",
-                                iconSmall : "fa fa-check fa-2x fadeInRight animated",
-                                timeout : 4000
-                            });
+                            TableBuilder.showSuccessNotification('Удалено успешно');
 
                             $(".tr_"+id).remove();
                         } else {
-                            jQuery.smallBox({
-                                title : "Что-то пошло не так, попробуйте позже",
-                                content : "",
-                                color : "#C46A69",
-                                iconSmall : "fa fa-times fa-2x fadeInRight animated",
-                                timeout : 4000
-                            });
+                            TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                         }
+
                     }
                 });
             }
@@ -61,7 +49,7 @@ var Core =
         Url=Url.replace(/^&|\?/,'');
         var dlm=(Url=='')? '': '?';
 
-       if(typeof a[1] == "undefined") {
+        if(typeof a[1] == "undefined") {
             return a[0];
         }
 
@@ -69,8 +57,8 @@ var Core =
     },
 
     //add get param in url
-     setAttr: function(prmName, val)
-     {
+    setAttr: function(prmName, val)
+    {
         var res = '';
         var d = location.href.split("#")[0].split("?");
         var base = d[0];
@@ -112,7 +100,7 @@ var Core =
     //click on close popup
     setClickClosePop: function()
     {
-        $(document).on('click', '#modal_form_edit .close, .modal-footer button', function (e) {
+        $(document).on('click', '#modal_form_edit .close, .modal-footer button,  .modal-header button', function (e) {
             var url = Core.delPrm("revision_page");
             if (url != undefined) {
                 window.history.pushState(url, '', url);

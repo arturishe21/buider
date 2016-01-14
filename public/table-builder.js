@@ -230,24 +230,21 @@ var TableBuilder = {
 
     getCreateForm: function()
     {
-        // FIXME:
-        if (TableBuilder.onGetCreateForm) {
-            TableBuilder.onGetCreateForm();
-        }
+
         TableBuilder.showPreloader();
 
-        if ($(".table_form_create #modal_form").size() == 0) {
-            $.post(TableBuilder.getActionUrl(),{"query_type" : "show_add_form"},
-                function(data){
-                    $(".table_form_create").html(data);
-                    jQuery(TableBuilder.form).modal('show');
-                    TableBuilder.initFroalaEditor();
-                    TableBuilder.hidePreloader();
-                });
-        } else {
-            jQuery(TableBuilder.form).modal('show');
-            TableBuilder.hidePreloader();
-        }
+        // if ($(".table_form_create #modal_form").size() == 0) {
+        $.post(TableBuilder.getActionUrl(),{"query_type" : "show_add_form"},
+            function(data){
+                $(".table_form_create").html(data);
+                jQuery(TableBuilder.form).modal('show');
+                TableBuilder.initFroalaEditor();
+                TableBuilder.hidePreloader();
+            });
+        /* } else {
+         jQuery(TableBuilder.form).modal('show');
+         TableBuilder.hidePreloader();
+         }*/
 
     }, // end getCreateForm
 
@@ -612,7 +609,7 @@ var TableBuilder = {
                         return;
                     }
 
-                    jQuery('#wid-id-1').find('tbody').prepend(response.html);
+                    jQuery('#wid-id-1 .widget-body').find('tbody').prepend(response.html);
 
                     TableBuilder.removeInputValues(TableBuilder.form);
                     jQuery(TableBuilder.form).modal('hide');

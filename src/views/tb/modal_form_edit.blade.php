@@ -10,8 +10,10 @@
 
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
+                <button class="btn btn-default" style="float: right; margin: 0 5px" data-dismiss="modal" type="button"> Отмена </button>
+                <button class="btn btn-success btn-sm" style="float: right" type="button" onclick="jQuery('#edit_form').submit();">
+                     <span class="glyphicon glyphicon-floppy-disk"></span>
+                     Сохранить
                 </button>
                 <h4 class="modal-title" id="modal_form_edit_label">{{__cms('Редактирование')}}</h4>
             </div>
