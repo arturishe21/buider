@@ -12,6 +12,7 @@
                   '/packages/vis/builder/js/plugin/jquery-validate/jquery.validate.min.js',
                   '/packages/vis/builder/js/plugin/masked-input/jquery.maskedinput.min.js',
                   '/packages/vis/builder/js/plugin/clockpicker/clockpicker.min.js',
+                  '/packages/vis/builder/js/plugin/colorpicker/bootstrap-colorpicker.min.js',
                   '/packages/vis/builder/js/plugin/select2/select2.min.js',
                   '/packages/vis/builder/js/plugin/fastclick/fastclick.js',
                   '/packages/vis/builder/js/demo.min.js',
