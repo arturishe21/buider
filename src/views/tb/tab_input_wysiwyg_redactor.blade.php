@@ -21,7 +21,9 @@
                 @else
                     <div class="tab-pane" id="{{ $pre . $name . $tab['postfix']}}">
                 @endif
-                    <textarea toolbar = "{{$toolbar}}" id="{{$pre . $name . $tab['postfix']}}-wysiwyg" name="{{ $name . $tab['postfix'] }}" class="text_block">{{ $tab['value'] }}</textarea>
+                    <textarea toolbar = "{{$toolbar ? : "fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize,  color,
+                                           emoticons, inlineStyle, paragraphStyle,  paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR,
+                                           insertLink, insertImage, insertVideo, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html"}}" id="{{$pre . $name . $tab['postfix']}}-wysiwyg" name="{{ $name . $tab['postfix'] }}" class="text_block">{{ $tab['value'] }}</textarea>
                 </div>
             @endforeach
         </div>
