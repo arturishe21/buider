@@ -90,6 +90,7 @@ class DateField extends AbstractField
         $input->name   = $this->getFieldName();
         $input->months = $this->getAttribute('months');
         $input->prefix = $row ? 'e-' : 'c-';
+        $input->comment = $this->getAttribute('comment');
 
         return $input->render();
     } // end getEditInput

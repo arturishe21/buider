@@ -156,6 +156,7 @@ abstract class AbstractField
         $input->rows  = $this->getAttribute('rows');
         $input->mask  = $this->getAttribute('mask');
         $input->placeholder = $this->getAttribute('placeholder');
+        $input->comment = $this->getAttribute('comment');
 
         return $input->render();
     } // end getEditInput
@@ -181,7 +182,7 @@ abstract class AbstractField
         $input->tabs = $this->getPreparedTabs($row);
         // HACK: for tabs right behaviour in edit-create modals
         $input->pre = $row ? 'e' : 'c';
-        
+        $input->comment = $this->getAttribute('comment');
         
         return $input->render();
     } // end getTabbedEditInput

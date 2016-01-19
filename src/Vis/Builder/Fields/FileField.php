@@ -44,6 +44,7 @@ class FileField extends AbstractField
         $input->mask  = $this->getAttribute('mask');
         $input->placeholder = $this->getAttribute('placeholder');
         $input->accept = $this->getAttribute('accept');
+        $input->comment = $this->getAttribute('comment');
 
         if (isset($filesArray)) {
             $input->source  = $filesArray;

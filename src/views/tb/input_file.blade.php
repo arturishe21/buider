@@ -15,6 +15,11 @@
                readonly="readonly">
     </div>
     </label>
+    @if (isset($comment) && $comment)
+      <div class="note">
+          {{$comment}}
+      </div>
+    @endif
 
     <label>
     <div class="tb-uploaded-file-container-{{$name}} uploaded-files">
@@ -50,6 +55,11 @@
                 readonly="readonly">
      </div>
     </label>
+    @if (isset($comment) && $comment)
+      <div class="note">
+          {{$comment}}
+      </div>
+    @endif
     <label>
      <div class="tb-uploaded-file-container-{{$name}}">
          @if ($value)

@@ -63,6 +63,7 @@ class TextField extends AbstractField
         $input->mask  = $this->getAttribute('mask');
         $input->placeholder = $this->getAttribute('placeholder');
         $input->is_password = $this->getAttribute('is_password');
+        $input->comment = $this->getAttribute('comment');
 
         return $input->render();
     } // end getEditInput

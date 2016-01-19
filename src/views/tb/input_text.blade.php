@@ -15,3 +15,8 @@ placeholder="{{{ $placeholder }}}"
     data-mask="{{$mask}}"
 @endif
 class="dblclick-edit-input form-control input-sm unselectable" />
+@if (isset($comment) && $comment)
+    <div class="note">
+        {{$comment}}
+    </div>
+@endif

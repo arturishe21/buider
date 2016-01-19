@@ -38,7 +38,8 @@ class WysiwygField extends AbstractField
         $input->value = $this->getValue($row);
         $input->name  = $this->getFieldName();
         $input->toolbar = $this->getAttribute('toolbar');
-        
+        $input->comment = $this->getAttribute('comment');
+
         $action = $this->definition['options']['action_url'];
         if (isset($this->definition['options']['action_url_tree'])) {
             $action = $this->definition['options']['action_url_tree'];

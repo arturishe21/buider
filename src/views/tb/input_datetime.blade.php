@@ -9,6 +9,11 @@
     <i class="fa fa-calendar"></i>
 </span>
 
+@if (isset($comment) && $comment)
+  <div class="note">
+      {{$comment}}
+  </div>
+@endif
 <script>
 jQuery(document).ready(function() {
     jQuery("#{{ $prefix . $name }}").datetimepicker({

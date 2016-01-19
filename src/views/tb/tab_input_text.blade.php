@@ -30,6 +30,12 @@
                                placeholder="{{{$tab['placeholder']}}}" 
                                class="dblclick-edit-input form-control input-sm unselectable">
                         </label>
+                       @if (isset($comment) && $comment)
+                           <div class="note">
+                               {{$comment}}
+                           </div>
+                       @endif
+
                     </div>
                 </div>
             @endforeach

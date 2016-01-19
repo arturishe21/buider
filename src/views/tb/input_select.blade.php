@@ -7,3 +7,8 @@
         @endif
     @endforeach
 </select>
+@if (isset($comment) && $comment)
+  <div class="note">
+      {{$comment}}
+  </div>
+@endif
