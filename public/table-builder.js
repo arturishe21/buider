@@ -62,7 +62,11 @@ var TableBuilder = {
             if ($(this).attr("toolbar")) {
                 var toolbar = $(this).attr("toolbar");
                 var arrayToolbar = toolbar.split (",");
+                arrayToolbar = $.map(arrayToolbar, $.trim);
                 option.toolbarButtons = arrayToolbar;
+                option.toolbarButtonsMD = arrayToolbar;
+                option.toolbarButtonsSM = arrayToolbar;
+                option.toolbarButtonsXS = arrayToolbar;
             }
             $(this).froalaEditor(option);
 
@@ -327,6 +331,43 @@ var TableBuilder = {
             }
         });
     }, // end getEditForm
+
+
+    getViewsStatistic : function (id, context)
+    {
+        var urlPage = "?views_statistic=" + id;
+        window.history.pushState(urlPage, '', urlPage);
+        TableBuilder.showPreloader();
+        var data = [
+            {name: "query_type", value: "show_views_statistic"},
+            {name: "id", value: id},
+        ];
+
+        jQuery.ajax({
+            type: "POST",
+            url: TableBuilder.getActionUrl(),
+            data: data,
+            dataType: 'json',
+            success: function(response) {
+                if (response.status) {
+                    jQuery(TableBuilder.form_wrapper).html(response.html);
+                    jQuery(TableBuilder.form_edit).modal('show').css("top", $(window).scrollTop());
+                } else {
+                    TableBuilder.showErrorNotification("Что-то пошло не так, попробуйте позже");
+                }
+
+                TableBuilder.hidePreloader();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
+                TableBuilder.hidePreloader();
+            }
+        });
+
+
+    },
 
     getRevisions: function(id, context)
     {
