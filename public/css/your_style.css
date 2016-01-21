@@ -259,3 +259,7 @@ div.tb-uploaded-image-container ul{
     display:none;
     color:#fff;
 }
+.section_group{
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 10px;
+}

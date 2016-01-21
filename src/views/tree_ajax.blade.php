@@ -1,7 +1,9 @@
 
  <div id="table-preloader" class="smoke_lol"><i class="fa fa-gear fa-4x fa-spin"></i></div>
 
-    <p ><a class="show_hide_tree">{{__cms('Показать дерево')}}</a></p>
+  @if(Config::get('builder::'.$treeName.'.tree_menu') != "hide")
+    <p><a class="show_hide_tree">{{__cms('Показать дерево')}}</a></p>
+  @endif
 
     <div id="tree_top">
         <div class="tree_top_content"></div>
@@ -54,7 +56,7 @@
  $("title").text("{{__cms('Структура сайта')}} - {{{ __cms(Config::get('builder::admin.caption')) }}}");
 
   try {
-   Tree.sortTable()
+   Tree.sortTable();
   } catch (err) { }
 
 </script>
