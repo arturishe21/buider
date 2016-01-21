@@ -58,6 +58,9 @@ class RequestHandler
             case 'show_revisions':
                 return $this->handleShowRevisionForm();
 
+            case 'show_views_statistic':
+                return $this->handleShowViewsStatisic();
+
             case 'return_revisions':
                 return $this->handleReturnRevisions();
 
@@ -455,6 +458,20 @@ class RequestHandler
         $this->checkEditPermission($idRow);
 
         $html = $this->controller->view->showRevisionForm($idRow);
+        $data = array(
+            'html' => $html,
+            'status' => true
+        );
+
+        return Response::json($data);
+    }
+
+    protected function handleShowViewsStatisic()
+    {
+        $idRow = $this->_getRowID();
+        $this->checkEditPermission($idRow);
+
+        $html = $this->controller->view->showViewsStatistic($idRow);
         $data = array(
             'html' => $html,
             'status' => true

@@ -78,12 +78,15 @@
 
                    <li><a onclick="TableBuilder.getRevisions({{ $item->id }}, this);" ><i class="fa fa-history"></i> {{__cms('Версии')}} </a></li>
 
-                    <li>
+                    @if (Config::get('builder::'.$treeName.'.is_show_statistic'))
+                        <li><a onclick="TableBuilder.getViewsStatistic({{ $item->id }}, this);" ><i class="fa fa-bar-chart"></i> {{__cms('Статистика просмотров')}} </a></li>
+                    @endif
+                   <li>
                         <a onclick="Tree.doDelete('{{ $item->id }}', this);" class="node-del-{{$item->id}}" style="color: red">
                             <i class="fa fa-times"></i>
                             {{__cms('Удалить')}}
                         </a>
-                    </li>
+                   </li>
                 </ul>
          </div>
     </div>

@@ -98,6 +98,20 @@ Route::group(array('prefix' => Config::get('builder::admin.uri'), 'before' => ar
             'uses' => 'Vis\Builder\TBController@doChangeLangAdmin')
     );
 
+    Route::any('/photos/gallery',  array(
+            'as' => 'photos_all',
+            'uses' => 'Vis\Builder\PhotosController@fetchShowAll')
+    );
+       Route::post('/photos/save_album',  array(
+            'as' => 'save_album',
+            'uses' => 'Vis\Builder\PhotosController@doSaveAlbum')
+    );
+
+    Route::get('/load_view_statistic',  array(
+            'as' => 'load_view_statistic',
+            'uses' => 'Vis\Builder\ViewStatisticController@getStatistic')
+    );
+
 });
 
 // login post

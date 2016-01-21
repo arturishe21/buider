@@ -54,11 +54,7 @@
                   '/packages/vis/builder/js/plugin/editor_floala/js/langs/'.$thisLang.'.js',
                   ))
 }}
-{{--
-<script src="{{asset('/packages/vis/builder/js/plugin/editor_floala/js/froala_editor_all.min.js')}}"></script>
 
-<script src='/packages/vis/builder/js/plugin/editor_floala/js/langs/{{$thisLang}}.js'></script>
---}}
 
 <script type="text/javascript">
 
@@ -122,5 +118,4 @@ $(document).ready(function() {
 
 });
 
-   // TBMenu.admin_uri = '{{\Config::get('builder::admin.uri')}}';
 </script>

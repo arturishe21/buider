@@ -119,6 +119,23 @@ class ViewHandler
 
         return $table->render();
     }
+
+    public function showViewsStatistic($id = false, $isTree = false)
+    {
+        if ($id) {
+            $table = View::make('admin::tb.modal_views_statistic');
+        }
+        $table->is_tree = $isTree;
+
+        $table->def = $this->controller->getDefinition();
+        $table->controller = $this->controller;
+
+        $model = $table->def['options']['model'];
+        $table->id = $id;
+        $table->model = $model;
+
+        return $table->render();
+    }
     
     public function getRowHtml($data)
     {

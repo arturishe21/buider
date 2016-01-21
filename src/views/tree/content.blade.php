@@ -7,7 +7,7 @@
         <thead>
             <tr>
                 <th style="width: 10px"></th>
-                <th>{{__cms('Название')}}ww</th>
+                <th>{{__cms('Название')}}</th>
                 <th>{{__cms('Шаблон')}}</th>
                 <th>Url</th>
                 <th style="width: 60px">{{__cms('Активный')}}</th>

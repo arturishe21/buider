@@ -15,6 +15,7 @@
                 {{ $actions->fetch('clone', $row) }}
                 {{ $actions->fetch('revisions', $row) }}
                 {{ $actions->fetch('preview', $row) }}
+                {{ $actions->fetch('views_statistic', $row) }}
                 {{ $actions->fetch('delete', $row) }}
 
             </ul>

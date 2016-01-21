@@ -68,6 +68,4 @@ class LoginController extends Controller
 
     } // end doLogout
 
-
-
 }

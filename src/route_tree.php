@@ -5,7 +5,6 @@ if ($arrSegments[0] != "admin") {
     try {
         $_model = Config::get('builder::tree.model');
 
-
         $slug = end($arrSegments);
         $templates = Config::get('builder::tree.templates');
 
@@ -14,6 +13,7 @@ if ($arrSegments[0] != "admin") {
         }
 
         $nodes = $_model::where("slug", 'like', $slug)->get();
+
         foreach ($nodes as $node) {
 
             if (isset($node->id)) {
@@ -21,8 +21,6 @@ if ($arrSegments[0] != "admin") {
                 $slugTree = $slug;
 
                 $_nodeUrl = trim($node->getUrlNoLocation());
-
-
 
                 Route::group(array('prefix' => LaravelLocalization::setLocale()),
                     function () use ($node, $_nodeUrl, $templates) {
@@ -83,10 +81,7 @@ if ($arrSegments[0] != "admin") {
 
         }
 
-
         $urls = array_keys($otherTreeUrl);
-
-
 
         if ($urls && count($urls) && in_array($startUrl, $urls)) {
 
@@ -129,7 +124,6 @@ if ($arrSegments[0] != "admin") {
                                     });
 
                             });
-
                     }
                 }
             }

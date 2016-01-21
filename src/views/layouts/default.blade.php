@@ -41,19 +41,36 @@
                                     '/packages/vis/builder/js/plugin/editor_floala/css/plugins/file.min.css',
                                     '/packages/vis/builder/js/plugin/jstree/themes/default/style.min.css',
                                     '/packages/vis/builder/js/plugin/resizableColumns/jquery.resizableColumns.css',
+                                    '/packages/vis/builder/js/xchart/css/style.css',
+                                    '/packages/vis/builder/js/xchart/css/xcharts.min.css',
+                                    '/packages/vis/builder/js/xchart/css/daterangepicker.css',
                                     '/packages/vis/builder/css/your_style.css'
                                     ));
          }}
 
         <!-- GOOGLE FONT -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
-
         <script src="{{asset('packages/vis/builder/js/libs/jquery-2.0.2.min.js')}}"></script>
-       {{-- <script src="/packages/vis/builder/js/translate_phrase_{{$thisLang}}.js"></script>--}}
+        {{ Minify::javascript(
+                    array(
+                          '/packages/vis/builder/js/core.js',
+                          '/packages/vis/builder/js/slug_generate.js',
+                          '/packages/vis/builder/table-builder.js',
+
+                          ));
+        }}
+
+{{--
+
         <script src="{{asset('packages/vis/builder/js/core.js')}}"></script>
         <script src="{{asset('packages/vis/builder/js/slug_generate.js')}}"></script>
+        <script src="{{asset('packages/vis/builder/table-builder.js')}}"></script>--}}
+        <script src="//cdnjs.cloudflare.com/ajax/libs/d3/2.10.0/d3.v2.js"></script>
+		<script src="/packages/vis/builder/js/xchart/js/xcharts.min.js"></script>
 
-        <script src="{{asset('packages/vis/builder/table-builder.js')}}"></script>
+		<!-- The daterange picker bootstrap plugin -->
+		<script src="/packages/vis/builder/js/xchart/js/sugar.min.js"></script>
+		<script src="/packages/vis/builder/js/xchart/js/daterangepicker.js"></script>
 
         @yield('styles')
         @yield('scripts_header')

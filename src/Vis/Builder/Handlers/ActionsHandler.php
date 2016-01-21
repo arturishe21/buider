@@ -36,6 +36,9 @@ class ActionsHandler
 
             case 'delete':
                 return $this->onDeleteButton($row);
+
+            case 'views_statistic':
+                return $this->onViewStatisticButton($row);
                 
             case 'custom':
                 return $this->onCustomButton($row, $buttonDefinition);
@@ -130,6 +133,20 @@ class ActionsHandler
         $action = View::make('admin::tb.action_clone');
         $action->row = $row;
         $action->def = $this->def['clone'];
+        $action->definition = $this->controller->getDefinition();
+
+        return $action;
+    }
+
+    private function onViewStatisticButton($row)
+    {
+        if (!$this->isAllowed('views_statistic')) {
+            return '';
+        }
+
+        $action = View::make('admin::tb.action_views_statistic');
+        $action->row = $row;
+        $action->def = $this->def['views_statistic'];
         $action->definition = $this->controller->getDefinition();
 
         return $action;
