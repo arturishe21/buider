@@ -133,7 +133,36 @@ var Tree =
                 }
             },
             "plugins" : [ "dnd", "search", "contextmenu" ]
+        }).bind("move_node.jstree", function(e, data) {
+            //console.log(data);
+            //console.log($('#'+data.node.id).prev());
+
+            var $current = jQuery('#'+data.node.id);
+            jQuery.ajax({
+                url: window.location.href,
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                data: {
+                    id:               $current.data('id'),
+                    parent_id:        jQuery('#'+data.parent).data('id'),
+                    left_sibling_id:  $current.prev().data('id'),
+                    right_sibling_id: $current.next().data('id'),
+                    query_type:       'do_change_position'
+                },
+                success: function(response) {
+                    if (response.status) {
+                        $current.data('parent-id', response.parent_id);
+                        Tree.setdbl();
+                    }
+                }
+            });
         }).bind("select_node.jstree", function (e, data) {
+            if (typeof data.rslt !== 'undefined') {
+                data.rslt.obj.parents('.jstree-closed').each(function() {
+                    data.inst.open_node(this);
+                });
+            }
 
         }).bind("dblclick.jstree", function (event) {
             var node = $(event.target).closest("li");
