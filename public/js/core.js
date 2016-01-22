@@ -3,9 +3,9 @@
 var Core =
 {
     init: function()
-    {
-        Core.setOnlyNum();
-        Core.setClickClosePop();
+    { 
+          Core.setOnlyNum();
+          Core.setClickClosePop();
     },
 
     //delete record
@@ -49,7 +49,7 @@ var Core =
         Url=Url.replace(/^&|\?/,'');
         var dlm=(Url=='')? '': '?';
 
-        if(typeof a[1] == "undefined") {
+       if(typeof a[1] == "undefined") {
             return a[0];
         }
 
@@ -57,8 +57,8 @@ var Core =
     },
 
     //add get param in url
-    setAttr: function(prmName, val)
-    {
+     setAttr: function(prmName, val)
+     {
         var res = '';
         var d = location.href.split("#")[0].split("?");
         var base = d[0];
@@ -107,6 +107,12 @@ var Core =
             }
 
             var url = Core.delPrm("id");
+
+            if (url != undefined) {
+                window.history.pushState(url, '', url);
+            }
+
+            var url = Core.delPrm("views_statistic");
 
             if (url != undefined) {
                 window.history.pushState(url, '', url);

@@ -1,7 +1,7 @@
 body{
-    height: 100%;
-    overflow: visible;
-}
+     height: 100%;
+     overflow: visible;
+ }
 body.modal-open{
     overflow: visible !important;
 }
@@ -251,6 +251,37 @@ div.tb-uploaded-image-container ul{
     color: red;
     cursor: pointer;
 }
+.content_all_photo{
+    background: #fff;
+}
+.one_photo{
+    float: left;
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+}
+.one_photo .fa{
+    color: #fddf81;
+    font-size: 100px;
+}
+.table_album{
+    margin-bottom: 0;
+}
+.content_all_photo {
+    padding: 5px;
+}
+.empty_album {
+    text-align: center;
+    padding: 50px 0;
+}
+p.table_album_action_a{
+    float: right;
+    margin: 0;
+}
+p.table_album_action_a a{
+    margin: 0 10px;
+}
 #screenshot{
     position:absolute;
     border:1px solid #ccc;
@@ -259,6 +290,7 @@ div.tb-uploaded-image-container ul{
     display:none;
     color:#fff;
 }
+
 .section_group{
     border-bottom: 1px solid #e5e5e5;
     margin-bottom: 10px;
