@@ -295,3 +295,16 @@ p.table_album_action_a a{
     border-bottom: 1px solid #e5e5e5;
     margin-bottom: 10px;
 }
+
+.table_products_in_order{
+    width: 100%;
+}
+.table_products_in_order td{
+    padding: 5px;
+}
+.table_products_in_order thead td{
+    font-weight: bold;
+}
+.table_products_in_order thead td:first-child{
+    width: 20px;
+}
