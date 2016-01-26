@@ -88,8 +88,9 @@ class CheckboxField extends AbstractField
             }
         }
 
-
-        $value = ((isset($row[$this->getFieldName()]) && $row[$this->getFieldName()]) || !isset($row[$this->getFieldName()]))
+        $value = ((isset($row[$this->getFieldName()]) && $row[$this->getFieldName()]) ||
+        (!isset($row[$this->getFieldName()]) && $this->getAttribute('is_checked_default'))
+                )
                     ? '1' : '0';
 
         return $value;

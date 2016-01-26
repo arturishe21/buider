@@ -258,7 +258,7 @@ class QueryHandler
         }
         $this->doValidate($updateData);
 
-        $this->doPrependFilterValues($updateData);
+        //$this->doPrependFilterValues($updateData);
 
         $modelObj = $model::find($values['id']);
 
@@ -397,7 +397,7 @@ class QueryHandler
 
         if (!$id) {
             $this->doValidate($insertData);
-            $this->doPrependFilterValues($insertData);
+            //$this->doPrependFilterValues($insertData);
 
             foreach($insertData as $fild => $data) {
                 if (is_array($data)) {
