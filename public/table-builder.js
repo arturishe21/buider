@@ -237,18 +237,18 @@ var TableBuilder = {
 
         TableBuilder.showPreloader();
 
-       // if ($(".table_form_create #modal_form").size() == 0) {
-            $.post(TableBuilder.getActionUrl(),{"query_type" : "show_add_form"},
-                function(data){
-                    $(".table_form_create").html(data);
-                    jQuery(TableBuilder.form).modal('show');
-                    TableBuilder.initFroalaEditor();
-                    TableBuilder.hidePreloader();
-                });
-       /* } else {
-            jQuery(TableBuilder.form).modal('show');
-            TableBuilder.hidePreloader();
-        }*/
+        // if ($(".table_form_create #modal_form").size() == 0) {
+        $.post(TableBuilder.getActionUrl(),{"query_type" : "show_add_form"},
+            function(data){
+                $(".table_form_create").html(data);
+                jQuery(TableBuilder.form).modal('show');
+                TableBuilder.initFroalaEditor();
+                TableBuilder.hidePreloader();
+            });
+        /* } else {
+         jQuery(TableBuilder.form).modal('show');
+         TableBuilder.hidePreloader();
+         }*/
 
     }, // end getCreateForm
 
@@ -488,7 +488,12 @@ var TableBuilder = {
         TableBuilder.showPreloader();
         TableBuilder.showFormPreloader(TableBuilder.form_edit);
 
-        var values = jQuery(TableBuilder.edit_form).serializeArray();
+        $(TableBuilder.edit_form+ " .fr-link-insert-layer input").each(function( index ) {
+            $( this ).removeAttr("name")
+        });
+
+        var values = $(TableBuilder.edit_form).serializeArray();
+
         values.push({ name: 'id', value: id });
         values.push({ name: 'query_type', value: "save_edit_form" });
         values.push({ name: "__node", value: TableBuilder.getUrlParameter('node') });
@@ -787,11 +792,11 @@ var TableBuilder = {
             data.append('ident', ident);
             data.append('query_type', 'upload_photo');
 
-           // if (TableBuilder.getUrlParameter('node') == undefined) {
-                data.append('__node', TableBuilder.getUrlParameter('id_tree'));
-          /*  } else {
-                data.append('__node', TableBuilder.getUrlParameter('node'));
-            }*/
+            // if (TableBuilder.getUrlParameter('node') == undefined) {
+            data.append('__node', TableBuilder.getUrlParameter('id_tree'));
+            /*  } else {
+             data.append('__node', TableBuilder.getUrlParameter('node'));
+             }*/
 
             var $progress = jQuery(context).parent().parent().parent().parent().parent().find('.progress-bar');
 
@@ -835,7 +840,7 @@ var TableBuilder = {
 
                         var html = '';
                         html += '<li>';
-                       // html += '<input type="hidden"  value="' + response.data.sizes.original + '" class="' + nameFild + '">';
+                        // html += '<input type="hidden"  value="' + response.data.sizes.original + '" class="' + nameFild + '">';
                         html += '<img src="' + response.link + '" class="images-attr-editable" ' +
                         'data-tbnum="' + num + '" ' +
                         'data-tbalt="" ' +
@@ -1056,7 +1061,7 @@ var TableBuilder = {
             {
                 items: "> li",
                 update: function( event, ui ) {
-                   TableBuilder.doSetInputFiles($(this));
+                    TableBuilder.doSetInputFiles($(this));
                 }
             }
         );

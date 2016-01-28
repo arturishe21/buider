@@ -72,7 +72,7 @@
                         </a>
                     </li>
                    @if (isset($treeName) && Config::get('builder::'.$treeName.'.preview') != "hide")
-                    <li><a href="{{ url($item->getUrl()) }}?show=1" target="_blank"><i class="fa fa-eye"></i> {{__cms('Предпросмотр')}} </a></li>
+                    <li><a href="{{ url($item->getUrl()) }}?show=1" target="_blank"><i class="fa fa-eye"></i>{{__cms('Предпросмотр')}} </a></li>
                    @endif
                    <li><a onclick="TableBuilder.getCloneForm({{ $item->id }}, this);" ><i class="fa fa-copy"></i> {{__cms('Клонировать')}} </a></li>
 
