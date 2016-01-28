@@ -487,7 +487,6 @@ var TableBuilder = {
     {
         TableBuilder.showPreloader();
         TableBuilder.showFormPreloader(TableBuilder.form_edit);
-
         $(TableBuilder.edit_form+ " .fr-link-insert-layer input").each(function( index ) {
             $( this ).removeAttr("name")
         });
@@ -603,6 +602,10 @@ var TableBuilder = {
     {
         TableBuilder.showPreloader();
         TableBuilder.showFormPreloader(TableBuilder.form);
+
+        $(TableBuilder.create_form + " .fr-link-insert-layer input").each(function( index ) {
+            $( this ).removeAttr("name")
+        });
 
         var values = jQuery(TableBuilder.create_form).serializeArray();
 

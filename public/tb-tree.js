@@ -347,6 +347,10 @@ var Tree =
         TableBuilder.showPreloader();
         TableBuilder.showFormPreloader(TableBuilder.form_edit);
 
+        $(TableBuilder.edit_form + " .fr-link-insert-layer input").each(function( index ) {
+            $( this ).removeAttr("name")
+        });
+
         var values = jQuery(TableBuilder.edit_form).serializeArray();
         values.push({ name: 'id', value: id });
         values.push({ name: 'query_type', value: "do_edit_node" });
