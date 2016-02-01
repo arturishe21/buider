@@ -134,8 +134,13 @@ class RequestHandler
             $params = ltrim(Input::get('params'), "?");
             parse_str($params, $paramsUrl);
 
-            $pageThisCount = $paramsUrl['page'];
-            unset($paramsUrl['page']);
+            if (isset($paramsUrl['page'])) {
+                $pageThisCount = $paramsUrl['page'];
+                unset($paramsUrl['page']);
+            } else {
+                $pageThisCount = 1;
+            }
+
 
             if (count($paramsUrl)>0) {
                 return Response::json(array(
