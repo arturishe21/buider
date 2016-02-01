@@ -487,7 +487,8 @@ var TableBuilder = {
     {
         TableBuilder.showPreloader();
         TableBuilder.showFormPreloader(TableBuilder.form_edit);
-        $(TableBuilder.edit_form+ " .fr-link-insert-layer input").each(function( index ) {
+
+        $(TableBuilder.edit_form + " .fr-link-insert-layer input").each(function( index ) {
             $( this ).removeAttr("name")
         });
 
@@ -1328,14 +1329,18 @@ var TableBuilder = {
         jQuery.ajax({
             type: "POST",
             url: TableBuilder.getActionUrl(),
-            data: { order: order, query_type: 'change_order' },
+            data: { order: order, params: window.location.search, query_type: 'change_order' },
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
                     TableBuilder.showSuccessNotification(phrase['Порядок следования изменен']);
                 } else {
+                    if (response.message) {
+                        TableBuilder.showErrorNotification(response.message);
+                    } else {
+                        TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
+                    }
 
-                    TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {

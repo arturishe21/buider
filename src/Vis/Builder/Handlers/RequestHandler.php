@@ -130,6 +130,24 @@ class RequestHandler
         
         $definition = $this->controller->getDefinition();
 
+        if (Input::get('params')) {
+            $params = ltrim(Input::get('params'), "?");
+            parse_str($params, $paramsUrl);
+
+            $pageThisCount = $paramsUrl['page'];
+            unset($paramsUrl['page']);
+
+            if (count($paramsUrl)>0) {
+                return Response::json(array(
+                    'status' => false,
+                    'message' => "Ошибка. Сортировка с параметрами фильтра невозможна"
+                ));
+            }
+        } else {
+            $pageThisCount = 1;
+        }
+
+
         $info = $definition['db']['pagination']['per_page'];
         if (is_array($info)) {
             $definitionName = $this->controller->getOption('def_name');
@@ -142,9 +160,8 @@ class RequestHandler
         } else {
             $perPage = $info;
         }
-        
-        // FIXME: make page param available
-        $lowest = (Input::get('page', 1) * $perPage) - $perPage;
+
+        $lowest = ($pageThisCount * $perPage) - $perPage;
         
         foreach ($order as $id) {
             ++$lowest;
