@@ -372,6 +372,16 @@ class QueryHandler
         return $res;
     } // end deleteRow
 
+    public function fastSave($input) {
+        $this->clearCache();
+
+        $def = $this->controller->getDefinition();
+        $model = $def['options']['model'];
+        $modelObj = $model::find($input['id']);
+        $modelObj->$input['name'] = $input['value'];
+        $modelObj->save();
+    }
+
     public function insertRow($values)
     {
         $this->clearCache();

@@ -1,7 +1,7 @@
 body{
-     height: 100%;
-     overflow: visible;
- }
+    height: 100%;
+    overflow: visible;
+}
 body.modal-open{
     overflow: visible !important;
 }
@@ -296,15 +296,25 @@ p.table_album_action_a a{
     margin-bottom: 10px;
 }
 
-.table_products_in_order{
-    width: 100%;
+.fast-edit-buttons{
+    display: none;
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #ddd;
+    padding: 10px;
+    position: absolute;
 }
-.table_products_in_order td{
-    padding: 5px;
+.fast-edit-buttons .input_field{
+    padding-bottom: 5px;
 }
-.table_products_in_order thead td{
-    font-weight: bold;
+.fast-edit-buttons i.btn-cancel{
+    cursor: pointer;
+    font-size: 19px;
+    color: red;
+    position: relative;
+    top: 3px;
 }
-.table_products_in_order thead td:first-child{
-    width: 20px;
+.fast-edit-buttons .fa.fa-save{
+    font-size: 18px;
+    cursor: pointer;
+    margin-right: 10px;
 }

@@ -64,7 +64,19 @@ class TextField extends AbstractField
         $input->placeholder = $this->getAttribute('placeholder');
         $input->is_password = $this->getAttribute('is_password');
         $input->comment = $this->getAttribute('comment');
+        $input->only_numeric = $this->getAttribute('only_numeric');
 
         return $input->render();
     } // end getEditInput
+
+    public function getListValue($row)
+    {
+        if ($this->getAttribute('fast_edit')) {
+
+            $html = "<p>".parent::getListValue($row)."</p>";
+            return $html;
+        }
+
+        return parent::getListValue($row);
+    } // end getListValue
 }

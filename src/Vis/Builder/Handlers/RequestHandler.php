@@ -76,6 +76,9 @@ class RequestHandler
             case 'delete_row':
                 return $this->handleDeleteAction();
 
+            case 'fast_save':
+                return $this->handleFastSaveAction();
+
             case 'clone_record':
                 return $this->handleCloneAction();
                 
@@ -421,6 +424,13 @@ class RequestHandler
 
         return Response::json($result);
     } // end handleDeleteAction
+
+    protected function handleFastSaveAction()
+    {
+        $result = $this->controller->query->fastSave(Input::all());
+        $result['status'] = "ok";
+        return Response::json($result);
+    }
 
     protected function handleCloneAction()
     {

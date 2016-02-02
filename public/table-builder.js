@@ -175,30 +175,25 @@ var TableBuilder = {
         jQuery('#'+TableBuilder.options.ident).find('.ui-overlay').fadeOut();
     }, // end hideProgressBar
 
+    showFastEdit : function(thisElement)
+    {
+        $(".fast-edit-buttons").hide();
+        $(thisElement).parent().find(".fast-edit-buttons").show();
+    },
 
     closeFastEdit: function(context, type, response)
     {
-        var $editElem = jQuery(context).parent().parent();
-        $editElem.removeClass('dblclick-edit-opened');
-        var $elem = $editElem.find(".dblclick-edit");
-
-        if (type == 'cancel') {
-            // var previousValue = $elem.attr('previous-value');
-            var previousValue = $elem.parent().find('.tb-previous-value').text();
-            $elem.html(previousValue);
-            $editElem.find(".dblclick-edit-input").val(previousValue);
-        } else if (type == 'close') {
-            $elem.html(response.value);
-        }
+        var $editElem = jQuery(context).parent().hide();
     }, // end closeFastEdit
 
     saveFastEdit: function(context, rowId, rowIdent)
     {
-        TableBuilder.showProgressBar();
+        // TableBuilder.showProgressBar();
 
         var $context = jQuery(context).parent().parent();
         var value = $context.find('.dblclick-edit-input').val();
-
+        $("tr[id-row=" + rowId + "] .element_" + rowIdent).text(value);
+        TableBuilder.closeFastEdit(context);
         var data = [
             {name: "query_type", value: "fast_save"},
             {name: "id", value: rowId},
@@ -209,12 +204,12 @@ var TableBuilder = {
         var $posting = jQuery.post(TableBuilder.getActionUrl(), data);
 
         $posting.done(function(response) {
-            TableBuilder.hideProgressBar();
+            /* TableBuilder.hideProgressBar();
 
-            if (jQuery.isFunction(TableBuilder.options.onFastEditResponse)) {
-                TableBuilder.options.onFastEditResponse(response);
-            }
-            TableBuilder.closeFastEdit(context, 'close', response);
+             if (jQuery.isFunction(TableBuilder.options.onFastEditResponse)) {
+             TableBuilder.options.onFastEditResponse(response);
+             }*/
+            // TableBuilder.closeFastEdit(context, 'close', response);
         });
     }, // end saveFastEdit
 
@@ -1446,5 +1441,6 @@ var TableBuilder = {
 $(window).load(function() {
     TableBuilder.initFroalaEditor();
     TableBuilder.handleStartLoad();
+
 });
 
