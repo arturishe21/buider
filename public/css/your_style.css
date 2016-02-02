@@ -302,6 +302,14 @@ p.table_album_action_a a{
     border: 1px solid #ddd;
     padding: 10px;
     position: absolute;
+    z-index: 100000;
+}
+.dblclick-edit{
+    border-bottom: 1px dotted #333;
+    cursor: pointer;
+}
+.dblclick-edit:hover{
+    border-bottom:none;
 }
 .fast-edit-buttons .input_field{
     padding-bottom: 5px;
