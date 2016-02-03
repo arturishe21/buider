@@ -45,14 +45,14 @@
                                     <label class="label">{{(__cms('Эл.почта'))}}</label>
                                     <label class="input"> <i class="icon-append fa fa-user"></i>
                                         <input type="email" name="email">
-                                        <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> {{__cms('Введите адрес эл.почты')}}</b></label>
+                                       </label>
                                 </section>
     
                                 <section>
                                     <label class="label">{{__cms('Пароль')}}</label>
                                     <label class="input"> <i class="icon-append fa fa-lock"></i>
                                         <input type="password" name="password" autocomplete="off">
-                                        <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> {{__cms('Введите пароль')}}</b> </label>
+                                        </label>
                                 </section>
                                 
                                 @if (Config::get('builder::login.is_active_remember_me'))
