@@ -110,12 +110,15 @@ class ExportHandler
                 $csvRow .= '"'. $value .'"'. $delimiter;
             }
             $csvRow = rtrim($csvRow, $delimiter);
+            //$csvRow = iconv("WINDOWS-1251", "UTF-8", $csvRow);
             $csv .= $csvRow;
         }
         
         $name = $this->getAttribute('filename', 'export');
         $this->doSendHeaders($name .'_'. date("Y-m-d") .'.csv');
-        
+
+        //$csv = iconv("WINDOWS-1251", "UTF-8", $csv);
+        echo "\xEF\xBB\xBF";
         die($csv);
     } // end doExportCsv
     
@@ -249,9 +252,12 @@ class ExportHandler
         header('Content-Type: application/force-download');
         header('Content-Type: application/octet-stream');
         header('Content-Type: application/download');
-    
+
+        header('Content-Encoding: UTF-8');
+      // header('Content-type: text/csv; charset=UTF-8');
+
         // disposition / encoding on response body
-        header('Content-Disposition: attachment;filename='. $filename);
+        header('Content-Disposition: attachment; filename='. $filename);
         header('Content-Transfer-Encoding: binary');
     } // end doSendHeaders
     
