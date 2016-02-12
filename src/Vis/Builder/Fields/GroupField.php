@@ -1,14 +1,9 @@
 <?php
-
 namespace Vis\Builder\Fields;
-
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
-
-
 class GroupField extends AbstractField
 {
-
     public function isEditable()
     {
         return true;
@@ -22,25 +17,19 @@ class GroupField extends AbstractField
     public function getEditInput($row = array())
     {
         $type = $this->getAttribute('type');
-
         $valueJson = $this->getValue($row);
         $valueArray = [];
         if ($valueJson && $this->isJson($valueJson)) {
             $valueArray = json_decode($valueJson);
         }
-
         $filds = $this->getAttribute('filds');
-
         $section = [];
-
         if (count($valueArray)) {
-
             foreach ($valueArray as $nameVal => $val) {
                 foreach ($val as $k => $res) {
                     $section[$k][$nameVal] = $res;
                 }
             }
-
             foreach ($section as $k => $param) {
                 foreach ($param as $nameParam => $valParam) {
                     $nameClass = "Vis\\Builder\\Fields\\".ucfirst($filds[$nameParam]['type'])."Field";
@@ -49,7 +38,6 @@ class GroupField extends AbstractField
                     $sectionResult[$k][$nameParam]['html'] = $resultObjectFild->getEditInput(array($nameParam => $valParam));
                 }
             }
-
         } else {
             foreach ($filds as $name => $fild) {
                 $nameClass = "Vis\\Builder\\Fields\\".ucfirst($fild['type'])."Field";
@@ -57,14 +45,12 @@ class GroupField extends AbstractField
                 $sectionResult[0][$name] = $fild;
                 $sectionResult[0][$name]['html'] = $resultObjectFild->getEditInput();
             }
-
         }
-
-
         $input = View::make('admin::tb.input_'. $type);
         $input->value = $valueArray;
         $input->name  = $this->getFieldName();
         $input->rows  = $sectionResult;
+        $input->hide_add = $this->getAttribute('hide_add');
 
         return $input->render();
     } // end getEditInput
@@ -73,5 +59,4 @@ class GroupField extends AbstractField
         json_decode($string);
         return (json_last_error() == JSON_ERROR_NONE);
     }
-
 }

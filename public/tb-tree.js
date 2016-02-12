@@ -326,7 +326,7 @@ var Tree =
                         var $input = jQuery(this);
                         $input.mask($input.attr('data-mask'));
                     });
-
+                    TableBuilder.handleActionSelect();
                 } else {
                     TableBuilder.showErrorNotification(phrase['Что-то пошло не так, попробуйте позже']);
                 }

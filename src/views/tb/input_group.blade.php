@@ -17,7 +17,9 @@
     @endforeach
 
    </div>
-    <a class="add_group" onclick="TableBuilder.addGroup(this)"><i class="fa fa-plus-square"></i> Добавить</a>
+   @if (!$hide_add)
+        <a class="add_group" onclick="TableBuilder.addGroup(this)"><i class="fa fa-plus-square"></i> Добавить</a>
+   @endif
 </div>
 <script>
     $(".group[name={{$name}}] input, .group[name={{$name}}] textarea" ).each(function( index ) {

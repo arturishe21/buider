@@ -1,4 +1,4 @@
-<select name="{{ $name }}" class="dblclick-edit-input form-control input-small unselectable">
+<select name="{{ $name }}" class="dblclick-edit-input form-control input-small unselectable {{$action ? "action" : ""}}">
     @foreach ($options as $value => $caption)
         @if ($value == $selected)
             <option value="{{ $value }}" selected>{{ __cms($caption) }}</option>

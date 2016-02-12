@@ -41,7 +41,7 @@ $field = $controller->getField($ident);
     @continue
 @endif
 
-<section>
+<section class="{{$field->getAttribute('class_name') ? "section_field ".$field->getAttribute('class_name'): ""}}">
     @if ($is_blank)
         <label class="label" for="{{$ident}}">{{__cms($options['caption'])}}</label>
         <div style="position: relative;">

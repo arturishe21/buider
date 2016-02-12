@@ -1,4 +1,5 @@
 @foreach ($fields as $ident)
+
 <?php 
 $options = $def['fields'][$ident];
 $field = $controller->getField($ident); 
@@ -14,8 +15,8 @@ $field = $controller->getField($ident);
     @continue
 @endif
 
-                            
-@if ($field->isHidden() || $field->isReadonly())
+
+@if ($field->isHidden())
     @continue
 @endif
 
@@ -40,33 +41,31 @@ $field = $controller->getField($ident);
 @endif
 
 <section>
-@if ($is_blank)
-    <label class="label" for="{{$ident}}">{{__cms($options['caption'])}}</label>
-    <div style="position: relative;">
+    @if ($is_blank)
+        <label class="label" for="{{$ident}}">{{__cms($options['caption'])}}</label>
+        <div style="position: relative;">
+            <label class="{{ $field->getLabelClass() }}">
+            {{ $field->getEditInput() }}
+            {{ $field->getSubActions() }}
+            </label>
+        </div>
+    @else
+        <label class="label" for="{{$ident}}">{{__cms($options['caption'])}}</label>
+        <div style="position: relative;">
+          @if($options['type'] == "wysiwyg")
+             <label class="{{ $field->getLabelClass() }}"></label>
+                {{ $field->getEditInput($row) }}
+                {{ $field->getSubActions() }}
 
-        @if($options['type'] == "wysiwyg")
-         <label class="{{ $field->getLabelClass() }}"></label>
-              {{ $field->getEditInput() }}
-              {{ $field->getSubActions() }}
-        @else
-         <label class="{{ $field->getLabelClass() }}">
-              {{ $field->getEditInput() }}
-              {{ $field->getSubActions() }}
-         </label>
-        @endif
+          @else
+              <label class="{{ $field->getLabelClass() }}">
+                  {{ $field->getEditInput($row) }}
+                  {{ $field->getSubActions() }}
+              </label>
+          @endif
 
-
-
-    </div>
-@else
-
-    <label class="label" for="{{$ident}}">{{__cms($options['caption'])}}</label>
-    <div style="position: relative;">
-        <label class="{{ $field->getLabelClass() }}">
-        {{ $field->getEditInput($row) }}
-        {{ $field->getSubActions() }}
-        </label>
-    </div>
-@endif
+        </div>
+    @endif
 </section>
+
 @endforeach

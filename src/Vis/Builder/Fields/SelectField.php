@@ -51,6 +51,7 @@ class SelectField extends AbstractField
         $table->selected = $this->getValue($row);
         $table->name  = $this->getFieldName();
         $table->options = $this->getAttribute('options');
+        $table->action = $this->getAttribute('action');
 
         return $table->render();
     } // end getEditInput

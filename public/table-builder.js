@@ -239,6 +239,7 @@ var TableBuilder = {
                 jQuery(TableBuilder.form).modal('show');
                 TableBuilder.initFroalaEditor();
                 TableBuilder.hidePreloader();
+                TableBuilder.handleActionSelect();
             });
         /* } else {
          jQuery(TableBuilder.form).modal('show');
@@ -317,6 +318,7 @@ var TableBuilder = {
                         var $input = jQuery(this);
                         $input.mask($input.attr('data-mask'));
                     });
+                    TableBuilder.handleActionSelect();
                 } else {
                     TableBuilder.showErrorNotification("Что-то пошло не так, попробуйте позже");
                 }
@@ -663,6 +665,7 @@ var TableBuilder = {
 
                     TableBuilder.removeInputValues(TableBuilder.form);
                     jQuery(TableBuilder.form).modal('hide');
+
 
                 } else {
                     var errors = '';
@@ -1435,12 +1438,32 @@ var TableBuilder = {
         } else {
             $(sectionGroup).remove();
         }
+    },
+
+    handleActionSelect : function()
+    {
+        var selectAction = $("select.action");
+        if (selectAction.size() != 0) {
+            var value = selectAction.val();
+            TableBuilder.checkActionSelect(value);
+
+            selectAction.change(function(){
+                var value = selectAction.val();
+                TableBuilder.checkActionSelect(value);
+            });
+        }
+    },
+
+    checkActionSelect : function(value)
+    {
+        $("section.section_field").hide();
+        $("section.section_field." + value).show();
     }
+
 };
 
 $(window).load(function() {
     TableBuilder.initFroalaEditor();
     TableBuilder.handleStartLoad();
-
 });
 
