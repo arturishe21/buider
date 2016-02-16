@@ -174,6 +174,7 @@ class ForeignField extends AbstractField
         } else {
             $input->options  = $this->getForeignKeyOptions();
         }
+        $input->readonly_for_edit = $this->getAttribute('readonly_for_edit');
 
         return $input->render();
     } // end getEditInput

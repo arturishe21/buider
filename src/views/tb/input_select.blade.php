@@ -1,4 +1,10 @@
-<select name="{{ $name }}" class="dblclick-edit-input form-control input-small unselectable {{$action ? "action" : ""}}">
+<select
+
+@if (Input::has("id") && $readonly_for_edit)
+    disabled
+@endif
+
+name="{{ $name }}" class="dblclick-edit-input form-control input-small unselectable {{$action ? "action" : ""}}">
     @foreach ($options as $value => $caption)
         @if ($value == $selected)
             <option value="{{ $value }}" selected>{{ __cms($caption) }}</option>

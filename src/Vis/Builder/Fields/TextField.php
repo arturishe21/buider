@@ -65,6 +65,7 @@ class TextField extends AbstractField
         $input->is_password = $this->getAttribute('is_password');
         $input->comment = $this->getAttribute('comment');
         $input->only_numeric = $this->getAttribute('only_numeric');
+        $input->readonly_for_edit = $this->getAttribute('readonly_for_edit');
 
         return $input->render();
     } // end getEditInput
