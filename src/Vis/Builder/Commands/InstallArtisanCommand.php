@@ -64,13 +64,13 @@ class InstallArtisanCommand extends Command
         }
 
         //replace router.php
-        if(!File::exists(app_path() . '/routes.php')) {
+        //if(!File::exists(app_path() . '/routes.php')) {
             copy(
                 __DIR__ . '/../../../misc/routes.php',
                 app_path() . '/routes.php'
             );
             $this->info('Replace routes.php - OK');
-        }
+       // }
 
 
 
@@ -135,13 +135,13 @@ class InstallArtisanCommand extends Command
         }
 
         //replace User.php
-        if(!File::exists(app_path() . '/models/User.php')) {
+       // if(!File::exists(app_path() . '/models/User.php')) {
             copy(
                 __DIR__ . '/../../../misc/User.php',
                 app_path() . '/models/User.php'
             );
             $this->info('Replace User.php - OK');
-        }
+      //  }
 
         //replace Util.php
         if(!File::exists(app_path() . '/models/Util.php')) {
