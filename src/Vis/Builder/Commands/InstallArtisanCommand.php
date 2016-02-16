@@ -55,13 +55,13 @@ class InstallArtisanCommand extends Command
         //}
 
         //replace HomeController
-        if(!File::exists(app_path() . '/controllers/HomeController.php')) {
+      //  if(!File::exists(app_path() . '/controllers/HomeController.php')) {
             copy(
                 __DIR__ . '/../../../misc/HomeController.php',
                 app_path() . '/controllers/HomeController.php'
             );
             $this->info('Replace HomeController.php - OK');
-        }
+      //  }
 
         //replace router.php
         //if(!File::exists(app_path() . '/routes.php')) {
