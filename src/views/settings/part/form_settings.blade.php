@@ -238,12 +238,14 @@
                         </div>
 
                         <div class='type_6 types' {{isset($info->type) && $info->type==6?'style="display: block"':""}}>
-
-                          <div class="text_block" name="value6">{{$info->value or ""}}</div>
-                           <label class="textarea">
-                               <textarea name="value6" style="display: none" class="custom-scroll">{{ $info->value or "" }}</textarea>
-                           </label>
-
+                           <textarea name="value6" class="text_block custom-scroll">{{ $info->value or "" }}</textarea>
+                        </div>
+                        <div class='type_7 types' {{isset($info->type) && $info->type==7?'style="display: block"':""}}>
+                              <label class="toggle" style="padding-right: 51px">
+                                  <input type="hidden" value="0" name="status">
+                                  <input type="checkbox" {{isset($info->value) && $info->value == 1 ? "checked" : ""}} value="1" name="status">
+                                  <i data-swchoff-text="ВЫКЛ" data-swchon-text="ВКЛ"></i>
+                              </label>
                         </div>
 
                 </section>

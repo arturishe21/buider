@@ -80,6 +80,11 @@ class Setting extends Eloquent {
             $settings -> value = $data['value'.$data['type']];
         }
 
+        //yes/no
+        if ($data['type']==7) {
+            $settings -> value =  $data['status'];
+        }
+
         //если тип файл
         if ($data['type'] == 4 && $file) {
             $destinationPath = "storage/settings";

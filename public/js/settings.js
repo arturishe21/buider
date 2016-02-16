@@ -60,11 +60,6 @@ var Settings =
             },
             submitHandler: function(form) {
 
-                $( ".text_block" ).each(function( index ) {
-                    var text = $('.text_block').froalaEditor('html.get', true);
-                    $("textarea[name="+$(this).attr("name")+"]").val(text);
-                });
-
                 Settings.doSaveSetting();
             }
         });
@@ -97,6 +92,7 @@ var Settings =
 
     doSaveSetting: function()
     {
+
         Settings.loadAction();
 
         var fileData = $("#modal_form [name=file]").prop("files")[0];

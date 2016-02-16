@@ -15,6 +15,8 @@
          <a onclick="Settings.getEdit({{$el->id}})">{{__cms('Тройной список')}}</a>
   @elseif($el->type==4)
         <a href="{{$el->value}}" target="_blank">{{{basename($el->value)}}}</a>
+  @elseif($el->type==7)
+      {{$el->value == 1 ? "Вкл" : "Выкл"}}
   @else
         {{{$el->value}}}
   @endif
