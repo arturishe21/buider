@@ -294,9 +294,10 @@ class TreeCatalogController
         $controller = new JarboeController($options);
 
         $result = $controller->query->updateRow(Input::all());
-        $model::flushCache();
+
         
         $item = $model::find($idNode);
+        $item->clearCache();
         $treeName = $this->nameTree;
         $result['html'] = View::make('admin::tree.content_row', compact('item', 'treeName'))->render();
 

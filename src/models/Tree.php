@@ -136,18 +136,16 @@ class Tree extends \Baum\Node
 
     public function getGeneratedUrl()
     {
-
         $tags = $this->getCacheTags();
-        if ($tags) {
-
-            $url = Cache::tags($tags)->rememberForever("tree_".$this->id, function() {
+        if ($tags && $this->fileDefinition) {
+            $url = Cache::tags($tags)->rememberForever($this->fileDefinition."_".$this->id, function() {
                return $this->getGeneratedUrlInCache();
             });
 
             return $url;
 
         } else {
-            $this->getGeneratedUrlInCache();
+           return $this->getGeneratedUrlInCache();
         }
 
     } // end getGeneratedUrl
@@ -177,7 +175,7 @@ class Tree extends \Baum\Node
         return $this->children()->count();
     }
 
-    public function clearCache()
+    public  function clearCache()
     {
         $tags = $this->getCacheTags();
         if ($tags) {
