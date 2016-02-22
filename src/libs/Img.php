@@ -46,6 +46,8 @@ class Img {
             $pathSmallImg = public_path(). "/" .$this->picturePath;
             $img->save($pathSmallImg, $this->quality);
 
+            OptmizationImg::run($this->picturePath);
+
             return  $this->picturePath;
         } catch (\Exception $e) {
             return $e->getMessage();

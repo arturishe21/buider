@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Vis\Builder\Fields;
 
@@ -7,9 +7,10 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\App;
+use Vis\Builder\OptmizationImg;
 
 
-class ImageField extends AbstractField 
+class ImageField extends AbstractField
 {
 
     public function isEditable()
@@ -25,14 +26,14 @@ class ImageField extends AbstractField
                 return $res;
             }
         }
-        
+
         if ($this->getAttribute('is_multiple')) {
             return $this->getListMultiple($row);
         }
-        
+
         return $this->getListSingle($row);
     } // end getListValue
-    
+
     private function getListSingle($row)
     {
         $pathPhoto = $this->getValue($row);;
@@ -44,28 +45,28 @@ class ImageField extends AbstractField
                     <img src="' . glide($pathPhoto, ['w' => '50']) . '" /></a>';
 
         return $html;
-    } // end getListSingle    
-    
+    } // end getListSingle
+
     private function getListMultiple($row)
     {
         if (!$this->getValue($row)) {
             return '';
         }
-        
+
         $images = json_decode($this->getValue($row), true);
-        
+
         // FIXME: fix fixfix
         $html = '<div style="cursor:pointer;height: 50px;overflow: hidden;" onclick="$(this).css(\'height\', \'auto\').css(\'overflow\', \'auto\');">';
         foreach ($images as $source) {
             $src = $this->getAttribute('before_link')
-                  . $source['sizes']['original']
-                  . $this->getAttribute('after_link');
-                  
+                . $source['sizes']['original']
+                . $this->getAttribute('after_link');
+
             // FIXME: move to template
             $src = $this->getAttribute('is_remote') ? $src : URL::asset($src);
             $html .= '<img height="'. $this->getAttribute('img_height', '50px') .'" src="'
-                  . $src
-                  . '" /><br>';
+                . $src
+                . '" /><br>';
         }
 
         $html .= '</div>';
@@ -77,7 +78,7 @@ class ImageField extends AbstractField
     {
         $db->where($this->getFieldName(), 'LIKE', '%'.$value.'%');
     } // end onSearchFilter
-    
+
     public function getEditInput($row = array())
     {
 
@@ -103,7 +104,7 @@ class ImageField extends AbstractField
 
         return $input->render();
     } // end getEditInput
-    
+
     public function doUpload($file)
     {
         $this->checkSizeFile($file);
@@ -111,34 +112,37 @@ class ImageField extends AbstractField
         $extension = $file->guessExtension();
         $rawFileName = md5_file($file->getRealPath()) .'_'. time();
         $fileName = $rawFileName .'.'. $extension;
-        
+
         $definitionName = $this->getOption('def_name');
         $prefixPath = 'storage/tb-'.$definitionName.'/';
         // FIXME: generate path by hash
         $postfixPath = date('Y') .'/'. date('m') .'/'. date('d') .'/';
         $destinationPath = $prefixPath . $postfixPath;
-        
+
         $status = $file->move($destinationPath, $fileName);
-        
+
         $data = array();
         $data['sizes']['original'] = $destinationPath . $fileName;
-        
+
         $variations = $this->getAttribute('variations', array());
         foreach ($variations as $type => $methods) {
             $img = Image::make($data['sizes']['original']);
             foreach ($methods as $method => $args) {
                 call_user_func_array(array($img, $method), $args);
             }
-            
+
             $path = $destinationPath . $rawFileName .'_'. $type .'.'. $extension;
             $quality = $this->getAttribute('quality', 100);
             $img->save(public_path() .'/'. $path, $quality);
+
             $data['sizes'][$type] = $path;
         }
 
         $width   = $this->getAttribute('img_width') ? $this->getAttribute('img_width') : 200;
         $height   = $this->getAttribute('img_height') ? $this->getAttribute('img_height') : 200;
-        
+
+        OptmizationImg::run("/".$destinationPath . $fileName);
+
         $response = array(
             'data'       => $data,
             'status'     => $status,
@@ -159,7 +163,7 @@ class ImageField extends AbstractField
             }
         }
     }
-    
+
     public function prepareQueryValue($value)
     {
         $vals = json_decode($value, true);
@@ -176,7 +180,7 @@ class ImageField extends AbstractField
                 $value = '';
             }
         }
-        
+
         return $value;
     } // end prepareQueryValue
 
