@@ -21,6 +21,7 @@ var TableBuilder = {
 
     onDoEdit: null,
     onDoCreate: null,
+    onDoDelete: null,
 
     init: function(options)
     {
@@ -463,6 +464,10 @@ var TableBuilder = {
                             TableBuilder.showErrorNotification(phrase["Что-то пошло не так, попробуйте позже"]);
                         }
 
+                        if (TableBuilder.onDoDelete) {
+                            TableBuilder.onDoDelete(TableBuilder.getActionUrl());
+                        }
+
                         TableBuilder.hidePreloader();
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
@@ -662,6 +667,9 @@ var TableBuilder = {
                     TableBuilder.removeInputValues(TableBuilder.form);
                     jQuery(TableBuilder.form).modal('hide');
 
+                    if (TableBuilder.onDoCreate) {
+                        TableBuilder.onDoCreate(TableBuilder.getActionUrl());
+                    }
 
                 } else {
                     var errors = '';
