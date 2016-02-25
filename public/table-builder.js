@@ -1442,6 +1442,7 @@ var TableBuilder = {
 
     handleActionSelect : function()
     {
+
         var selectAction = $("select.action");
         if (selectAction.size() != 0) {
             var value = selectAction.val();

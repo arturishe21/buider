@@ -295,6 +295,18 @@ var Tree =
         });
     }, // end doCreateNode
 
+    //clone
+    getCloneForm: function(id, node)
+    {
+        $.post( window.location.href, {"query_type" : "clone_record_tree", "id" : id, "node": node})
+            .done(function( data ) {
+                doAjaxLoadContent(location.href);
+            }).fail(function(xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+                TableBuilder.showErrorNotification(errorResult.message);
+                TableBuilder.hidePreloader();
+            });
+    },
 
     showEditForm: function(id)
     {
@@ -451,6 +463,7 @@ var Tree =
 
         });
     }, // end doDelete
+
 };
 
 

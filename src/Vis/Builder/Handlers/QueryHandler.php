@@ -312,6 +312,7 @@ class QueryHandler
     public function cloneRow($id)
     {
         $this->clearCache();
+        $def = $this->controller->getDefinition();
 
         if ($this->controller->hasCustomHandlerMethod('handleCloneRow')) {
             $res = $this->controller->getCustomHandler()->handleCloneRow($id);
@@ -320,16 +321,14 @@ class QueryHandler
             }
         }
 
+        $model = $def['options']['model'];
+
         $page = $this->db->where("id", $id)->select("*")->first();
         Event::fire("table.clone", array($this->dbOptions['table'], $id));
+        $idClonePage = $page['id'];
         unset($page['id']);
 
-        if (isset($page['slug'])) {
-            $page['slug'] = $page['slug']."_";
-        }
-
-
-        $results = $this->db->insert($page);
+        $this->db->insertGetId($page);
 
         $res = array(
             'id'     => $id,

@@ -81,7 +81,7 @@ class RequestHandler
 
             case 'clone_record':
                 return $this->handleCloneAction();
-                
+
             case 'upload_photo':
                 return $this->handlePhotoUpload();
             

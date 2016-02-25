@@ -37,6 +37,9 @@ class TreeCatalogController
 
             case 'do_create_node':
                 return $this->doCreateNode();
+
+            case 'clone_record_tree':
+                return $this->doCloneRecord();
             
             case 'do_change_active_status':
                 return $this->doChangeActiveStatus();
@@ -106,6 +109,45 @@ class TreeCatalogController
             'status' => true, 
         ));
     } // end doCreateNode
+
+    public function doCloneRecord()
+    {
+        $model = $this->model;
+        $root = $model::find(Input::get('node', 1));
+
+        $id = Input::get('id');
+        $page = $model::where("id", $id)->select("*")->first()->toArray();
+        $idClonePage = $page['id'];
+        unset($page['id']);
+
+        $tableName = with(new $model)->getTable();
+        $lastId = DB::table($tableName)->insertGetId($page);
+        $cloneRecord = $model::where("id", $lastId)->first();
+        $cloneRecord->slug = $cloneRecord->slug."-".$cloneRecord->id;
+        $cloneRecord->save();
+
+        $folderCheck =  $model::where("parent_id", $idClonePage)->select("*")->get()->toArray();
+        if (count($folderCheck)) {
+            foreach ($folderCheck as $pageChild) {
+                 $pageChild['parent_id'] = $lastId;
+                 $pageChild['slug'] = $pageChild['slug']."_".$lastId;
+                 unset($pageChild['id']);
+                 DB::table($tableName)->insert($pageChild);
+            }
+        }
+
+       // $cloneRecord->makeChildOf($root);
+
+        $cloneRecord::rebuild();
+        $cloneRecord::flushCache();
+
+        $res = array(
+            'id'     => $id,
+            'status' => $page,
+        );
+
+        return $res;
+    }
     
     public function doChangeActiveStatus()
     {
