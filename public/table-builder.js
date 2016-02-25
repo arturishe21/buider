@@ -21,8 +21,6 @@ var TableBuilder = {
 
     onDoEdit: null,
     onDoCreate: null,
-    afterGetEditForm: null,
-    onGetCreateForm: null,
 
     init: function(options)
     {
@@ -504,11 +502,6 @@ var TableBuilder = {
             }
         }
 
-        // FIXME:
-        if (TableBuilder.onDoEdit) {
-            values = TableBuilder.onDoEdit(values);
-        }
-
         /* Because serializeArray() ignores unset checkboxes and radio buttons: */
         values = values.concat(
             jQuery(TableBuilder.edit_form).find('input[type=checkbox]:not(:checked)')
@@ -538,7 +531,6 @@ var TableBuilder = {
                     TableBuilder.showSuccessNotification(phrase['Сохранено']);
                     $(document).height($(window).height());
                     if (TableBuilder.options.is_page_form) {
-                        //window.location.href = TableBuilder.options.list_url;
                         window.history.back();
                         return;
                     }
@@ -546,6 +538,10 @@ var TableBuilder = {
                     jQuery(TableBuilder.form_edit).modal('hide');
                     $(document).height($(window).height());
                     jQuery('#wid-id-1').find('tr[id-row="'+id+'"]').replaceWith(response.html);
+
+                    if (TableBuilder.onDoEdit) {
+                        TableBuilder.onDoEdit(TableBuilder.getActionUrl());
+                    }
 
                 } else {
 
