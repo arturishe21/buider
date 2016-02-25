@@ -12,5 +12,9 @@ View::composer(array('admin::layouts.default', 'admin::partials.scripts'), funct
     $skin = Cookie::get('skin') ? : "smart-style-4";
     $thisLang = Cookie::get("lang_admin") ? : Config::get("builder::translate_cms.lang_default");
 
-    $view->with('skin', $skin)->with("thisLang", $thisLang);
+    $customJs = Config::get('builder::admin.custom_js');
+
+    $view->with('skin', $skin)
+          ->with("thisLang", $thisLang)
+          ->with("customJs", $customJs);
 });

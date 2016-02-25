@@ -88,6 +88,12 @@
                 });
             </script>
 
+            @if (isset($customJs) && count($customJs))
+                @foreach($customJs as $jsFile)
+                    <script src="{{$jsFile}}"></script>
+                @endforeach
+            @endif
+
     </head>
     <body class="{{ Cookie::get('tb-misc-body_class', '') }} {{ $skin }}">
 
