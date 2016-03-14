@@ -67,8 +67,12 @@ var TableBuilder = {
                 option.toolbarButtonsSM = arrayToolbar;
                 option.toolbarButtonsXS = arrayToolbar;
             }
-            $(this).froalaEditor(option);
 
+            if ($(this).attr("inlinestyles")) {
+                option.inlineStyles = JSON.parse($(this).attr("inlinestyles"))
+            }
+
+            $(this).froalaEditor(option);
         });
 
         $("a[href='https://froala.com/wysiwyg-editor']").parent().remove();
