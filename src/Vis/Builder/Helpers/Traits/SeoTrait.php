@@ -7,9 +7,9 @@ trait SeoTrait
     public function getSeoTitle()
     {
         if( isset($this->seo_title) && !empty($this->seo_title)) {
-            return $this->t('seo_title');
+            return strip_tags($this->t('seo_title'));
         } elseif(isset($this->title)) {
-            return $this->t('title');
+            return strip_tags($this->t('title'));
         }
 
     } // end getSeoTitle
@@ -17,9 +17,9 @@ trait SeoTrait
     public function getSeoDescription()
     {
         if( isset($this->seo_description) && !empty($this->seo_description)) {
-            return $this->t('seo_description');
+            return strip_tags($this->t('seo_description'));
         } elseif(isset($this->short_description)) {
-            return $this->t('short_description');
+            return strip_tags($this->t('short_description'));
         }
 
     } // end getSeoTitle
