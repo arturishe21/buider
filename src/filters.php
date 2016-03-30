@@ -1,6 +1,4 @@
 <?php
-
-
 //++
 Route::filter('check_permissions', function()
 {
