@@ -5,7 +5,7 @@
 
   inlineStyles = '{{ $inlineStyles ? json_encode($inlineStyles) : ""}}'
 
-   class="text_block" name="{{ $name }}">{{ $value }}</textarea>
+   class="text_block" name="{{ $name }}">{{{ $value }}}</textarea>
 @if (isset($comment) && $comment)
     <div class="note">
         {{$comment}}

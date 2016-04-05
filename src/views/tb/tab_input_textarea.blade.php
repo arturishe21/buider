@@ -27,7 +27,7 @@
                         <label class="textarea">
                         <textarea rows="{{$rows or '3'}}"
                                   class="custom-scroll"
-                                  name="{{ $name . $tab['postfix']}}">{{ $tab['value'] }}</textarea>
+                                  name="{{ $name . $tab['postfix']}}">{{{ $tab['value'] }}}</textarea>
                         </label>
                         @if (isset($comment) && $comment)
                             <div class="note">

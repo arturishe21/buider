@@ -23,7 +23,7 @@
                 @endif
                     <textarea toolbar = "{{$toolbar ? : "fullscreen, bold, italic, underline, strikeThrough, subscript, superscript, fontFamily, fontSize,  color,
                                            emoticons, inlineStyle, paragraphStyle,  paragraphFormat, align, formatOL, formatUL, outdent, indent, quote, insertHR,
-                                           insertLink, insertImage, insertVideo, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html"}}" id="{{$pre . $name . $tab['postfix']}}-wysiwyg" name="{{ $name . $tab['postfix'] }}" class="text_block">{{ $tab['value'] }}</textarea>
+                                           insertLink, insertImage, insertVideo, insertFile, insertTable, undo, redo, clearFormatting, selectAll, html"}}" id="{{$pre . $name . $tab['postfix']}}-wysiwyg" name="{{ $name . $tab['postfix'] }}" class="text_block">{{{ $tab['value'] }}}</textarea>
                     @if (isset($comment) && $comment)
                         <div class="note">
                             {{$comment}}

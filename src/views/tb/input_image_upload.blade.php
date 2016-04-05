@@ -9,7 +9,7 @@
             Выбрать
         </span>
 
-        <input type="hidden" name="{{$name}}" value='{{ $value }}'>
+        <input type="hidden" name="{{$name}}" value='{{{ $value }}}'>
         <input type="text"
                id="{{ $name }}"
                placeholder="{{__cms('Выберите изображение для загрузки')}}"
@@ -66,7 +66,7 @@
             {{__cms('Выбрать')}}
         </span>
         <input type="text" id="{{ $name }}" placeholder="{{__cms('Выберите изображение для загрузки')}}" readonly="readonly">
-        <input type="hidden" value="{{$value}}" name="{{ $name }}">
+        <input type="hidden" value="{{{$value}}}" name="{{ $name }}">
     </div>
     <div class="tb-uploaded-image-container">
         @if (isset($value) && $value)

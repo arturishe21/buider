@@ -2,7 +2,7 @@
 <div style="position: relative;">
 <input type="text" 
        id="f-{{$name}}"
-       value="{{$value}}" 
+       value="{{{$value}}}"
        name="filter[{{ $name }}]" 
        class="form-control input-small datepicker" >
        

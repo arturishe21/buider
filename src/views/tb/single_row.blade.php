@@ -23,7 +23,7 @@
                 <span class="dblclick-edit selectable element_{{ $ident }}" onclick="TableBuilder.showFastEdit(this)">{{ $field->getListValue($row) }}</span>
 
                 <div class="fast-edit-buttons">
-                    <div class="input_field">{{ $field->getEditInput($row) }}</div>
+                    <div class="input_field">{{{ $field->getEditInput($row) }}}</div>
                     <span class="fa fa-save"  onclick="TableBuilder.saveFastEdit(this, {{ $row['id'] }}, '{{ $ident }}');"></span>
                     <i class="glyphicon glyphicon-remove btn-cancel"
                        onclick="TableBuilder.closeFastEdit(this, 'cancel');"></i>
@@ -31,10 +31,10 @@
 
             @elseif($field->getAttribute('result_show'))
 
-               {{$field->getReplaceStr($row)}}
+                {{{$field->getReplaceStr($row)}}}
 
             @else
-                <span>{{ $field->getListValue($row) }}</span>
+                <span>{{{ $field->getListValue($row) }}}</span>
             @endif
         </td>
     @endif

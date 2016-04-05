@@ -1,7 +1,9 @@
 
 <input id="{{$name}}"
-       name="{{$name}}" 
-       value="{{ $value ? : $default }}"
+       name="{{$name}}"
+       @if (isset($value))
+         value="{{{ $value }}}"
+       @endif
        type="text" 
        class="form-control input-sm unselectable">
 

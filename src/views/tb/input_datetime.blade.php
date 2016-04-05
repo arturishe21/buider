@@ -1,7 +1,7 @@
 
 <input type="text" 
        id="{{ $prefix . $name }}"
-       value="{{$value}}" 
+       value="{{{$value}}}"
        name="{{$name}}" 
        class="form-control datepicker" >
        

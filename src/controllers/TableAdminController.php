@@ -1,6 +1,4 @@
-<?php
-
-namespace Vis\Builder;
+<?php namespace Vis\Builder;
 
 use Vis\Builder\Facades\Jarboe as JarboeFacade;
 use Illuminate\Support\Facades\View;

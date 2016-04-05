@@ -2,7 +2,7 @@
 <div style="position: relative; width: 45%; float:left;">
     <input type="text"
            id="f-from-{{$name}}"
-           value="{{$valueFrom}}"
+           value="{{{$valueFrom}}}"
            name="filter[{{ $name }}][from]"
            class="form-control input-small datepicker" >
 
@@ -16,7 +16,7 @@
 <div style="position: relative; width: 45%; float:left;">
 <input type="text" 
        id="f-to-{{$name}}"
-       value="{{$valueTo}}" 
+       value="{{{$valueTo}}}"
        name="filter[{{ $name }}][to]" 
        class="form-control input-small datepicker" >
        

@@ -29,7 +29,7 @@
                        <tr>
                         <td>{{$k+1}}</td>
                         <td><a href="/admin/tb/users/{{ $historyRecord->userResponsible()->id }}?type=revisions" target="_blank">{{ $historyRecord->userResponsible()->first_name }}</a></td>
-                        <td>{{ $historyRecord->fieldName()}}</td>
+                        <td>{{{ $historyRecord->fieldName()}}}</td>
                         <td><div class="value_old_new">{{{ $historyRecord->old_value}}}</div></td>
                         <td><div class="value_old_new">{{{ $historyRecord->new_value}}}</div></td>
                         <td>{{{ $historyRecord->created_at}}}</td>

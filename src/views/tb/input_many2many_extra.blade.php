@@ -14,7 +14,7 @@
                             <select style="width: 100%;" class="select2-enabled {{$name}}{{$postfix}}-select2" name="{{$name}}[#{i}][id]" id="many2many-{{$name}}{{$postfix}}-#{i}">
                                 @foreach ($options as $idOption => $option)
                                     <option value="{{$idOption}}">
-                                        {{ trim($option['value']) }}
+                                        {{{ trim($option['value']) }}}
                                     </option>
                                 @endforeach
                             </select>
@@ -65,7 +65,7 @@
                                     selected="selected"
                                 @endif
                                 >
-                            {{ trim($option['value']) }}
+                            {{{ trim($option['value']) }}}
                         </option>
                     @endforeach
                 </select>

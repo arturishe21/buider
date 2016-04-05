@@ -3,7 +3,7 @@
     <input type="text"
            id="f-from-{{$name}}"
            @if ($valueFrom)
-            value="{{$valueFrom}}"
+            value="{{{$valueFrom}}}"
            @endif
            name="filter[{{ $name }}][from]"
            class="form-control input-small datepicker" >
@@ -19,9 +19,9 @@
     <input type="text"
            id="f-to-{{$name}}"
            @if ($valueTo)
-            value="{{$valueTo}}"
+            value="{{{$valueTo}}}"
            @endif
-           name="filter[{{ $name }}][to]"
+           name="filter[{{{ $name }}}][to]"
            class="form-control input-small datepicker" >
 
     <span class="input-group-addon form-input-icon form-input-filter-icon">

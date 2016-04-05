@@ -7,7 +7,7 @@
             <input type="file"  multiple onchange="TableBuilder.uploadFileMulti(this, '{{$name}}');" {{$accept ? "accept='$accept'" : ""}}>
             Выбрать
         </span>
-        <input type="hidden" name="{{$name}}" value='{{$value}}'>
+        <input type="hidden" name="{{$name}}" value='{{{$value}}}'>
         <input type="text"
                id="{{ $name }}"
                value=""
@@ -50,7 +50,7 @@
          <input type="text"
                 id="{{ $name }}"
                 name="{{ $name }}"
-                value="{{ $value }}"
+                value="{{{ $value }}}"
                 placeholder="@if($value) {{$value}} @else Выберите файл для загрузки @endif"
                 readonly="readonly">
      </div>
