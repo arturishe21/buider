@@ -20,10 +20,10 @@
     @if (!$field->getAttribute('hide_list'))
         <td  width="{{ $field->getAttribute('width') }}" class="{{ $field->getAttribute('class') }} unselectable">
             @if ($field->getAttribute('fast-edit'))
-                <span class="dblclick-edit selectable element_{{ $ident }}" onclick="TableBuilder.showFastEdit(this)">{{ $field->getListValue($row) }}</span>
+                <span class="dblclick-edit selectable element_{{ $ident }}" onclick="TableBuilder.showFastEdit(this)">{{ strip_tags($field->getListValue($row), "<span><img><i><p>") }}</span>
 
                 <div class="fast-edit-buttons">
-                    <div class="input_field">{{{ $field->getEditInput($row) }}}</div>
+                    <div class="input_field">{{ strip_tags($field->getEditInput($row), "<span><img><i><p>") }}</div>
                     <span class="fa fa-save"  onclick="TableBuilder.saveFastEdit(this, {{ $row['id'] }}, '{{ $ident }}');"></span>
                     <i class="glyphicon glyphicon-remove btn-cancel"
                        onclick="TableBuilder.closeFastEdit(this, 'cancel');"></i>
@@ -31,10 +31,10 @@
 
             @elseif($field->getAttribute('result_show'))
 
-                {{{$field->getReplaceStr($row)}}}
+                {{ strip_tags($field->getReplaceStr($row), "<span><img><i><p>")}}
 
             @else
-                <span>{{{ $field->getListValue($row) }}}</span>
+                <span>{{ strip_tags($field->getListValue($row), "<span><img><i><p>") }}</span>
             @endif
         </td>
     @endif
