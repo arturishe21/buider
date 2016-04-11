@@ -235,6 +235,8 @@ class QueryHandler
     {
         $this->clearCache();
 
+        $this->checkToken($values);
+
         if (!$this->controller->actions->isAllowed('update')) {
             throw new \RuntimeException('Update action is not permitted');
         }
@@ -381,9 +383,19 @@ class QueryHandler
         $modelObj->save();
     }
 
+    private function checkToken(array &$values)
+    {
+        if (!Session::has("_token") || Session::get("_token") != $values['_token']) {
+            throw new \RuntimeException('TokenMismatchException');
+        }
+        unset($values['_token']);
+    }
+
     public function insertRow($values)
     {
         $this->clearCache();
+
+        $this->checkToken($values);
 
         if (!$this->controller->actions->isAllowed('insert')) {
             throw new \RuntimeException('Insert action is not permitted');

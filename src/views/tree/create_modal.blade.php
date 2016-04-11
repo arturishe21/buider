@@ -10,6 +10,7 @@
         </div>
         <div class="modal-body">
             <form id="tree-create-modal-form">
+                {{Form::token()}}
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">

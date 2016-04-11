@@ -2,7 +2,7 @@
                 
                 
     <form id="edit_form" class="smart-form">
-
+        {{Form::token()}}
         @if (!isset($def['position']))
             <fieldset style="{{ Input::get('edit') ? '' : 'padding:0;' }}">
             

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
+
 class TreeCatalogController
 {
     protected $model;
@@ -26,6 +28,7 @@ class TreeCatalogController
     {
         $this->options = $options;
     } // end setOptions
+    
     public function handle()
     {
         switch (Input::get('query_type')) {
@@ -76,6 +79,11 @@ class TreeCatalogController
 
     public function doCreateNode()
     {
+
+        if (!Session::has("_token") || Session::get("_token") != Input::get('_token')) {
+            throw new \RuntimeException('TokenMismatchException');
+        }
+
         $activeField = Config::get('builder::' . $this->nameTree . '.node_active_field.field');
         $options = Config::get('builder::' . $this->nameTree . '.node_active_field.options', true);
         $model = $this->model;

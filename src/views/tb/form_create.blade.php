@@ -1,6 +1,7 @@
 <div class="modal-body">
 <form id="create_form" class="smart-form" method="post" action="{{$def['options']['action_url']}}" novalidate="novalidate">
-    
+    {{Form::token()}}
+
     @if (!isset($def['position']))
         <fieldset style="{{ Input::get('edit') ? '' : 'padding:0;' }}">
             
@@ -34,7 +35,7 @@
             @endforeach
         </div>
     @endif
-    
+
 </form>
 </div>
 
