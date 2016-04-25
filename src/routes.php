@@ -1,6 +1,10 @@
 <?php
 
-$all_links = array_column(Config::get('builder::admin.menu'), "link");
+foreach (Config::get('builder::admin.menu') as $menu) {
+    if (!isset($menu['not_use_definition']) && isset($menu['link'])) {
+        $all_links[] = $menu['link'];
+    }
+}
 
 foreach (Config::get('builder::admin.menu') as $menu) {
     if (is_array($menu)) {
@@ -9,13 +13,12 @@ foreach (Config::get('builder::admin.menu') as $menu) {
                 $all_links[] = array_column($menuLink, "link");
             }
         }
-
     }
 }
 
 $all_links = array_flatten($all_links);
-$all_links_str = implode("|",$all_links);
-$all_links_str = str_replace("/","",$all_links_str);
+$all_links_str = implode("|", $all_links);
+$all_links_str = str_replace("/", "", $all_links_str);
 
 Route::pattern('page_admin', $all_links_str);
 Route::pattern('tree_name', '[a-z0-9-_]+');
