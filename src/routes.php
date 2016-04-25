@@ -10,7 +10,11 @@ foreach (Config::get('builder::admin.menu') as $menu) {
     if (is_array($menu)) {
         foreach($menu as $menuLink) {
             if (is_array($menuLink)) {
-                $all_links[] = array_column($menuLink, "link");
+                foreach ($menuLink as $menu) {
+                    if (!isset($menu['not_use_definition']) && isset($menu['link'])) {
+                        $all_links[] = $menu['link'];
+                    }
+                }
             }
         }
     }
