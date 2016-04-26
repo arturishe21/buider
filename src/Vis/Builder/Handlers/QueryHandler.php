@@ -427,8 +427,15 @@ class QueryHandler
                     $insertDataRes[$fild] = $data;
                 }
             }
+            $def = $this->controller->getDefinition();
+            $model = $def['options']['model'];
 
-            $id = $this->db->insertGetId($insertDataRes);
+            $objectModel = new $model;
+            foreach ($insertDataRes as $key => $value) {
+                $objectModel->$key = "$value";
+            }
+            $objectModel->save();
+            $id = $objectModel->id;
         }
         
         // FIXME: patterns
