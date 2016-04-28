@@ -16,6 +16,7 @@ class GroupField extends AbstractField
 
     public function getEditInput($row = array())
     {
+
         $type = $this->getAttribute('type');
         $valueJson = $this->getValue($row);
         $valueArray = [];
@@ -30,22 +31,36 @@ class GroupField extends AbstractField
                     $section[$k][$nameVal] = $res;
                 }
             }
+            
             foreach ($section as $k => $param) {
                 foreach ($param as $nameParam => $valParam) {
-                    $nameClass = "Vis\\Builder\\Fields\\".ucfirst($filds[$nameParam]['type'])."Field";
-                    $resultObjectFild =  new $nameClass($nameParam, $filds[$nameParam] , $this->options, $this->definition, $this->handler);
-                    $sectionResult[$k][$nameParam] = $filds[$nameParam];
-                    $sectionResult[$k][$nameParam]['html'] = $resultObjectFild->getEditInput(array($nameParam => $valParam));
+                   if (isset($filds[$nameParam]['type'])) {
+                        $nameClass = "Vis\\Builder\\Fields\\".ucfirst($filds[$nameParam]['type'])."Field";
+                        $resultObjectFild =  new $nameClass($nameParam, $filds[$nameParam] , $this->options, $this->definition, $this->handler);
+                        $sectionResult[$k][$nameParam] = $filds[$nameParam];
+
+                        if (isset($filds[$nameParam]['tabs'])) {
+                            $sectionResult[$k][$nameParam]['html'] = $resultObjectFild->getTabbedEditInput(array($nameParam => $valParam), $param);
+                        } else {
+                            $sectionResult[$k][$nameParam]['html'] = $resultObjectFild->getEditInput(array($nameParam => $valParam));
+                        }
+                   }
                 }
             }
         } else {
             foreach ($filds as $name => $fild) {
                 $nameClass = "Vis\\Builder\\Fields\\".ucfirst($fild['type'])."Field";
+
                 $resultObjectFild =  new $nameClass($name, $fild , $this->options, $this->definition, $this->handler);
                 $sectionResult[0][$name] = $fild;
-                $sectionResult[0][$name]['html'] = $resultObjectFild->getEditInput();
+                if (isset($fild['tabs'])) {
+                    $sectionResult[0][$name]['html'] = $resultObjectFild->getTabbedEditInput();
+                } else {
+                    $sectionResult[0][$name]['html'] = $resultObjectFild->getEditInput();
+                }
             }
         }
+
         $input = View::make('admin::tb.input_'. $type);
         $input->value = $valueArray;
         $input->name  = $this->getFieldName();

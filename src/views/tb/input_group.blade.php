@@ -5,7 +5,9 @@
         <p style="text-align: right"><a class="delete_group"  onclick="TableBuilder.deleteGroup(this)"><i class="fa red fa-times"></i> Удалить</a></p>
         @foreach($filds as $fild)
             <section>
-                <label class="label">{{$fild['caption']}}</label>
+                @if (!isset($fild['tabs']))
+                    <label class="label">{{$fild['caption']}}</label>
+                @endif
                 <div style="position: relative;">
                     <label class="input">
                      {{$fild['html']}}
@@ -18,7 +20,7 @@
 
    </div>
    @if (!$hide_add)
-        <a class="add_group" onclick="TableBuilder.addGroup(this)"><i class="fa fa-plus-square"></i> Добавить</a>
+        <a class="add_group" onclick="TableBuilder.addGroup(this); groupTabsRefresh('{{$name}}');"><i class="fa fa-plus-square"></i> Добавить</a>
    @endif
 </div>
 <script>
@@ -30,4 +32,22 @@
            $(this).attr("name", "{{$name}}[" + $(this).attr("name")+ "][]");
         }
     });
+
+    //group for tabs
+    function groupTabsRefresh(name) {
+
+        i = 0;
+        $(".group[name=" + name + "] .tabs_section").each(function(){
+            i++;
+            $(this).find(".nav-tabs a").each(function(){
+                var hrefOld = $(this).attr("href");
+                $(this).attr("href", hrefOld + "_" + i);
+            });
+            $(this).find(".tab-content .tab-pane").each(function(){
+                var idOld = $(this).attr("id");
+                $(this).attr("id", idOld + "_" + i);
+            });
+        });
+    }
+    groupTabsRefresh('{{$name}}');
 </script>

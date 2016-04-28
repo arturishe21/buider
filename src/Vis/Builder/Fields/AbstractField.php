@@ -89,6 +89,7 @@ abstract class AbstractField
             $fieldName = $fieldName . $tabs[0]['postfix'];
         }
 
+
         $value = isset($row[$fieldName]) ? $row[$fieldName] : '';
         
         return $value;
@@ -161,7 +162,7 @@ abstract class AbstractField
         return $input->render();
     } // end getEditInput
     
-    public function getTabbedEditInput($row = array())
+    public function getTabbedEditInput($row = array(), $groupFields = array())
     {
         if ($this->hasCustomHandlerMethod('onGetTabbedEditInput')) {
             $res = $this->handler->onGetTabbedEditInput($this, $row);
@@ -169,7 +170,7 @@ abstract class AbstractField
                 return $res;
             }
         }
-        
+
         $type = $this->getAttribute('type');
         
         $input = View::make('admin::tb.tab_input_'. $type);
@@ -179,8 +180,12 @@ abstract class AbstractField
         $input->mask  = $this->getAttribute('mask');
         $input->placeholder = $this->getAttribute('placeholder');
         $input->caption = $this->getAttribute('caption');
-        $input->tabs = $this->getPreparedTabs($row);
-        // HACK: for tabs right behaviour in edit-create modals
+        if (count($groupFields)) {
+            $input->tabs = $this->getPreparedTabsGroup($row, $groupFields);
+        } else {
+            $input->tabs = $this->getPreparedTabs($row);
+        }
+
         $input->pre = $row ? 'e' : 'c';
         $input->comment = $this->getAttribute('comment');
         
@@ -206,6 +211,30 @@ abstract class AbstractField
         
         return $tabs;
     } // end getPreparedTabs
+
+    protected function getPreparedTabsGroup($row, $groupFields)
+    {
+        $tabs = $this->getAttribute('tabs');
+
+        $required = array(
+            'placeholder',
+            'postfix'
+        );
+        foreach ($tabs as &$tab) {
+            foreach ($required as $option) {
+                if (!isset($tab[$option])) {
+                    $tab[$option] = '';
+                }
+            }
+
+            $tab['value'] = $this->getValue($row, $tab['postfix']);
+            if (isset($groupFields[$this->getFieldName().$tab['postfix']])) {
+                $tab['value'] = $groupFields[$this->getFieldName().$tab['postfix']];
+            }
+        }
+
+        return $tabs;
+    }
 
     public function getFilterInput()
     {
