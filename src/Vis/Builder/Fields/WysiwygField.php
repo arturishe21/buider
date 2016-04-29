@@ -51,7 +51,7 @@ class WysiwygField extends AbstractField
     } // end getEditInput
 
     
-    public function getTabbedEditInput($row = array())
+    public function getTabbedEditInput($row = array(), $groupFields = array())
     {
         if ($this->hasCustomHandlerMethod('onGetTabbedEditInput')) {
             $res = $this->handler->onGetTabbedEditInput($this, $row);
