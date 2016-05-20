@@ -26,6 +26,7 @@ class TableAdminController extends \BaseController
 
     public function handleTree()
     {
+
         $controller = JarboeFacade::tree();
 
         return $controller->process();
@@ -45,20 +46,9 @@ class TableAdminController extends \BaseController
     public function showTreeAll($nameTree)
     {
         $model = Config::get('builder::' . $nameTree . '.model');
+        $tree = $model::where("parent_id", 0)->orwhereNull("parent_id")->get(array('id', 'title', 'parent_id'));
 
-        $tree = $model::all()->toHierarchy();
-
-        $idNode  = \Input::get('node', 1);
-        $current = $model::find($idNode);
-
-        $parentIDs = array();
-        foreach ($current->getAncestors() as $anc) {
-            $parentIDs[] = $anc->id;
-        }
-
-        return View::make('admin::tree.tree')
-                ->with("tree", $tree)
-                ->with("parentIDs", $parentIDs);
+        return View::make('admin::tree.tree')->with("tree", $tree);
     }
 
     public function showPage($page)
