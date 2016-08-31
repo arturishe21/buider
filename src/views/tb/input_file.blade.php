@@ -63,7 +63,8 @@
     <label>
      <div class="tb-uploaded-file-container-{{$name}}">
          @if ($value)
-         <a href="{{url($value)}}" target="_blank">Скачать</a>
+             <a href="{{url($value)}}" target="_blank">Скачать</a>
+             <a class="delete" style="color:red;" onclick="$('[name={{ $name }}]').val(''); $(this).parent().hide()">Удалить</a>
          @endif
      </div>
 
