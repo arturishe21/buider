@@ -34,16 +34,19 @@ Route::filter('auth_admin', function()
             // FIXME:
             $admin = Sentry::findGroupByName('admin');
             if (!Sentry::getUser()->inGroup($admin)) {
-                if (Request::ajax()) {
-                    $data = array(
-                        "status" => "error",
-                        "code" => "401",
-                        "message" => "Unauthorized"
-                    );
-                    return Response::json($data, "401");
-                } else {
-                    return Redirect::guest('/');
-                }
+
+	            if (!Sentry::getUser()->hasAccess('admin.access')) {
+		            if (Request::ajax()) {
+			            $data = array(
+				            "status" => "error",
+				            "code" => "401",
+				            "message" => "Unauthorized"
+			            );
+			            return Response::json($data, "401");
+		            } else {
+			            return Redirect::guest('/');
+		            }
+	            }
             }
         }
     }
