@@ -41,7 +41,14 @@ class LoginController extends Controller
                     'status' => true
                 ));
             }
-            return Redirect::intended(Config::get('builder::admin.uri'));
+
+
+	        if (Config::get('builder::admin.redirect_after_login')) {
+		        return Redirect::intended(Config::get('builder::admin.redirect_after_login'));
+	        } else {
+		        return Redirect::intended(Config::get('builder::admin.uri'));
+	        }
+
 
         } catch (\Cartalyst\Sentry\Users\UserNotFoundException $e) {
             if (Input::has('is_from_locked_screen')) {
