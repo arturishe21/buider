@@ -2,7 +2,7 @@
 
 namespace Vis\Builder;
 
-use Controller, Redirect, Input, Cookie, Response;
+use Controller, Redirect, Input, Cookie, Response, Config;
 use Sentry;
 
 class TBController extends Controller
@@ -10,7 +10,13 @@ class TBController extends Controller
 
     public function showDashboard()
     {
-       return Redirect::to("/admin/tree");
+
+	    if (Config::get('builder::admin.redirect_after_login')) {
+		    return Redirect::to(Config::get('builder::admin.redirect_after_login'));
+	    } else {
+		    return Redirect::to("/admin/tree");
+	    }
+
     } // end showDashboard
 
     public function doChangeSkin()
